@@ -144,12 +144,16 @@ yearly_to_season(scen, 'historical_activity', demand_data)
 yearly_to_season(scen, 'var_cost', fixed_data)
 
 
+# %% solving the model
+
+## Commit the datastructure and solve the model
+
 scen.commit(comment='introducing seasonality')
 scen.solve()
 scen.set_as_default()
 
-
-
 scen.var('OBJ')['lvl']
 scen.to_excel('SIN expandido season.xlsx')
 scen.version
+
+mp.close_db()

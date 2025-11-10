@@ -2560,7 +2560,7 @@ scenario.set_as_default()
 scenario.version
 scenario.to_excel('SIN expandido base.xlsx')
 
-#mp.close_db()
+mp.close_db()
 
 
 
