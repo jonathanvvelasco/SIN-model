@@ -532,7 +532,10 @@ if __name__ == "__main__":
     }
     
     # Testing storage setup
-    path_files = (r'C:\Users\Fernando\Desktop\Modelo\finalmente\4. Storage technologies')
+    dir = os.path.abspath(__file__)
+    dir = os.path.dirname(dir)
+    path_files = dir
+    # path_files = (r'C:\Users\Fernando\Desktop\Modelo\finalmente\4. Storage technologies')
     os.chdir(path_files)
 
     mp = ix.Platform("default", jvmargs=['-Xms800m', '-Xmx8g'])
