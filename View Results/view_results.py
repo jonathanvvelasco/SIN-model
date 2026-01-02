@@ -8,7 +8,7 @@ Created on Wed Nov 12 12:01:39 2025
 
 import ixmp as ix
 import message_ix
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 
 # Loading modelling platform
@@ -18,7 +18,7 @@ mp = ix.Platform("default", jvmargs=["-Xmx8G"])
 # model = 'SIN Brasil expandido'
 # scenario='base'
 model = "SIN Brasil expandido"
-scenario = 'storage v.2'
+scenario = 'emissions_test'
 nodes = ['South', 'North', 'Northeast', 'Southeast']
 base = message_ix.Scenario(mp, model, scenario= scenario)
 
@@ -76,14 +76,43 @@ rep.set_filters(t=["batt_4_n",
 rep.get("plot activity")
 rep.get("plot capacity")
 rep.get("plot new capacity")
-
 rep.set_filters(c=["electricity"]) # Somente commodity eletricidade
 rep.get("plot prices")
 rep.get("plot demand")
 # plt.show()
 
-act = rep.get("ACT")
+# %% Compares production and demand
+out = rep.full_key("out")
+# out2 = out.drop(["yv","m","nd","c","l","h","hd"])
+out2 = out.drop("yv", "h", "hd", "m", "nd", "c", "l")
+act2 = rep.get(out2)
+act2 = act2[act2 != 0]
 
+out_g = out2.drop("nl", "t")
+act_g = rep.get(out_g)
+act_g = act_g[act_g != 0]
+
+dem = rep.full_key("demand")
+dem_g = dem.drop("n", "c", "l", "h")
+d = rep.get(dem_g)
+
+plt.figure(figsize=(12, 6))
+x = list(range(len(act_g.index)))
+width = 0.35
+plt.bar([i - width/2 for i in x], act_g.values, width=width, label='Activity', alpha=0.7)
+plt.bar([i + width/2 for i in x], d.values, width=width, label='Demand', alpha=0.7)
+plt.xlabel('Year')
+plt.ylabel('GWa')
+anos_list = act_g.index.get_level_values(0).tolist()
+plt.xticks(x, anos_list, rotation=0)
+plt.legend()
+plt.title('Comparison: Activity vs Demand')
+plt.tight_layout()
+plt.rcParams['font.size'] = 18
+plt.grid(axis='y')
+plt.show()
+
+# %% Close DB
 mp.close_db()# -*- coding: utf-8 -*-
 
 
