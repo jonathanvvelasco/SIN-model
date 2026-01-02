@@ -12,12 +12,14 @@ import matplotlib.cm as cm1
 import xarray as xr
 import datetime
 from datetime import timedelta
+from pathlib import Path
+
 
 # Count the time though the script
 now = datetime.datetime.now()
-file_path = r'C:\Users\Fernando\Desktop\Modelo\finalmente\2.1 Timeclustering (12ts - 2s)'
+file_path = Path(__file__).parent
 # Download the hourly data from the 11 regions in one file. 
-data = pd.read_excel(file_path + '//Fontes alternativas - caso baseline_teste.xlsx')
+data = pd.read_excel(file_path / "Fontes alternativas - caso baseline.xlsx")
 dt = data.values
 
 # region => 0 = Norte, 1 = Nordeste, 2 = Sudeste, 3 = Sul
@@ -201,13 +203,13 @@ while region < 4:
         
     # Save the time slices        
     panda = pd.DataFrame(solar_and_wind_seasonal.T)
-    panda.to_excel(file_path + '//' + regions[region] +'Results.xlsx')
+    panda.to_excel(file_path / f"{regions[region]}Results.xlsx")
 
     panda = pd.DataFrame(solar_and_wind_sorter_seasonal.T)
-    panda.to_excel(file_path + '//' + regions[region] +'Results Sorted.xlsx')
+    panda.to_excel(file_path / f"{regions[region]}Results Sorted.xlsx")
 
     panda = pd.DataFrame(solar_and_wind_duration_curve_seasonal.T)
-    panda.to_excel(file_path + '//' + regions[region] +'Results Duration Curve.xlsx')
+    panda.to_excel(file_path / f"{regions[region]}Results Duration Curve.xlsx")
 
     #panda = pd.DataFrame(solar_and_wind_annual.T)
     #panda.to_excel(path+'Results/12 Time Slices (Annual).xlsx')

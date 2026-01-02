@@ -2558,7 +2558,7 @@ scenario.solve()
 scenario.var('OBJ')['lvl']
 scenario.set_as_default()
 scenario.version
-scenario.to_excel('SIN expandido base.xlsx')
+# scenario.to_excel('SIN expandido base.xlsx')
 
 mp.close_db()
 

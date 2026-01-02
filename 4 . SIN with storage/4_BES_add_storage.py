@@ -34,7 +34,7 @@ def init_storage(sc):
                 sc.remove_set(item)
                 sc.init_set(item, idx_sets=idxs,
                             idx_names=['node', 'technology', 'mode',
-                                       'storage_tec', 'mode_storage',
+                                       'storage_tec', 'storage_mode',
                                        'level', 'commodity', 'lvl_temporal'])
             else:
                 pass
@@ -531,8 +531,11 @@ if __name__ == "__main__":
         "pump_sphs_12": 5,
     }
     
-    # Testing storage setup
-    path_files = (r'C:\Users\Fernando\Desktop\Modelo\finalmente\4. Storage technologies')
+    # %%Testing storage setup
+    dir = os.path.abspath(__file__)
+    dir = os.path.dirname(dir)
+    path_files = dir
+    # path_files = (r'C:\Users\Fernando\Desktop\Modelo\finalmente\4. Storage technologies')
     os.chdir(path_files)
 
     mp = ix.Platform("default", jvmargs=['-Xms800m', '-Xmx8g'])
@@ -895,7 +898,7 @@ if __name__ == "__main__":
             df = sc.par(parname, {"commodity": com_list_wat})
             sc.remove_par(parname, df)
     
-    # bound activities on solar technology at night
+    #%% bound activities on solar technology at night
     
     time_bound = {'winter_1':0.,
                   'winter_6':0.,
@@ -924,14 +927,14 @@ if __name__ == "__main__":
     sc.commit('')
 
     # Updating mapping sets of relations
-    mapping_sets(sc)
+    # mapping_sets(sc)
 
     end = timer()
     print('Elapsed time for adding storage setup:',
           int((end - start)/60),
           'min and', round((end - start) % 60, 2), 'sec.')
 
-    # 5) Solving the model
+    #%% 5) Solving the model
     if solve:
         case = sc.model + '__' + sc.scenario + '__v' + str(sc.version)
         print('Solving scenario "{}" in "{}" mode, started at {}, please wait.'

@@ -9,7 +9,7 @@ import os
 from itertools import product
 path_files = (r'C:\Users\Fernando\Desktop\Modelo\finalmente\3. Add water techs')
 
-os.chdir(path_files)
+# os.chdir(path_files)
 
 
 # A function for adding water supply technologies
@@ -149,8 +149,11 @@ def mapping_sets(sc, par_list=['relation_lower_time', 'relation_upper_time']):
         setname = 'is_' + parname
 
         # initiating the sets
-        idx_s = sc.idx_sets(parname)
-        idx_n = sc.idx_names(parname)
+        idx_s = parname
+        idx_n = parname
+        sc.add_set(parname,[])
+        # idx_s = sc.idx_sets(parname)
+        # idx_n = sc.idx_names(parname)
         try:
             sc.set(setname)
         except:
@@ -187,7 +190,12 @@ if __name__  == '__main__':
     
     model_b = 'SIN Brasil expandido'
 
-    data_file = 'SIN expandido season_modificado.xlsx' 
+
+    dir = os.path.abspath(__file__)
+    dir = os.path.dirname(dir)
+    data_file = 'SIN expandido season_modificado.xlsx'
+    data_file = os.path.join(dir, data_file)
+
 
     filename = '3_water_scheme_modificado_v.3.xlsx'  # Name of the input Excel file
     
@@ -205,7 +213,7 @@ if __name__  == '__main__':
     
     sc = sc_ref.clone(model_b,'water v.2',keep_solution=False)
 
-    setup_file = path_files + '\\' + filename
+    setup_file = data_file = os.path.join(dir, filename)
 
     # Adding water data
     water_tecs = add_water(sc, setup_file)
@@ -220,7 +228,7 @@ if __name__  == '__main__':
 
     
     # Adding mapping sets of relations in time parameters
-    mapping_sets(sc)
+    # mapping_sets(sc)
 
     end = timer()
     print('Elapsed time for adding storage and water setup:',
