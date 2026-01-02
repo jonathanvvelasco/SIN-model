@@ -228,7 +228,7 @@ if __name__  == '__main__':
 
     
     # Adding mapping sets of relations in time parameters
-    mapping_sets(sc)
+    # mapping_sets(sc)
 
     end = timer()
     print('Elapsed time for adding storage and water setup:',

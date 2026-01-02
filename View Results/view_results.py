@@ -15,8 +15,10 @@ import matplotlib as plt
 mp = ix.Platform("default", jvmargs=["-Xmx8G"])
 
 # Specifying model/scenario to be loaded from the database
-model = 'SIN Brasil expandido'
-scenario='base'
+# model = 'SIN Brasil expandido'
+# scenario='base'
+model = "SIN Brasil expandido"
+scenario = 'storage v.2'
 nodes = ['South', 'North', 'Northeast', 'Southeast']
 base = message_ix.Scenario(mp, model, scenario= scenario)
 
@@ -28,10 +30,10 @@ rep = Reporter.from_scenario(base)
 prepare_plots(rep)
 
 # %% Report Activity and Capacity
-rep.set_filters(t=["batt_n",
-                   "batt_ne",
-                   "batt_s",
-                   "batt_se",
+rep.set_filters(t=["batt_4_n",
+                   "batt_4_ne",
+                   "batt_4_s",
+                   "batt_4_se",
                    "bio_ppl",
                    "gas_ppl",
                     "gas_ppl_1",
@@ -55,24 +57,32 @@ rep.set_filters(t=["batt_n",
                     "hydro_12",
                     "hydro_2",
                     "hydro_11",
-                    "sphs_4",
-                    "sphs_8",
-                    "sphs_9",
-                    "sphs_3",
-                    "sphs_1",
-                    "sphs_6",
-                    "sphs_7",
-                    "sphs_10",
-                    "sphs_12",
-                    "sphs_2",
-                    "sphs_11",])
+                    "pump_sphs_4",
+                    "pump_sphs_8",
+                    "pump_sphs_9",
+                    "pump_sphs_3",
+                    "pump_sphs_1",
+                    "pump_sphs_6",
+                    "pump_sphs_7",
+                    "pump_sphs_10",
+                    "pump_sphs_12",
+                    "pump_sphs_2",
+                    "pump_sphs_11",
+                    "wind_ppl",
+                    "wind_ppl_cos",
+                    "wind_ppl_int",
+                    "wind_ppl_rs"
+                    ])
 rep.get("plot activity")
 rep.get("plot capacity")
 rep.get("plot new capacity")
 
 rep.set_filters(c=["electricity"]) # Somente commodity eletricidade
 rep.get("plot prices")
-plt.show() 
+rep.get("plot demand")
+# plt.show()
+
+act = rep.get("ACT")
 
 mp.close_db()# -*- coding: utf-8 -*-
 
