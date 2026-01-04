@@ -129,9 +129,17 @@ plt.rcParams['font.size'] = 18
 plt.grid(axis='y')
 plt.show()
 
-# %% Plot emissions
-emissions = base.var("EMISS", {"node": "Southeast"})
-emissions
+# %% Plot historical emissions
+ha1 = rep.full_key("historical_activity")
+ha2 = ha1.drop("h","m","nl")
+hact = rep.get(ha2)
+emissoes = {
+    "coal_ppl": 1.11903*8.760,
+    "oil_ppl": 0.89072*8.760,
+    "gas_ppl": 0.44999*8.760
+}
+emiss_hist = float(hact.sum())
+emiss = rep.get("EMISS")
 
 # %% Close DB
 mp.close_db()# -*- coding: utf-8 -*-
