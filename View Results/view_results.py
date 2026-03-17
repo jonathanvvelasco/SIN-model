@@ -18,7 +18,10 @@ mp = ix.Platform("default", jvmargs=["-Xmx8G"])
 # model = 'SIN Brasil expandido'
 # scenario='base'
 model = "SIN Brasil expandido"
-scenario = 'emissions_test'
+# scenario = 'emissions_test'
+scenario = 'flexibility_gen'
+# scenario = 'seasonal'
+# scenario = 'base'
 nodes = ['South', 'North', 'Northeast', 'Southeast']
 base = message_ix.Scenario(mp, model, scenario= scenario)
 
@@ -29,8 +32,8 @@ from message_ix.util.tutorial import prepare_plots
 rep = Reporter.from_scenario(base)
 prepare_plots(rep)
 
-# filter="filter_all_tecs"
-filter="filter_emission_tecs"
+filter="filter_all_tecs"
+# filter="filter_emission_tecs"
 # %% Define Filters
 
 if filter=="filter_all_tecs":
@@ -105,6 +108,20 @@ out2 = out.drop("yv", "h", "hd", "m", "nd", "c", "l")
 act2 = rep.get(out2)
 act2 = act2[act2 != 0]
 
+out_br = out2.drop("nl")
+act_br = rep.get(out_br)
+
+# Aggregate technology variants into their base technology names
+act_br = act_br.rename("value").reset_index()
+act_br["t"] = act_br["t"].replace({
+    r"^gas_ppl_\d+$": "gas_ppl",
+    r"^gas_ppl_ccs_\d+$": "gas_ppl_ccs",
+    r"^hydro_\d+$": "hydro",
+    r"^pump_sphs_\d+$": "pump_sphs",
+    r"^wind_ppl_.+$": "wind_ppl",
+}, regex=True)
+act_br = act_br.groupby([col for col in act_br.columns if col != "value"])["value"].sum()
+
 out_g = out2.drop("nl", "t")
 act_g = rep.get(out_g)
 act_g = act_g[act_g != 0]
@@ -113,6 +130,8 @@ dem = rep.full_key("demand")
 dem_g = dem.drop("n", "c", "l", "h")
 d = rep.get(dem_g)
 
+# %% Plots
+#  Comparison Activity vs. Demand
 plt.figure(figsize=(12, 6))
 x = list(range(len(act_g.index)))
 width = 0.35
@@ -127,19 +146,53 @@ plt.title('Comparison: Activity vs Demand')
 plt.tight_layout()
 plt.rcParams['font.size'] = 18
 plt.grid(axis='y')
+# plt.show()
+
+act_br_plot = act_br.unstack("t").fillna(0)
+act_br_plot = act_br_plot[act_br_plot.sum().sort_values(ascending=False).index]
+tech_colors = {
+    "hydro": "#1f77b4",
+    "wind_ppl": "#17becf",
+    "solar_pv_ppl": "#f1c40f",
+    "gas_ppl": "#ff7f0e",
+    "gas_ppl_ccs": "#8c564b",
+    "bio_ppl": "#2ca02c",
+    "coal_ppl": "#4d4d4d",
+    "oil_ppl": "#d62728",
+    "nuc_ppl": "#9467bd",
+    "pump_sphs": "#cb20ae",
+    "batt_4_n": "#e377c2",
+    "batt_4_ne": "#e377c2",
+    "batt_4_s": "#e377c2",
+    "batt_4_se": "#e377c2",
+}
+fallback_colors = plt.cm.tab20.colors
+plot_colors = [
+    tech_colors.get(tech, fallback_colors[i % len(fallback_colors)])
+    for i, tech in enumerate(act_br_plot.columns)
+]
+ax = act_br_plot.plot(kind="bar", stacked=True, figsize=(12, 6), color=plot_colors)
+ax.set_xlabel('Year')
+ax.set_ylabel('GWa')
+ax.set_title('Geração anual por tecnologia')
+ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.xticks(rotation=0)
+plt.tight_layout()
+plt.rcParams['font.size'] = 18
+plt.grid(axis='y')
 plt.show()
 
 # %% Plot historical emissions
-ha1 = rep.full_key("historical_activity")
-ha2 = ha1.drop("h","m","nl")
-hact = rep.get(ha2)
-emissoes = {
-    "coal_ppl": 1.11903*8.760,
-    "oil_ppl": 0.89072*8.760,
-    "gas_ppl": 0.44999*8.760
-}
-emiss_hist = float(hact.sum())
-emiss = rep.get("EMISS")
+# ha1 = rep.full_key("historical_activity")
+# ha2 = ha1.drop("h","m","nl")
+# hact = rep.get(ha2)
+# emissoes = {
+#     "coal_ppl": 1.11903*8.760,
+#     "oil_ppl": 0.89072*8.760,
+#     "gas_ppl": 0.44999*8.760
+# }
+# emiss_hist = float(hact.sum())
+# emiss = rep.get("EMISS")
 
 # %% Close DB
 mp.close_db()# -*- coding: utf-8 -*-

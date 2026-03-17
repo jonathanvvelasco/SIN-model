@@ -15,10 +15,10 @@ mp = ix.Platform("default", jvmargs=["-Xmx8G"])
 
 # %% Dados de Emissão de tC02 equivalente por MWh
 emissoes = {
-    "carvao_nacional": 1.11903,
-    "oleo_combustivel": 0.89072,
-    "oleo_diesel": 0.77512,
-    "gas_natural": 0.44999
+    "carvao_nacional": 1.1055,
+    "oleo_combustivel": 0.7775,
+    "oleo_diesel": 0.7656,
+    "gas_natural": 0.5326
 }
 k_conversao = 8760*1000/1e6 # Converte tC02/MWh para MtC02/GWa
 
