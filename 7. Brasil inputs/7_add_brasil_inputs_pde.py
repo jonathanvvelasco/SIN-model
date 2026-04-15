@@ -3,20 +3,22 @@ import ixmp
 mp = ixmp.Platform()
 from message_ix import make_df
 
-pde_input   = pd.read_excel("data EPE\Dados_MDI_PDE_2034_Referência.xlsm", sheet_name="GERAL", skiprows=14, usecols="B:P", engine='calamine').squeeze()
-pde_par     = pd.read_excel("data EPE\Dados_MDI_PDE_2034_Referência.xlsm", sheet_name="GERAL", skiprows=3, usecols="B:C", engine='calamine').iloc[0:6].T.set_index(0)
+# Load PDE inputs
+pde_input       = pd.read_excel("data EPE\Dados_MDI_PDE_2034_Referência.xlsm", sheet_name="GERAL", skiprows=14, usecols="B:P", engine='calamine').squeeze()
+pde_par         = pd.read_excel("data EPE\Dados_MDI_PDE_2034_Referência.xlsm", sheet_name="GERAL", skiprows=3, usecols="B:C", engine='calamine').iloc[0:6].T.set_index(0)
 pde_par.columns = pde_par.iloc[0]
-pde_par     = pde_par[1:].reset_index(drop=True)
+pde_par         = pde_par[1:].reset_index(drop=True)
 
+# Clone existing scenario
 from message_ix import Scenario
-model = 'SIN Brasil expandido'
-base = Scenario(mp, model=model, scenario='emissions_test')
-scen = base.clone(
-    model,
-    "PDE2034",
-    "Brazil inputs for PDE2034",
-    keep_solution=False,
-)
+model           = 'SIN Brasil expandido'
+base            = Scenario(mp, model=model, scenario='emissions_test')
+scen            = base.clone(
+                    model,
+                    "PDE2034",
+                    "Brazil inputs for PDE2034",
+                    keep_solution=False,
+                )
 scen.check_out()
 
 # Retrieve parameters
@@ -39,14 +41,17 @@ base_inv = {
     'unit': 'MMUSD/GWa',
 }
 
+val = pde_input["Investimento R$/kW"].loc[pde_input["Tipo"] == "Fotovoltaica 1"].values[0] / pde_par["Cambio"]  # Convert from R$ to USD
+val = [val]*4
+
 for node in nodes:
     # For the solar_pv_ppl technologies
     inv_df = make_df(
         node_loc=node, **base_inv, year_vtg=model_horizon, technology="solar_pv_ppl", 
-        value=pde_input["Investimento R$/kW"].loc[pde_input["Tipo"] == "Fotovoltaica 1"].values[0] / pde_par["Cambio"]  # Convert from R$ to USD
+        value=val
     )
     scen.add_par("inv_cost", inv_df)
-
-
-
+scen.commit(comment="test PDE inputs")
+scen.set_as_default()
+scen.solve()
 mp.close_db()

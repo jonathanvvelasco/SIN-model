@@ -19,7 +19,7 @@ mp = ix.Platform("default", jvmargs=["-Xmx8G"])
 # scenario='base'
 model = "SIN Brasil expandido"
 # scenario = 'emissions_test'
-scenario = 'flexibility_gen'
+scenario = 'PDE2034'
 # scenario = 'seasonal'
 # scenario = 'base'
 nodes = ['South', 'North', 'Northeast', 'Southeast']
