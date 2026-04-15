@@ -22,7 +22,7 @@ mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
 model = "SIN Brasil expandido"
 scen = "base"
 scenario = message_ix.Scenario(mp, model, scen, version = 'new')
-
+# scenario.check_out()
 history = [2020]
 horizon = [2030, 2040, 2050]
 scenario.add_horizon(
