@@ -70,6 +70,18 @@ for node in nodes:
         )
         scen.add_par("emission_factor", emission_factor)
 
+# %% Force battery
+
+cap_total_bound = make_df(
+    "bound_total_capacity_lo",
+    node_loc="Southeast",
+    technology='battery_4_se',
+    year_act=2040,
+    unit="GW",
+    value=1,
+)
+scen.add_par("bound_total_capacity_lo",cap_total_bound)
+
 # %% Solve scenario
 start = timer()
 scen.solve()

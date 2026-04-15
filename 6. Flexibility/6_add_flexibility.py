@@ -53,7 +53,6 @@ seasons.remove("summer")
 
 # Cria dicionário para o parâmetro de flexibilidade
 base_flexibility_factor = dict(
-    # node_loc=country,
     commodity="electricity",
     level="secondary",
     mode="M1",
