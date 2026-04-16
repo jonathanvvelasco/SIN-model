@@ -32,6 +32,8 @@ from message_ix.util.tutorial import prepare_plots
 rep = Reporter.from_scenario(base)
 prepare_plots(rep)
 
+fig_dem_ger = False
+
 filter="filter_all_tecs"
 # filter="filter_emission_tecs"
 # %% Define Filters
@@ -78,7 +80,7 @@ if filter=="filter_all_tecs":
          "wind_ppl",
          "wind_ppl_cos",
          "wind_ppl_int",
-         "wind_ppl_rs"
+         "wind_ppl_rs",
          ])
 elif filter=="filter_emission_tecs":
     rep.set_filters(t=["bio_ppl",
@@ -92,14 +94,15 @@ elif filter=="filter_emission_tecs":
         "nuc_ppl",
         "oil_ppl",
         ])
+else: pass
     
 # %% Report Activity and Capacity
-rep.get("plot activity")
-rep.get("plot capacity")
-rep.get("plot new capacity")
+# rep.get("plot activity")
+# rep.get("plot capacity")
+# rep.get("plot new capacity")
 rep.set_filters(c=["electricity"]) # Somente commodity eletricidade
-rep.get("plot prices")
-rep.get("plot demand")
+# rep.get("plot prices")
+# rep.get("plot demand")
 
 # %% Compares production and demand
 out = rep.full_key("out")
@@ -119,6 +122,7 @@ act_br["t"] = act_br["t"].replace({
     r"^hydro_\d+$": "hydro",
     r"^pump_sphs_\d+$": "pump_sphs",
     r"^wind_ppl_.+$": "wind_ppl",
+    r"^battery.+$": "battery",
 }, regex=True)
 act_br = act_br.groupby([col for col in act_br.columns if col != "value"])["value"].sum()
 
@@ -131,23 +135,26 @@ dem_g = dem.drop("n", "c", "l", "h")
 d = rep.get(dem_g)
 
 # %% Plots
-#  Comparison Activity vs. Demand
-plt.figure(figsize=(12, 6))
-x = list(range(len(act_g.index)))
-width = 0.35
-plt.bar([i - width/2 for i in x], act_g.values, width=width, label='Activity', alpha=0.7)
-plt.bar([i + width/2 for i in x], d.values, width=width, label='Demand', alpha=0.7)
-plt.xlabel('Year')
-plt.ylabel('GWa')
-anos_list = act_g.index.get_level_values(0).tolist()
-plt.xticks(x, anos_list, rotation=0)
-plt.legend()
-plt.title('Comparison: Activity vs Demand')
-plt.tight_layout()
-plt.rcParams['font.size'] = 18
-plt.grid(axis='y')
-# plt.show()
 
+#  Comparison Activity vs. Demand
+if fig_dem_ger:
+    plt.figure(figsize=(12, 6))
+    x = list(range(len(act_g.index)))
+    width = 0.35
+    plt.bar([i - width/2 for i in x], act_g.values, width=width, label='Activity', alpha=0.7)
+    plt.bar([i + width/2 for i in x], d.values, width=width, label='Demand', alpha=0.7)
+    plt.xlabel('Year')
+    plt.ylabel('GWa')
+    anos_list = act_g.index.get_level_values(0).tolist()
+    plt.xticks(x, anos_list, rotation=0)
+    plt.legend()
+    plt.title('Comparison: Activity vs Demand')
+    plt.tight_layout()
+    plt.rcParams['font.size'] = 18
+    plt.grid(axis='y')
+    # plt.show()
+
+# Generation Expansion on country level
 act_br_plot = act_br.unstack("t").fillna(0)
 act_br_plot = act_br_plot[act_br_plot.sum().sort_values(ascending=False).index]
 tech_colors = {

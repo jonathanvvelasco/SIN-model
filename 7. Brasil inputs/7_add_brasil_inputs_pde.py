@@ -45,48 +45,48 @@ base_inv = {
 
 tecnologias = {
     "solar_pv_ppl": "Fotovoltaica 1",
+    "wind_ppl_int": "Eólica 4",
+    "wind_ppl_cos": "Eólica 4",    
+    "wind_ppl_rs": "Eólica 4",
 }
 
-# Investment cost
-val_inv = pde_input["Investimento R$/kW"].loc[pde_input["Tipo"] == 
-      tecnologias["solar_pv_ppl"]].values[0] / pde_par["Cambio"]  # Convert from R$ to USD
-val_inv = [val_inv]*4
-
-# Fixed cost (taxes and O&M)
-val_tax = pde_input["Encargos\nR$/kW.ano"].loc[pde_input["Tipo"] == 
-      tecnologias["solar_pv_ppl"]].values[0] / pde_par["Cambio"]  
-val_om  = pde_input["O&M Anual em R$/kW.ano"].loc[pde_input["Tipo"] == 
-      tecnologias["solar_pv_ppl"]].values[0] / pde_par["Cambio"] 
-val_fix = val_tax + val_om
-val_fix = [val_fix]*9
-
-# Variable cost 
-# val_inv = pde_input["Investimento R$/kW"].loc[pde_input["Tipo"] == 
-#       tecnologias["solar_pv_ppl"]].values[0] / pde_par["Cambio"]  
-# val_inv = [val_inv]*4
-try:
+for tec, pde_param in tecnologias.items():
+    # Investment cost
+    val_inv = pde_input["Investimento R$/kW"].loc[pde_input["Tipo"] == 
+          pde_param].values[0] / pde_par["Cambio"]  # Convert from R$ to USD
+    val_inv = [val_inv]*4
+    
+    # Fixed cost (taxes and O&M)
+    val_tax = pde_input["Encargos\nR$/kW.ano"].loc[pde_input["Tipo"] == 
+          pde_param].values[0] / pde_par["Cambio"]  
+    val_om  = pde_input["O&M Anual em R$/kW.ano"].loc[pde_input["Tipo"] == 
+          pde_param].values[0] / pde_par["Cambio"] 
+    val_fix = val_tax + val_om
+    val_fix = [val_fix]*9
+    
+    # Variable cost 
+    # val_inv = pde_input["Investimento R$/kW"].loc[pde_input["Tipo"] == 
+    #       tecnologias["solar_pv_ppl"]].values[0] / pde_par["Cambio"]  
+    # val_inv = [val_inv]*4
     for node in nodes:
         # For the solar_pv_ppl technologies
         inv_df = make_df(
-            node_loc=node, **base_inv, year_vtg=model_horizon, technology="solar_pv_ppl", 
+            node_loc=node, **base_inv, year_vtg=model_horizon, technology=tec, 
             value=val_inv
         )
         scen.add_par("inv_cost", inv_df)
         
         fix_df = make_df(
-            node_loc=node, name="fix_cost", year_vtg=vintage_years, technology="solar_pv_ppl", 
+            node_loc=node, name="fix_cost", year_vtg=vintage_years, technology=tec, 
             value=val_fix, year_act = act_years, unit='MMUSD/GW.a'
         )
         scen.add_par("fix_cost", fix_df)
         
         
-    scen.commit(comment="test PDE inputs")
-    scen.set_as_default()
-    scen.solve()
+scen.commit(comment="test PDE inputs")
+scen.set_as_default()
+scen.solve()
 
 
-    mp.close_db()
+mp.close_db()
     
-except:
-    raise
-    mp.close_db()
