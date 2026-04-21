@@ -9,6 +9,7 @@ Created on Wed Nov 12 12:01:39 2025
 import ixmp as ix
 import message_ix
 import matplotlib.pyplot as plt
+import pandas as pd
 
 
 # Loading modelling platform
@@ -19,9 +20,9 @@ mp = ix.Platform("default", jvmargs=["-Xmx8G"])
 # scenario='base'
 model = "SIN Brasil expandido"
 # scenario = 'emissions_test'
-scenario = 'PDE2034'
+# scenario = 'PDE2034'
 # scenario = 'seasonal'
-# scenario = 'base'
+scenario = 'base'
 nodes = ['South', 'North', 'Northeast', 'Southeast']
 base = message_ix.Scenario(mp, model, scenario= scenario)
 
@@ -113,9 +114,23 @@ act2 = act2[act2 != 0]
 
 out_br = out2.drop("nl")
 act_br = rep.get(out_br)
+act_br = act_br.rename("value").reset_index()
+
+# Load historical activity
+load_history = True
+if load_history:
+    act_hist = base.par("historical_activity")
+    act_hist = (
+        act_hist.drop(columns=["node_loc"])
+        .groupby(["technology", "year_act"], as_index=False)["value"]
+        .sum()
+    )
+    act_hist = act_hist[~act_hist["technology"].str.startswith("grid", na=False)]
+    act_hist = act_hist.rename(columns={"technology": "t", "year_act": "ya"})[["ya", "t", "value"]]
+    act_br = pd.concat([act_br, act_hist], ignore_index=True)
+
 
 # Aggregate technology variants into their base technology names
-act_br = act_br.rename("value").reset_index()
 act_br["t"] = act_br["t"].replace({
     r"^gas_ppl_\d+$": "gas_ppl",
     r"^gas_ppl_ccs_\d+$": "gas_ppl_ccs",
@@ -181,7 +196,7 @@ plot_colors = [
 ax = act_br_plot.plot(kind="bar", stacked=True, figsize=(12, 6), color=plot_colors)
 ax.set_xlabel('Year')
 ax.set_ylabel('GWa')
-ax.set_title('Geração anual por tecnologia')
+ax.set_title(f"Geração anual por tecnologia no cenário {scenario}")
 ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.xticks(rotation=0)
 plt.tight_layout()

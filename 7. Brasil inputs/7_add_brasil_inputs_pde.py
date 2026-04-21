@@ -44,6 +44,7 @@ base_inv = {
 }
 
 tecnologias = {
+    #<tec_MESSAGE>:  <nome_MDI> 
     "solar_pv_ppl": "Fotovoltaica 1",
     "wind_ppl_int": "Eólica 4",
     "wind_ppl_cos": "Eólica 4",    
