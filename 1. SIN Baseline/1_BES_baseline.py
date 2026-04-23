@@ -156,6 +156,9 @@ lifetimes_south = {
 transmission_efficiency = 0.95
 distribution_efficiency = 0.95
 
+# Battery efficiency
+battery_efficiency = 1.2 # losses to store 1 GWa of energy. eg.: 20%
+
 # %% Hydro
 # Hydro North
 n_hydro_out      = {"hydro_4": 1,       # GWa generated
@@ -169,9 +172,9 @@ n_hydro_in       = {"hydro_4": 1558.6,  # m^3/s of water inflow to generate 1 GW
                     "hydro_9": 4898.5}
 
 # Hydro Northeast
-ne_hydro_out     = {"hydro_3": 1.}
-ne_hydro_out_2   = {"hydro_3": 595.1} 
-ne_hydro_in      = {"hydro_3": 595.1}
+ne_hydro_out     = {"hydro_3": 1.}      # GWa generated
+ne_hydro_out_2   = {"hydro_3": 595.1}   # m^3/s of water outflow to generate 1 GWa
+ne_hydro_in      = {"hydro_3": 595.1}   # m^3/s of water inflow to generate 1 GWa
 
 # Hydro Southeast
 se_hydro_out     = {"hydro_1": 1,
@@ -305,7 +308,7 @@ s_water_in = {"water_supply_2": 431.4,
               }
 
 
-# %% start model
+# %% =============================== Start Model ===============================
 
 scenario = message_ix.Scenario(mp, model, scen, version = 'new')
 scenario.add_horizon(
@@ -375,7 +378,7 @@ for tec, val in lifetimes_south.items():
     df_s = make_df(base_technical_lifetime, node_loc='South', technology=tec, value=val)
     scenario.add_par('technical_lifetime', df_s)
 
-# %% Add Technology grid (input and output)
+# %% Add Technology grid            (input and output)
 
 # North grid
 base_input_n1 = {
@@ -768,7 +771,7 @@ grid_in_s = make_df(input_s, technology='grid_s', commodity='electricity',
                   level='secondary', value=1/distribution_efficiency, unit="GWa")
 scenario.add_par('input', grid_in_s)
 
-# %% Add Technology hydro_ppl (input and output)
+# %% Add Technology hydro_ppl       (input and output)
 
 # North hydro ==================================================================
 for h_plant, val in n_hydro_out.items():
@@ -916,7 +919,7 @@ for river in south_res:
                    level='primary', value=val, unit="m^3/s")
     scenario.add_par('output', river_out_s)
 
-# %% Add Technology sphs_ppl (input and output)
+# %% Add Technology sphs_ppl        (input and output)
 
 # SPSH North ==================================================================
 for h_plant, val in n_sphs_out.items():
@@ -1092,7 +1095,7 @@ for h_plant, val in s_sphs_in_2.items():
     scenario.add_par('input', h_plant_in_s_3)
 
     
-# %% Add Technology Water Supply (input and output) 
+# %% Add Technology Water Supply    (input and output) 
 
 # Water supply North ==================================================================
 for w_supply, val in n_water_out.items():
@@ -1146,10 +1149,84 @@ for w_supply, val in se_water_in.items():
     w_supply_in_s = make_df(input_s, technology= w_supply, commodity= wat, 
                    level='secondary', value= val, unit="m^3/s")
     scenario.add_par('input', w_supply_in_s)
+    
+
+# %% Add Technology Battery         (input and output)
+# Battery in North
+for tech in battery_n:
+    tech_out_n = make_df(output_n, technology=tech, commodity='electricity', 
+                  level='secondary', value=1., unit="GWa")
+
+    # Removing extra years based on lifetime 
+    condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + lifetimes_north[tech] 
+    tech_out_n = tech_out_n.loc[condition] 
+    scenario.add_par('output', tech_out_n)
+    
+for tech in battery_n:
+    tech_in_n = make_df(input_n, technology=tech, commodity='electricity', 
+                  level='secondary', value=battery_efficiency, unit="GWa")
+    # Removing extra years based on lifetime 
+    condition = tech_in_n['year_act'] < tech_in_n['year_vtg'] + lifetimes_north[tech] 
+    tech_in_n = tech_in_n.loc[condition] 
+    scenario.add_par('input', tech_in_n)
+
+# Battery in Northeast
+for tech in battery_ne:
+    tech_out_ne = make_df(output_ne, technology=tech, commodity='electricity', 
+                  level='secondary', value=1., unit="GWa")
+
+    # Removing extra years based on lifetime 
+    condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + lifetimes_northeast[tech] 
+    tech_out_ne = tech_out_ne.loc[condition] 
+    scenario.add_par('output', tech_out_ne)
+    
+for tech in battery_ne:
+    tech_in_ne = make_df(input_ne, technology=tech, commodity='electricity', 
+                  level='secondary', value=battery_efficiency, unit="GWa")
+    # Removing extra years based on lifetime 
+    condition = tech_in_ne['year_act'] < tech_in_ne['year_vtg'] + lifetimes_northeast[tech] 
+    tech_in_ne = tech_in_ne.loc[condition] 
+    scenario.add_par('input', tech_in_ne)
+
+# Battery in Southeast
+for tech in battery_se:
+    tech_out_se = make_df(output_se, technology=tech, commodity='electricity', 
+                  level='secondary', value=1., unit="GWa")
+
+    # Removing extra years based on lifetime 
+    condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + lifetimes_southeast[tech] 
+    tech_out_se = tech_out_se.loc[condition] 
+    scenario.add_par('output', tech_out_se)
+    
+for tech in battery_se:
+    tech_in_se = make_df(input_se, technology=tech, commodity='electricity', 
+                  level='secondary', value=battery_efficiency, unit="GWa")
+    # Removing extra years based on lifetime 
+    condition = tech_in_se['year_act'] < tech_in_se['year_vtg'] + lifetimes_southeast[tech] 
+    tech_in_se = tech_in_se.loc[condition] 
+    scenario.add_par('input', tech_in_se)
+
+# Battery in South
+for tech in battery_s:
+    tech_out_s = make_df(output_s, technology=tech, commodity='electricity', 
+                  level='secondary', value=1., unit="GWa")
+
+    # Removing extra years based on lifetime 
+    condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + lifetimes_south[tech] 
+    tech_out_s = tech_out_s.loc[condition] 
+    scenario.add_par('output', tech_out_s)
+    
+for tech in battery_s:
+    tech_in_s = make_df(input_s, technology=tech, commodity='electricity', 
+                  level='secondary', value=battery_efficiency, unit="GWa")
+    # Removing extra years based on lifetime 
+    condition = tech_in_s['year_act'] < tech_in_s['year_vtg'] + lifetimes_south[tech] 
+    tech_in_s = tech_in_s.loc[condition] 
+    scenario.add_par('input', tech_in_s)
 
     
-# %% secondary to useful e_tecs e resto de North
-
+# %% Add Other Technologies         (input and output)
+# Techs in North
 for tech in brazil_wind:
      tech_out_n = make_df(output_n, technology=tech, commodity='electricity', 
                    level='secondary', value=1., unit="GWa")
@@ -1168,25 +1245,61 @@ for tech in plants:
      condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + lifetimes_north[tech] 
      tech_out_n = tech_out_n.loc[condition] 
      scenario.add_par('output', tech_out_n)
-     
-#secondary to final for batteries
 
-for tech in battery_n:
-    tech_out_n = make_df(output_n, technology=tech, commodity='electricity', 
-                  level='secondary', value=1., unit="GWa")
+# Techs in Northeast
+for tech in plants:
+     tech_out_ne = make_df(output_ne, technology=tech, commodity='electricity', 
+                   level='secondary', value=1., unit="GWa")
+      # Removing extra years based on lifetime 
+     condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + lifetimes_northeast[tech] 
+     tech_out_ne = tech_out_ne.loc[condition]
+     scenario.add_par('output', tech_out_ne)
 
-    # Removing extra years based on lifetime 
-    condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + lifetimes_north[tech] 
-    tech_out_n = tech_out_n.loc[condition] 
-    scenario.add_par('output', tech_out_n)
-    
-for tech in battery_n:
-    tech_in_n = make_df(input_n, technology=tech, commodity='electricity', 
-                  level='secondary', value=1.2, unit="GWa")
-    # Removing extra years based on lifetime 
-    condition = tech_in_n['year_act'] < tech_in_n['year_vtg'] + lifetimes_north[tech] 
-    tech_in_n = tech_in_n.loc[condition] 
-    scenario.add_par('input', tech_in_n)
+for tech in northeast_wind:
+     tech_out_ne = make_df(output_ne, technology=tech, commodity='electricity', 
+                   level='secondary', value=1., unit="GWa")
+      # Removing extra years based on lifetime 
+     condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + lifetimes_northeast[tech] 
+     tech_out_ne = tech_out_ne.loc[condition]
+     scenario.add_par('output', tech_out_ne)
+
+# Techs in Southeast
+for tech in brazil_wind:
+     tech_out_se = make_df(output_se, technology=tech, commodity='electricity', 
+                   level='secondary', value=1., unit="GWa")
+     # Removing extra years based on lifetime 
+     condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + lifetimes_southeast[tech] 
+     tech_out_se = tech_out_se.loc[condition]
+     scenario.add_par('output', tech_out_se)
+
+for tech in plants:
+     tech_out_se = make_df(output_se, technology=tech, commodity='electricity', 
+                   level='secondary', value=1., unit="GWa")
+     # Removing extra years based on lifetime 
+     condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + lifetimes_southeast[tech] 
+     tech_out_se = tech_out_se.loc[condition]
+     scenario.add_par('output', tech_out_se)
+
+# Techs in South
+for tech in plants:
+     tech_out_s = make_df(output_s, technology=tech, commodity='electricity', 
+                   level='secondary', value=1., unit="GWa")
+     # Removing extra years based on lifetime 
+     condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + lifetimes_south[tech] 
+     tech_out_s = tech_out_s.loc[condition]
+     scenario.add_par('output', tech_out_s)
+
+for tech in south_wind:
+     tech_out_s = make_df(output_s, technology=tech, commodity='electricity', 
+                   level='secondary', value=1., unit="GWa")
+     # Removing extra years based on lifetime 
+     condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + lifetimes_south[tech] 
+     tech_out_s = tech_out_s.loc[condition]
+     scenario.add_par('output', tech_out_s)
+
+
+# %% Rest of North
+
 
 base_capacity_factor_n = {
     'node_loc': 'North',
@@ -1501,43 +1614,7 @@ for tec, val in total_cap_n.items():
     scenario.add_par('bound_total_capacity_up', df)
 
 # %% 2) Northeast baseline
-
-#secondary to useful e_tecs
-
-for tech in plants:
-     tech_out_ne = make_df(output_ne, technology=tech, commodity='electricity', 
-                   level='secondary', value=1., unit="GWa")
-      # Removing extra years based on lifetime 
-     condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + lifetimes_northeast[tech] 
-     tech_out_ne = tech_out_ne.loc[condition]
-     scenario.add_par('output', tech_out_ne)
-
-for tech in northeast_wind:
-     tech_out_ne = make_df(output_ne, technology=tech, commodity='electricity', 
-                   level='secondary', value=1., unit="GWa")
-      # Removing extra years based on lifetime 
-     condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + lifetimes_northeast[tech] 
-     tech_out_ne = tech_out_ne.loc[condition]
-     scenario.add_par('output', tech_out_ne)
      
-#secondary to secondary for batteries
-
-for tech in battery_ne:
-    tech_out_ne = make_df(output_ne, technology=tech, commodity='electricity', 
-                  level='secondary', value=1., unit="GWa")
-
-    # Removing extra years based on lifetime 
-    condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + lifetimes_northeast[tech] 
-    tech_out_ne = tech_out_ne.loc[condition] 
-    scenario.add_par('output', tech_out_ne)
-    
-for tech in battery_ne:
-    tech_in_ne = make_df(input_ne, technology=tech, commodity='electricity', 
-                  level='secondary', value=1.2, unit="GWa")
-    # Removing extra years based on lifetime 
-    condition = tech_in_ne['year_act'] < tech_in_ne['year_vtg'] + lifetimes_northeast[tech] 
-    tech_in_ne = tech_in_ne.loc[condition] 
-    scenario.add_par('input', tech_in_ne)
 
 base_capacity_factor_ne = {
     'node_loc': 'Northeast',
@@ -1828,43 +1905,6 @@ for tec, val in total_cap_ne.items():
     scenario.add_par('bound_total_capacity_up', df)
     
 # %% 3) Southeast baseline
-
-#secondary to useful e_tecs
-
-for tech in brazil_wind:
-     tech_out_se = make_df(output_se, technology=tech, commodity='electricity', 
-                   level='secondary', value=1., unit="GWa")
-     # Removing extra years based on lifetime 
-     condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + lifetimes_southeast[tech] 
-     tech_out_se = tech_out_se.loc[condition]
-     scenario.add_par('output', tech_out_se)
-
-for tech in plants:
-     tech_out_se = make_df(output_se, technology=tech, commodity='electricity', 
-                   level='secondary', value=1., unit="GWa")
-     # Removing extra years based on lifetime 
-     condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + lifetimes_southeast[tech] 
-     tech_out_se = tech_out_se.loc[condition]
-     scenario.add_par('output', tech_out_se)
-
-#secondary to secondary for batteries
-
-for tech in battery_se:
-    tech_out_se = make_df(output_se, technology=tech, commodity='electricity', 
-                  level='secondary', value=1., unit="GWa")
-
-    # Removing extra years based on lifetime 
-    condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + lifetimes_southeast[tech] 
-    tech_out_se = tech_out_se.loc[condition] 
-    scenario.add_par('output', tech_out_se)
-    
-for tech in battery_se:
-    tech_in_se = make_df(input_se, technology=tech, commodity='electricity', 
-                  level='secondary', value=1.2, unit="GWa")
-    # Removing extra years based on lifetime 
-    condition = tech_in_se['year_act'] < tech_in_se['year_vtg'] + lifetimes_southeast[tech] 
-    tech_in_se = tech_in_se.loc[condition] 
-    scenario.add_par('input', tech_in_se)
 
 base_capacity_factor_se = {
     'node_loc': 'Southeast',
@@ -2202,43 +2242,6 @@ for tec, val in total_cap_se.items():
     scenario.add_par('bound_total_capacity_up', df)
 
 # %% 4) South baseline
-
-#secondary to useful e_tecs
-
-for tech in plants:
-     tech_out_s = make_df(output_s, technology=tech, commodity='electricity', 
-                   level='secondary', value=1., unit="GWa")
-     # Removing extra years based on lifetime 
-     condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + lifetimes_south[tech] 
-     tech_out_s = tech_out_s.loc[condition]
-     scenario.add_par('output', tech_out_s)
-
-for tech in south_wind:
-     tech_out_s = make_df(output_s, technology=tech, commodity='electricity', 
-                   level='secondary', value=1., unit="GWa")
-     # Removing extra years based on lifetime 
-     condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + lifetimes_south[tech] 
-     tech_out_s = tech_out_s.loc[condition]
-     scenario.add_par('output', tech_out_s)
-     
-#secondary to secondary for batteries
-
-for tech in battery_s:
-    tech_out_s = make_df(output_s, technology=tech, commodity='electricity', 
-                  level='secondary', value=1., unit="GWa")
-
-    # Removing extra years based on lifetime 
-    condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + lifetimes_south[tech] 
-    tech_out_s = tech_out_s.loc[condition] 
-    scenario.add_par('output', tech_out_s)
-    
-for tech in battery_s:
-    tech_in_s = make_df(input_s, technology=tech, commodity='electricity', 
-                  level='secondary', value=1.2, unit="GWa")
-    # Removing extra years based on lifetime 
-    condition = tech_in_s['year_act'] < tech_in_s['year_vtg'] + lifetimes_south[tech] 
-    tech_in_s = tech_in_s.loc[condition] 
-    scenario.add_par('input', tech_in_s)
 
 base_capacity_factor_s = {
     'node_loc': 'South',
