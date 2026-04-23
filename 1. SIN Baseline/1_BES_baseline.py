@@ -86,6 +86,7 @@ south_wind = ["wind_ppl_rs"]
 #wind_ppl_cos means wind_ppl on the coast of northeast of Brazil. To obtain it's parameters, it was considered data from RN and CE states.
 #wind_ppl_int means wind_ppl on inlands of northeast of Brazil. To obtain it's parameters, it was considered data from BA and PI states.
 #wind_ppl_rs means wind_ppl on Rio Grande do Sul state. To obtain it's parameters, it was considered data from RS state.
+#wind_ppl means wind on the rest of the country
 
 # Hidro technologies
 north_hydro = ["hydro_4", "hydro_8", "hydro_9"]     # REE Norte, Belo Monte e Amazonas
@@ -150,7 +151,34 @@ lifetimes_south = {
     "river2":1000, "river11":1000,"water_supply_2":1000, "water_supply_11":1000
 }
 
-# %% Technology inputs and outputs
+# %% Technology Capacity Factor
+
+capacity_factor = {
+    "hydro_4": 0.9, #EPE
+    "hydro_8": 0.9, #EPE
+    "hydro_9": 0.9, #EPE
+    "sphs_4": 0.7, #EPE
+    "sphs_8": 0.7, #EPE
+    "sphs_9": 0.7, #EPE
+    "bio_ppl": 0.33, #EPE
+    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "wind_ppl": 0.435,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
+    "coal_ppl": 0.69,#EPE
+    "nuc_ppl": 0.85, #EPE - eff 33%
+    "solar_pv_ppl":0.3,
+    "oil_ppl": 0.75,
+    "grid1": 0.8,
+    "batt_n": 0.85,
+    "grid_n": 0.8,
+}
+
+
+# %% Technology efficiency and water consumption
 
 # Grid efficiency
 transmission_efficiency = 0.95
@@ -1298,54 +1326,28 @@ for tech in south_wind:
      scenario.add_par('output', tech_out_s)
 
 
-# %% Rest of North
+# %% Add Capacity Factors and Historical Capacity
 
-
-base_capacity_factor_n = {
-    'node_loc': 'North',
+base_capacity_factor = {
     'year_vtg': vintage_years,
     'year_act': act_years,
     'time': 'year',
     'unit': '-',
 }
-
-capacity_factor = {
-    "hydro_4": 0.9, #EPE
-    "hydro_8": 0.9, #EPE
-    "hydro_9": 0.9, #EPE
-    "sphs_4": 0.7, #EPE
-    "sphs_8": 0.7, #EPE
-    "sphs_9": 0.7, #EPE
-    "bio_ppl": 0.33, #EPE
-    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "wind_ppl": 0.435,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
-    "coal_ppl": 0.69,#EPE
-    "nuc_ppl": 0.85, #EPE - eff 33%
-    "solar_pv_ppl":0.3,
-    "oil_ppl": 0.75,
-    "grid1": 0.8,
-    "batt_n": 0.85,
-    "grid_n": 0.8,
+  
+base_capacity = {
+    'year_vtg': history,
+    'time': 'year',
+    'unit': 'GW',
 }
 
+# Capacity for North
 for tec, val in capacity_factor.items():
-    df = make_df(base_capacity_factor_n, technology=tec, value=val)
+    df = make_df(base_capacity_factor, node_loc='North', technology=tec, value=val)
     # Removing extra years based on lifetime
     condition = df['year_act'] < df['year_vtg'] + lifetimes_north[tec]
     df = df.loc[condition]
     scenario.add_par('capacity_factor', df)
-  
-base_capacity_n = {
-    'year_vtg': history,
-    'time': 'year',
-    'node_loc': 'North',
-    'unit': 'GWa',
-}
 
 #base capacity [GW] in 07/2019 according to CCEE historical operation for each subsystem [North, Northeast, SE/MW, South]
 thermal_capacity = 3.87 
@@ -1379,7 +1381,7 @@ base_cap = {
 }
 
 for tec, val in base_cap.items():
-    df = make_df(base_capacity_n, technology=tec, value=val, unit= 'GW')
+    df = make_df(base_capacity, node_loc='North', technology=tec, value=val)
     scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
 
 
