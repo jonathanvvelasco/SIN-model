@@ -153,7 +153,8 @@ lifetimes_south = {
 
 # %% Technology Capacity Factor
 
-capacity_factor = {
+# Capacity Factors for North
+capacity_factor_n = {
     "hydro_4": 0.9, #EPE
     "hydro_8": 0.9, #EPE
     "hydro_9": 0.9, #EPE
@@ -175,6 +176,210 @@ capacity_factor = {
     "grid1": 0.8,
     "batt_n": 0.85,
     "grid_n": 0.8,
+}
+
+# Capacity Factors for Northeast
+capacity_factor_ne = {
+    "hydro_3": 0.9,#EPE 
+    "sphs_3": 0.7,#EPE 
+    "bio_ppl": 0.33, #EPE
+    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "wind_ppl_cos": 0.47,#For now, the EPE data of 0.47 in North and Northeast is maintained.
+    "wind_ppl_int": 0.47,#For now, the EPE data of 0.47 in North and Northeast is maintained.
+    "coal_ppl": 0.69,#EPE
+    "nuc_ppl": 0.85, #EPE - eff 33%
+    "solar_pv_ppl":0.3,
+    "oil_ppl": 0.75, #EPE
+    "grid2": 0.8,
+    "batt_ne": 0.85,
+    "grid_ne": 0.8,
+}
+
+# Capacity Factors for Southeast
+capacity_factor_se = {
+    "hydro_1": 0.9, #EPE
+    "hydro_5": 0.9,#EPE
+    "hydro_6": 0.9,#EPE
+    "hydro_7": 0.9,#EPE
+    "hydro_10": 0.9,#EPE
+    "hydro_12": 0.9,#EPE
+    "sphs_1": 0.7, #EPE
+    "sphs_6": 0.7,#EPE
+    "sphs_7": 0.7,#EPE
+    "sphs_10": 0.7,#EPE
+    "sphs_12": 0.7,#EPE    
+    "bio_ppl": 0.33, #EPE
+    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "wind_ppl": 0.435,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
+    "coal_ppl": 0.69,#EPE
+    "nuc_ppl": 0.85, #EPE - eff 33%
+    "solar_pv_ppl":0.29,
+    "oil_ppl": 0.75, #EPE
+    "grid3": 0.8,
+    "batt_se": 0.85,
+    "grid_se": 0.8,
+}
+
+# Capacity Factors for South
+
+capacity_factor_s = {
+    "hydro_2": 0.9,#EPE 
+    "hydro_11": 0.9,#EPE 
+    "sphs_2": 0.7,#EPE 
+    "sphs_11": 0.7,#EPE 
+    "bio_ppl": 0.33, #EPE
+    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+    "wind_ppl_rs": 0.4,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
+    "coal_ppl": 0.69,#EPE
+    "nuc_ppl": 0.85, #EPE - eff 33%
+    "solar_pv_ppl":0.29,
+    "oil_ppl": 0.75, #EPE
+    "grid4": 0.8,
+    "batt_s": 0.85,
+    "grid_s": 0.8,
+}
+
+
+# %% Technology Historical New Capacity
+#base capacity [GW] in 07/2019 according to CCEE historical operation for each subsystem [North, Northeast, SE/MW, South]
+#base capacity [GW] of the BES in 2019 according to ONS historical operation for each subsystem [North, Northeast, SE/MW, South]
+
+# Capacity for North
+times = 10. # Assumption Built in last 10 years
+thermal_capacity_n = 3.87 
+hydro_capacity_n = 22.12
+transmission_capacity_n = 5.02
+transmission_internal_capacity_n = 6.59
+
+# Capacity for Northeast
+thermal_capacity_ne = 8.40
+hydro_capacity_ne = 11.0
+transmission_capacity_ne = 2.51
+transmission_internal_capacity_ne = 13.23
+
+# Capacity for Southeast
+thermal_capacity_se = 18.69 
+hydro_capacity_se = 65.2
+transmission_capacity_se = 9.46
+transmission_internal_capacity_se = 51.2
+
+# Capacity for South
+thermal_capacity_s = 4.72
+transmission_capacity_s = 11.22
+transmission_internal_capacity_s = 18.0
+hydro_capacity_s = 17.0
+
+
+base_cap_n = {
+    "hydro_4": 9.6/times, 
+    "hydro_8": 11.03/times, 
+    "hydro_9": 1.2/times, 
+    "sphs_4": 0./times, 
+    "sphs_8": 0./times, 
+    "sphs_9": 0./times, 
+    "bio_ppl": thermal_capacity_n*0.111/times,  
+    "gas_ppl": thermal_capacity_n*0.623/times,
+    "gas_ppl_1": thermal_capacity_n*0./times,
+    "gas_ppl_2": thermal_capacity_n*0./times,
+    "gas_ppl_ccs": 0./times,
+    "gas_ppl_ccs_1": 0./times,
+    "gas_ppl_ccs_2": 0./times,
+    "wind_ppl": 0.33/times, 
+    "coal_ppl": thermal_capacity_n*0.093/times, 
+    "nuc_ppl": 0./times, 
+    "solar_pv_ppl": 0.05/times,
+    "oil_ppl": thermal_capacity_n*0.173/times,
+    "grid1": transmission_capacity_n/times,
+    "batt_n": 0./times,
+    "grid_n": transmission_internal_capacity_n/times,
+}
+
+base_cap_ne = {
+    "hydro_3": 8.3/times, 
+    "sphs_3": 0./times, 
+    "bio_ppl": thermal_capacity_ne*0.164/times,  
+    "gas_ppl": thermal_capacity_ne*0.359/times,
+    "gas_ppl_1": thermal_capacity_ne*0./times,
+    "gas_ppl_2": thermal_capacity_ne*0./times,
+    "gas_ppl_ccs": 0./times,
+    "gas_ppl_ccs_1": 0./times,
+    "gas_ppl_ccs_2": 0./times,
+    "wind_ppl_cos": 6.2/times, 
+    "wind_ppl_int": 5.94/times, 
+    "coal_ppl": thermal_capacity_ne*0.129/times, 
+    "nuc_ppl": 0./times, 
+    "solar_pv_ppl": 1.4/times,
+    "oil_ppl": thermal_capacity_ne*0.348/times,
+    "grid2": transmission_capacity_ne/times,
+    "batt_ne": 0./times,
+    "grid_ne": transmission_internal_capacity_ne/times,
+}
+
+base_cap_se = {
+    "hydro_1": 6.4/times, 
+    "hydro_5": 14./times, 
+    "hydro_6": 7.3/times, 
+    "hydro_7": 3.2/times,
+    "hydro_10": 27.6/times,
+    "hydro_12": 2.4/times,
+    "sphs_1": 0./times, 
+    "sphs_6": 0./times, 
+    "sphs_7": 0./times,
+    "sphs_10": 0./times,
+    "sphs_12": 0./times,
+    "bio_ppl": thermal_capacity_se*0.552/times,  
+    "gas_ppl": thermal_capacity_se*0.364/times,
+    "gas_ppl_1": thermal_capacity_se*0./times,
+    "gas_ppl_2": thermal_capacity_se*0./times,
+    "gas_ppl_ccs": 0./times,
+    "gas_ppl_ccs_1": 0./times,
+    "gas_ppl_ccs_2": 0./times,
+    "wind_ppl": 0.03/times, 
+    "coal_ppl": thermal_capacity_se*0.0/times, 
+    "nuc_ppl": 2.0/times, 
+    "solar_pv_ppl": 0.74/times,
+    "oil_ppl": thermal_capacity_se*0.084/times,
+    "grid3": transmission_capacity_se/times,
+    "batt_se": 0./times,
+    "grid_se": transmission_internal_capacity_se/times,
+}
+
+
+base_cap_s = {
+    "hydro_2": 6.9/times,
+    "hydro_11": 7.3/times,
+    "sphs_2": 0./times,
+    "sphs_11": 0./times,
+    "bio_ppl": thermal_capacity_s*0.266/times,  
+    "gas_ppl": thermal_capacity_s*0.291/times,
+    "gas_ppl_1": thermal_capacity_s*0./times,
+    "gas_ppl_2": thermal_capacity_s*0./times,
+    "gas_ppl_ccs": 0./times,
+    "gas_ppl_ccs_1": 0./times,
+    "gas_ppl_ccs_2": 0./times,
+    "wind_ppl_rs": 2.07/times,        
+    "coal_ppl": thermal_capacity_s*0.438/times, 
+    "nuc_ppl": 0./times, 
+    "solar_pv_ppl": 0.004/times,
+    "oil_ppl": thermal_capacity_s*0.005/times,
+    "grid4": transmission_capacity_s/times,
+    "batt_s": 0./times,
+    "grid_s": transmission_internal_capacity_s/times,
 }
 
 
@@ -1341,51 +1546,56 @@ base_capacity = {
     'unit': 'GW',
 }
 
-# Capacity for North
-for tec, val in capacity_factor.items():
+# Capacity Factor for North
+for tec, val in capacity_factor_n.items():
     df = make_df(base_capacity_factor, node_loc='North', technology=tec, value=val)
     # Removing extra years based on lifetime
     condition = df['year_act'] < df['year_vtg'] + lifetimes_north[tec]
     df = df.loc[condition]
     scenario.add_par('capacity_factor', df)
-
-#base capacity [GW] in 07/2019 according to CCEE historical operation for each subsystem [North, Northeast, SE/MW, South]
-thermal_capacity = 3.87 
-hydro_capacity= 22.12
-transmission_capacity = 5.02
-transmission_internal_capacity = 6.59
-times = 10. 
-
-base_cap = {
-    "hydro_4": 9.6/times, 
-    "hydro_8": 11.03/times, 
-    "hydro_9": 1.2/times, 
-    "sphs_4": 0./times, 
-    "sphs_8": 0./times, 
-    "sphs_9": 0./times, 
-    "bio_ppl": thermal_capacity*0.111/times,  
-    "gas_ppl": thermal_capacity*0.623/times,
-    "gas_ppl_1": thermal_capacity*0./times,
-    "gas_ppl_2": thermal_capacity*0./times,
-    "gas_ppl_ccs": 0./times,
-    "gas_ppl_ccs_1": 0./times,
-    "gas_ppl_ccs_2": 0./times,
-    "wind_ppl": 0.33/times, 
-    "coal_ppl": thermal_capacity*0.093/times, 
-    "nuc_ppl": 0./times, 
-    "solar_pv_ppl": 0.05/times,
-    "oil_ppl": thermal_capacity*0.173/times,
-    "grid1": transmission_capacity/times,
-    "batt_n": 0./times,
-    "grid_n": transmission_internal_capacity/times,
-}
-
-for tec, val in base_cap.items():
+# Capacity History for North
+for tec, val in base_cap_n.items():
     df = make_df(base_capacity, node_loc='North', technology=tec, value=val)
     scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
 
+# Capacity Factor for Northeast
+for tec, val in capacity_factor_ne.items():
+    df = make_df(base_capacity_factor, node_loc='Northeast', technology=tec, value=val)
+    # Removing extra years based on lifetime 
+    condition = df['year_act'] < df['year_vtg'] + lifetimes_northeast[tec] 
+    df = df.loc[condition] 
+    scenario.add_par('capacity_factor', df)
+# Capacity History for Northeast
+for tec, val in base_cap_ne.items():
+    df = make_df(base_capacity, node_loc='Northeast', technology=tec, value=val, unit= 'GW')
+    scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
 
-# %% Adding costs
+# Capacity Factor for Southeast
+for tec, val in capacity_factor_se.items():
+    df = make_df(base_capacity_factor, node_loc='Southeast', technology=tec, value=val)
+     # Removing extra years based on lifetime 
+    condition = df['year_act'] < df['year_vtg'] + lifetimes_southeast[tec] 
+    df = df.loc[condition] 
+    scenario.add_par('capacity_factor', df)
+# Capacity History for Southeast
+for tec, val in base_cap_se.items():
+    df = make_df(base_capacity, node_loc='Southeast', technology=tec, value=val, unit= 'GW')
+    scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
+
+# Capacity Factor for South
+for tec, val in capacity_factor_s.items():
+    df = make_df(base_capacity_factor, node_loc='South', technology=tec, value=val)
+    # Removing extra years based on lifetime 
+    condition = df['year_act'] < df['year_vtg'] + lifetimes_south[tec] 
+    df = df.loc[condition] 
+    scenario.add_par('capacity_factor', df)
+
+for tec, val in base_cap_s.items():
+    df = make_df(base_capacity, node_loc='South', technology=tec, value=val, unit= 'GW')
+    scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
+
+
+# %% Adding costs of North
 
 base_inv_cost_n = {
     'node_loc': 'North',
@@ -1518,9 +1728,9 @@ base_activity_n2 = {
 
 thermal_act = 1.82
 hydro_act = 7.53
-transmission_act_1 = 0.43*transmission_capacity
-transmission_act_2 = 0.40*transmission_capacity
-transmission_internal_act = 0.41*transmission_internal_capacity
+transmission_act_1 = 0.43*transmission_capacity_n
+transmission_act_2 = 0.40*transmission_capacity_n
+transmission_internal_act = 0.41*transmission_internal_capacity_n
 
 #old activity basen on 2019 BEN
 old_activity = {
@@ -1593,10 +1803,10 @@ total_cap_n = {'hydro_4': 9.6,
                   #'sphs_9': 1.,
                   'wind_ppl': 0.18,
                   'nuc_ppl':0.,
-                  'gas_ppl':1.5*thermal_capacity*0.623,
-                  'gas_ppl_1':2*thermal_capacity*0.623,
-                  'gas_ppl_ccs':1.5*thermal_capacity*0.623,
-                  'gas_ppl_ccs_1':2*thermal_capacity*0.623,
+                  'gas_ppl':1.5*thermal_capacity_n*0.623,
+                  'gas_ppl_1':2*thermal_capacity_n*0.623,
+                  'gas_ppl_ccs':1.5*thermal_capacity_n*0.623,
+                  'gas_ppl_ccs_1':2*thermal_capacity_n*0.623,
                   "bio_ppl": 3.,
                   'solar_pv_ppl': 5.,
                   'coal_ppl': 2.9,
@@ -1616,80 +1826,6 @@ for tec, val in total_cap_n.items():
     scenario.add_par('bound_total_capacity_up', df)
 
 # %% 2) Northeast baseline
-     
-
-base_capacity_factor_ne = {
-    'node_loc': 'Northeast',
-    'year_vtg': vintage_years,
-    'year_act': act_years,
-    'time': 'year',
-    'unit': '-',
-}
-
-capacity_factor = {
-    "hydro_3": 0.9,#EPE 
-    "sphs_3": 0.7,#EPE 
-    "bio_ppl": 0.33, #EPE
-    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "wind_ppl_cos": 0.47,#For now, the EPE data of 0.47 in North and Northeast is maintained.
-    "wind_ppl_int": 0.47,#For now, the EPE data of 0.47 in North and Northeast is maintained.
-    "coal_ppl": 0.69,#EPE
-    "nuc_ppl": 0.85, #EPE - eff 33%
-    "solar_pv_ppl":0.3,
-    "oil_ppl": 0.75, #EPE
-    "grid2": 0.8,
-    "batt_ne": 0.85,
-    "grid_ne": 0.8,
-}
-
-for tec, val in capacity_factor.items():
-    df = make_df(base_capacity_factor_ne, technology=tec, value=val)
-    # Removing extra years based on lifetime 
-    condition = df['year_act'] < df['year_vtg'] + lifetimes_northeast[tec] 
-    df = df.loc[condition] 
-    scenario.add_par('capacity_factor', df)
-
-base_capacity_ne = {
-    'year_vtg': history,
-    'time': 'year',
-    'node_loc': 'Northeast',
-    'unit': 'GWa',
-}
-
-#base capacity [GW] of the BES in 2019 according to ONS historical operation for each subsystem [North, Northeast, SE/MW, South]
-thermal_capacity = 8.40
-hydro_capacity = 11.0
-transmission_capacity = 2.51
-transmission_internal_capacity = 13.23
-base_cap = {
-    "hydro_3": 8.3/times, 
-    "sphs_3": 0./times, 
-    "bio_ppl": thermal_capacity*0.164/times,  
-    "gas_ppl": thermal_capacity*0.359/times,
-    "gas_ppl_1": thermal_capacity*0./times,
-    "gas_ppl_2": thermal_capacity*0./times,
-    "gas_ppl_ccs": 0./times,
-    "gas_ppl_ccs_1": 0./times,
-    "gas_ppl_ccs_2": 0./times,
-    "wind_ppl_cos": 6.2/times, 
-    "wind_ppl_int": 5.94/times, 
-    "coal_ppl": thermal_capacity*0.129/times, 
-    "nuc_ppl": 0./times, 
-    "solar_pv_ppl": 1.4/times,
-    "oil_ppl": thermal_capacity*0.348/times,
-    "grid2": transmission_capacity/times,
-    "batt_ne": 0./times,
-    "grid_ne": transmission_internal_capacity/times,
-}
-
-for tec, val in base_cap.items():
-    df = make_df(base_capacity_ne, technology=tec, value=val, unit= 'GW')
-    scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
 
     
 # %% Adding costs
@@ -1815,9 +1951,9 @@ base_activity_ne2 = {
 
 thermal_act = 1.98
 hydro_act = 2.47
-transmission_act_1 = 0.49*transmission_capacity
-transmission_act_2 = 0.24*transmission_capacity
-transmission_internal_act = 0.42*transmission_internal_capacity
+transmission_act_1 = 0.49*transmission_capacity_ne
+transmission_act_2 = 0.24*transmission_capacity_ne
+transmission_internal_act = 0.42*transmission_internal_capacity_ne
 
 #old activity basen on 2019 BEN
 old_activity = {
@@ -1907,95 +2043,6 @@ for tec, val in total_cap_ne.items():
     scenario.add_par('bound_total_capacity_up', df)
     
 # %% 3) Southeast baseline
-
-base_capacity_factor_se = {
-    'node_loc': 'Southeast',
-    'year_vtg': vintage_years,
-    'year_act': act_years,
-    'time': 'year',
-    'unit': '-',
-}
-
-capacity_factor = {
-    "hydro_1": 0.9, #EPE
-    "hydro_5": 0.9,#EPE
-    "hydro_6": 0.9,#EPE
-    "hydro_7": 0.9,#EPE
-    "hydro_10": 0.9,#EPE
-    "hydro_12": 0.9,#EPE
-    "sphs_1": 0.7, #EPE
-    "sphs_6": 0.7,#EPE
-    "sphs_7": 0.7,#EPE
-    "sphs_10": 0.7,#EPE
-    "sphs_12": 0.7,#EPE    
-    "bio_ppl": 0.33, #EPE
-    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "wind_ppl": 0.435,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
-    "coal_ppl": 0.69,#EPE
-    "nuc_ppl": 0.85, #EPE - eff 33%
-    "solar_pv_ppl":0.29,
-    "oil_ppl": 0.75, #EPE
-    "grid3": 0.8,
-    "batt_se": 0.85,
-    "grid_se": 0.8,
-}
-
-for tec, val in capacity_factor.items():
-    df = make_df(base_capacity_factor_se, technology=tec, value=val)
-     # Removing extra years based on lifetime 
-    condition = df['year_act'] < df['year_vtg'] + lifetimes_southeast[tec] 
-    df = df.loc[condition] 
-    scenario.add_par('capacity_factor', df)
-
-base_capacity_se = {
-    'year_vtg': history,
-    'time': 'year',
-    'node_loc': 'Southeast',
-    'unit': 'GWa',
-}
-
-#base capacity [GW] of the BES in 2019 according to ONS historical operation for each subsystem [North, Northeast, SE/MW, South]
-thermal_capacity = 18.69 
-hydro_capacity = 65.2
-transmission_capacity = 9.46
-transmission_internal_capacity = 51.2
-base_cap = {
-    "hydro_1": 6.4/times, 
-    "hydro_5": 14./times, 
-    "hydro_6": 7.3/times, 
-    "hydro_7": 3.2/times,
-    "hydro_10": 27.6/times,
-    "hydro_12": 2.4/times,
-    "sphs_1": 0./times, 
-    "sphs_6": 0./times, 
-    "sphs_7": 0./times,
-    "sphs_10": 0./times,
-    "sphs_12": 0./times,
-    "bio_ppl": thermal_capacity*0.552/times,  
-    "gas_ppl": thermal_capacity*0.364/times,
-    "gas_ppl_1": thermal_capacity*0./times,
-    "gas_ppl_2": thermal_capacity*0./times,
-    "gas_ppl_ccs": 0./times,
-    "gas_ppl_ccs_1": 0./times,
-    "gas_ppl_ccs_2": 0./times,
-    "wind_ppl": 0.03/times, 
-    "coal_ppl": thermal_capacity*0.0/times, 
-    "nuc_ppl": 2.0/times, 
-    "solar_pv_ppl": 0.74/times,
-    "oil_ppl": thermal_capacity*0.084/times,
-    "grid3": transmission_capacity/times,
-    "batt_se": 0./times,
-    "grid_se": transmission_internal_capacity/times,
-}
-
-for tec, val in base_cap.items():
-    df = make_df(base_capacity_se, technology=tec, value=val, unit= 'GW')
-    scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
     
     
 # %% Adding costs
@@ -2137,9 +2184,9 @@ base_activity_se2 = {
 
 thermal_act = 5.11
 hydro_act = 28.93
-transmission_act_1 = 0.48*transmission_capacity
-transmission_act_2 = 0.05*transmission_capacity
-transmission_internal_act = 0.48*transmission_internal_capacity
+transmission_act_1 = 0.48*transmission_capacity_se
+transmission_act_2 = 0.05*transmission_capacity_se
+transmission_internal_act = 0.48*transmission_internal_capacity_se
 #old activity basen on 2019 BEN
 old_activity = {
     "hydro_1": 0.48*6.4, 
@@ -2244,81 +2291,6 @@ for tec, val in total_cap_se.items():
     scenario.add_par('bound_total_capacity_up', df)
 
 # %% 4) South baseline
-
-base_capacity_factor_s = {
-    'node_loc': 'South',
-    'year_vtg': vintage_years,
-    'year_act': act_years,
-    'time': 'year',
-    'unit': '-',
-}
-
-capacity_factor = {
-    "hydro_2": 0.9,#EPE 
-    "hydro_11": 0.9,#EPE 
-    "sphs_2": 0.7,#EPE 
-    "sphs_11": 0.7,#EPE 
-    "bio_ppl": 0.33, #EPE
-    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "wind_ppl_rs": 0.4,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
-    "coal_ppl": 0.69,#EPE
-    "nuc_ppl": 0.85, #EPE - eff 33%
-    "solar_pv_ppl":0.29,
-    "oil_ppl": 0.75, #EPE
-    "grid4": 0.8,
-    "batt_s": 0.85,
-    "grid_s": 0.8,
-}
-
-for tec, val in capacity_factor.items():
-    df = make_df(base_capacity_factor_s, technology=tec, value=val)
-    # Removing extra years based on lifetime 
-    condition = df['year_act'] < df['year_vtg'] + lifetimes_south[tec] 
-    df = df.loc[condition] 
-    scenario.add_par('capacity_factor', df)
-  
-base_capacity_s = {
-    'year_vtg': history,
-    'time': 'year',
-    'node_loc': 'South',
-    'unit': 'GWa',
-}
-
-#base capacity [GW] of the BES in 2019 according to ONS historical operation for each subsystem [North, Northeast, SE/MW, South]
-thermal_capacity = 4.72
-transmission_capacity = 11.22
-transmission_internal_capacity = 18.0
-hydro_capacity = 17.0
-base_cap = {
-    "hydro_2": 6.9/times,
-    "hydro_11": 7.3/times,
-    "sphs_2": 0./times,
-    "sphs_11": 0./times,
-    "bio_ppl": thermal_capacity*0.266/times,  
-    "gas_ppl": thermal_capacity*0.291/times,
-    "gas_ppl_1": thermal_capacity*0./times,
-    "gas_ppl_2": thermal_capacity*0./times,
-    "gas_ppl_ccs": 0./times,
-    "gas_ppl_ccs_1": 0./times,
-    "gas_ppl_ccs_2": 0./times,
-    "wind_ppl_rs": 2.07/times,        
-    "coal_ppl": thermal_capacity*0.438/times, 
-    "nuc_ppl": 0./times, 
-    "solar_pv_ppl": 0.004/times,
-    "oil_ppl": thermal_capacity*0.005/times,
-    "grid4": transmission_capacity/times,
-    "batt_s": 0./times,
-    "grid_s": transmission_internal_capacity/times,
-}
-
-for tec, val in base_cap.items():
-    df = make_df(base_capacity_s, technology=tec, value=val, unit= 'GW')
-    scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
        
 # %% Adding costs
 
@@ -2443,9 +2415,9 @@ base_activity_s2 = {
 
 thermal_act = 1.05
 hydro_act = 7.45
-transmission_act_1 = 0.47*transmission_capacity
-transmission_act_2 = 0.11*transmission_capacity
-transmission_internal_act = 0.42*transmission_internal_capacity
+transmission_act_1 = 0.47*transmission_capacity_s
+transmission_act_2 = 0.11*transmission_capacity_s
+transmission_internal_act = 0.42*transmission_internal_capacity_s
 #old activity basen on 2019 BEN
 old_activity = {
     "hydro_2": 0.52*6.9,
@@ -2513,9 +2485,9 @@ total_cap_s = {"hydro_2": 6.9,
                   #"sphs_11": 1.,
                   "coal_ppl": 7.0,
                   "oil_ppl": 0.13,
-                  "gas_ppl": 1.5*thermal_capacity*0.291,
+                  "gas_ppl": 1.5*thermal_capacity_n*0.291,
                   "gas_ppl_1": 16,
-                  "gas_ppl_ccs": 1.5*thermal_capacity*0.291,
+                  "gas_ppl_ccs": 1.5*thermal_capacity_n*0.291,
                   "gas_ppl_ccs_1": 16,
                   'nuc_ppl':0.,
                   "bio_ppl": 5.,
