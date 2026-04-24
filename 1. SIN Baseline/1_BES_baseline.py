@@ -8,13 +8,9 @@ Created on Thrus Jan 19 09:13 2023
 # load required packages 
 #import itertools
 import pandas as pd
-
-import matplotlib.pyplot as plt
-plt.style.use('ggplot')
-
+import yaml
 import ixmp
 import message_ix
-
 from message_ix.utils import make_df
 
 mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
@@ -32,8 +28,11 @@ mp.add_unit('MMUSD/GW')
 model = "SIN Brasil expandido"
 scen = "base"
 
+with open ("baseline_inputs.yaml", "r") as f:
+    dados = yaml.safe_load(f)
+
 # Model horizon
-history = [2020]
+history = dados['inputs']['general']['history']
 horizon = [2030, 2040, 2050]
 
 # Include sets
