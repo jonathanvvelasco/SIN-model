@@ -392,6 +392,55 @@ transmission_act_1_n = 0.43*transmission_capacity_n
 transmission_act_2_n = 0.40*transmission_capacity_n
 transmission_internal_act_n = 0.41*transmission_internal_capacity_n
 
+# Historical activity in Northeast
+thermal_act_ne = 1.98
+hydro_act_ne = 2.47
+transmission_act_1_ne = 0.49*transmission_capacity_ne
+transmission_act_2_ne = 0.24*transmission_capacity_ne
+transmission_internal_act_ne = 0.42*transmission_internal_capacity_ne
+
+
+old_activity_n = {                                      #old activity basen on 2019 BEN
+    "hydro_4": 0.35*9.6, 
+    "hydro_8": 0.35*11.03, 
+    "hydro_9": 0.35*1.2, 
+    'bio_ppl': thermal_act_n *0.09,
+    'gas_ppl': thermal_act_n *0.81,
+    'gas_ppl_1': 0., 
+    'gas_ppl_2': 0.,
+    'gas_ppl_ccs': 0.,
+    'gas_ppl_ccs_1': 0.,
+    'gas_ppl_ccs_2': 0.,
+    'wind_ppl': 0.13,
+    'coal_ppl': thermal_act_n *0.09, 
+    'nuc_ppl': 0.,
+    'solar_pv_ppl': 0.001,
+    'oil_ppl': thermal_act_n *0.01,
+    'grid_n': transmission_internal_act_n,
+    }
+old_activity_n_1 = {'grid1': transmission_act_1_n,}     # Adding the old activity of transmission sistem in both modes
+old_activity_n_2 = {'grid1': transmission_act_2_n,}
+
+
+old_activity_ne = {
+    "hydro_3": 0.3*8.3, 
+    'bio_ppl': thermal_act_ne*0.102,
+    'gas_ppl': thermal_act_ne*0.493,
+    'gas_ppl_1': thermal_act_ne*0.,
+    'gas_ppl_2': thermal_act_ne*0.,
+    'gas_ppl_ccs': 0.,
+    'gas_ppl_ccs_1': 0.,
+    'gas_ppl_ccs_2': 0.,    
+    'wind_ppl_cos': 2.86,#Based on 2019 BEN 5.54 GWa informed, using percentages of generation from 2018 in RN and CE compared to the total amount of Northeast region. 
+    'wind_ppl_int': 2.68,#Based on 2019 BEN 5.54 GWa informed, using percentages of generation from 2018 in BA and PI compared to the total amount of Northeast region. 
+    'coal_ppl': thermal_act_ne*0.335, 
+    'nuc_ppl': 0. ,
+    'solar_pv_ppl': 0.37,
+    'oil_ppl': thermal_act_ne *0.071,
+    'grid_ne': transmission_internal_act_ne,
+}
+old_activity_ne_1 = {'grid2': transmission_act_1_ne,}
+old_activity_ne_2 = {'grid2': transmission_act_2_ne,}
 
 # %% Technology efficiency and water consumption
 
@@ -1918,72 +1967,45 @@ for tec, val in var_cost_s.items():
 
 # %% Acitvity and Capacity
 
-### 1.1) North baseline and growth parameters
-base_activity_n = {
-    'node_loc': 'North',
+base_activity = {
     'year_act': history,
     'mode': 'M1',
     'time': 'year',
     'unit': 'GWa',
 }
 
-base_activity_n1 = {
-    'node_loc': 'North',
+base_activity_grid = {
     'year_act': history,
-    'mode': 'n-to-ne',
-    'time': 'year',
-    'unit': 'GWa',
-}
-base_activity_n2 = {
-    'node_loc': 'North',
-    'year_act': history,
-    'mode': 'ne-to-n',
     'time': 'year',
     'unit': 'GWa',
 }
 
-
-#old activity basen on 2019 BEN
-old_activity_n = {
-    "hydro_4": 0.35*9.6, 
-    "hydro_8": 0.35*11.03, 
-    "hydro_9": 0.35*1.2, 
-    'bio_ppl': thermal_act_n *0.09,
-    'gas_ppl': thermal_act_n *0.81,
-    'gas_ppl_1': 0., 
-    'gas_ppl_2': 0.,
-    'gas_ppl_ccs': 0.,
-    'gas_ppl_ccs_1': 0.,
-    'gas_ppl_ccs_2': 0.,
-    'wind_ppl': 0.13,
-    'coal_ppl': thermal_act_n *0.09, 
-    'nuc_ppl': 0.,
-    'solar_pv_ppl': 0.001,
-    'oil_ppl': thermal_act_n *0.01,
-    'grid_n': transmission_internal_act_n,
-    }
-
-# Adding the old activity of transmission sistem in both modes
-old_activity_1 = {
-    'grid1': transmission_act_1_n,
-    }
-
-old_activity_2 = {
-    'grid1': transmission_act_2_n,
-    }
-
+### 1.1) North baseline and growth parameters
 for tec, val in old_activity_n.items():
-    df = make_df(base_activity_n, technology=tec, value=val)
+    df = make_df(base_activity, node_loc='North', technology=tec, value=val)
     scenario.add_par('historical_activity', df)
     
-for tec, val in old_activity_1.items():    
-    df = make_df(base_activity_n1, technology=tec, value=val)
+for tec, val in old_activity_n_1.items():    
+    df = make_df(base_activity_grid, node_loc='North', mode='n-to-ne', technology=tec, value=val)
     scenario.add_par('historical_activity', df)
 
-for tec, val in old_activity_2.items(): 
-    df = make_df(base_activity_n2, technology=tec, value=val)
+for tec, val in old_activity_n_2.items(): 
+    df = make_df(base_activity_grid, node_loc='North', mode='ne-to-n', technology=tec, value=val)
     scenario.add_par('historical_activity', df)
     
+    
+### 2.2) Northeast base and growth
+for tec, val in old_activity_ne.items():
+    df = make_df(base_activity, node_loc='Northeast', technology=tec, value=val)
+    scenario.add_par('historical_activity', df)
+
+for tec, val in old_activity_ne_1.items():
+    df = make_df(base_activity_grid, node_loc='Northeast', mode='ne-to-se', technology=tec, value=val)
+    scenario.add_par('historical_activity', df)
+    
+for tec, val in old_activity_ne_2.items():
+    df = make_df(base_activity_grid, node_loc='Northeast', mode='se-to-ne', technology=tec, value=val)
+    scenario.add_par('historical_activity', df)
 
 base_growth_n = {
     'node_loc': 'North',
@@ -2038,76 +2060,6 @@ for tec, val in total_cap_n.items():
 
 # %% 2) Northeast baseline Acitvity and Capacity
 
-### 2.2) Northeast base and growth
-
-base_activity_ne = {
-    'node_loc': 'Northeast',
-    'year_act': history,
-    'mode': 'M1',
-    'time': 'year',
-    'unit': 'GWa',
-}
-
-base_activity_ne1 = {
-    'node_loc': 'Northeast',
-    'year_act': history,
-    'mode': 'ne-to-se',
-    'time': 'year',
-    'unit': 'GWa',
-}
-base_activity_ne2 = {
-    'node_loc': 'Northeast',
-    'year_act': history,
-    'mode': 'se-to-ne',
-    'time': 'year',
-    'unit': 'GWa',
-}
-
-thermal_act = 1.98
-hydro_act = 2.47
-transmission_act_1 = 0.49*transmission_capacity_ne
-transmission_act_2 = 0.24*transmission_capacity_ne
-transmission_internal_act = 0.42*transmission_internal_capacity_ne
-
-#old activity basen on 2019 BEN
-old_activity = {
-    "hydro_3": 0.3*8.3, 
-    'bio_ppl': thermal_act*0.102,
-    'gas_ppl': thermal_act*0.493,
-    'gas_ppl_1': thermal_act*0.,
-    'gas_ppl_2': thermal_act*0.,
-    'gas_ppl_ccs': 0.,
-    'gas_ppl_ccs_1': 0.,
-    'gas_ppl_ccs_2': 0.,    
-    'wind_ppl_cos': 2.86,#Based on 2019 BEN 5.54 GWa informed, using percentages of generation from 2018 in RN and CE compared to the total amount of Northeast region. 
-    'wind_ppl_int': 2.68,#Based on 2019 BEN 5.54 GWa informed, using percentages of generation from 2018 in BA and PI compared to the total amount of Northeast region. 
-    'coal_ppl': thermal_act*0.335, 
-    'nuc_ppl': 0. ,
-    'solar_pv_ppl': 0.37,
-    'oil_ppl': thermal_act *0.071,
-    'grid_ne': transmission_internal_act,
-}
-
-# Adding the old activity of transmission sistem in both modes
-old_activity_1 = {
-    'grid2': transmission_act_1,
-    }
-
-old_activity_2 = {
-    'grid2': transmission_act_2,
-    }
-
-for tec, val in old_activity.items():
-    df = make_df(base_activity_ne, technology=tec, value=val)
-    scenario.add_par('historical_activity', df)
-
-for tec, val in old_activity_1.items():
-    df = make_df(base_activity_ne1, technology=tec, value=val)
-    scenario.add_par('historical_activity', df)
-    
-for tec, val in old_activity_2.items():
-    df = make_df(base_activity_ne2, technology=tec, value=val)
-    scenario.add_par('historical_activity', df)
 
 base_growth_ne = {
     'node_loc': 'Northeast',
