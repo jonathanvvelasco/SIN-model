@@ -387,17 +387,31 @@ base_cap_s = {
 
 # Historical activity in North
 thermal_act_n = 1.82
-hydro_act_n = 7.53
-transmission_act_1_n = 0.43*transmission_capacity_n
+hydro_act_s_n = 7.53
+transmission_act_1_s_n = 0.43*transmission_capacity_n
 transmission_act_2_n = 0.40*transmission_capacity_n
 transmission_internal_act_n = 0.41*transmission_internal_capacity_n
 
 # Historical activity in Northeast
 thermal_act_ne = 1.98
-hydro_act_ne = 2.47
-transmission_act_1_ne = 0.49*transmission_capacity_ne
+hydro_act_s_ne = 2.47
+transmission_act_1_s_ne = 0.49*transmission_capacity_ne
 transmission_act_2_ne = 0.24*transmission_capacity_ne
 transmission_internal_act_ne = 0.42*transmission_internal_capacity_ne
+
+# Historical activity in Southeast
+thermal_act_se = 5.11
+hydro_act_s_se = 28.93
+transmission_act_1_s_se = 0.48*transmission_capacity_se
+transmission_act_2_se = 0.05*transmission_capacity_se
+transmission_internal_act_se = 0.48*transmission_internal_capacity_se
+
+# Historical activity in South
+thermal_act_s = 1.05
+hydro_act_s = 7.45
+transmission_act_1_s = 0.47*transmission_capacity_s
+transmission_act_2_s = 0.11*transmission_capacity_s
+transmission_internal_act_s = 0.42*transmission_internal_capacity_s
 
 
 old_activity_n = {                                      #old activity basen on 2019 BEN
@@ -418,9 +432,8 @@ old_activity_n = {                                      #old activity basen on 2
     'oil_ppl': thermal_act_n *0.01,
     'grid_n': transmission_internal_act_n,
     }
-old_activity_n_1 = {'grid1': transmission_act_1_n,}     # Adding the old activity of transmission sistem in both modes
+old_activity_n_1 = {'grid1': transmission_act_1_s_n,}     # Adding the old activity of transmission sistem in both modes
 old_activity_n_2 = {'grid1': transmission_act_2_n,}
-
 
 old_activity_ne = {
     "hydro_3": 0.3*8.3, 
@@ -439,8 +452,172 @@ old_activity_ne = {
     'oil_ppl': thermal_act_ne *0.071,
     'grid_ne': transmission_internal_act_ne,
 }
-old_activity_ne_1 = {'grid2': transmission_act_1_ne,}
+old_activity_ne_1 = {'grid2': transmission_act_1_s_ne,}
 old_activity_ne_2 = {'grid2': transmission_act_2_ne,}
+
+
+old_activity_se = {
+    "hydro_1": 0.48*6.4, 
+    "hydro_5": 0.48*14, 
+    "hydro_6": 0.48*7.3, 
+    "hydro_7": 0.48*3.2,
+    "hydro_10": 0.48*27.6,
+    "hydro_12": 0.48*2.4,
+    'bio_ppl': thermal_act_se*0.445,
+    'gas_ppl': thermal_act_se*0.522,
+    'gas_ppl_1': thermal_act_se*0.,
+    'gas_ppl_2': thermal_act_se*0.,
+    'gas_ppl_ccs': 0., 
+    'gas_ppl_ccs_1': 0.,
+    'gas_ppl_ccs_2': 0.,
+    'wind_ppl': 0.007,
+    'coal_ppl': thermal_act_se*0.0, 
+    'nuc_ppl': 1.841,
+    'solar_pv_ppl': 0.19,
+    'oil_ppl': thermal_act_se *0.033,
+    'grid_se': transmission_internal_act_se,
+}
+old_activity_se_1 = {'grid3': transmission_act_1_s_se,}
+old_activity_se_2 = {'grid3': transmission_act_2_se,}
+
+old_activity_s = {
+    "hydro_2": 0.52*6.9,
+    "hydro_11": 0.52*7.3,
+    "bio_ppl": 0.24*thermal_act_s,  
+    "gas_ppl": 0.023*thermal_act_s,
+    "gas_ppl_1": 0.0*thermal_act_s,
+    "gas_ppl_2": 0.0*thermal_act_s,
+    "gas_ppl_ccs": 0.,
+    "gas_ppl_ccs_1": 0.,
+    "gas_ppl_ccs_2": 0.,
+    "wind_ppl_rs": 0.7, 
+    "coal_ppl": 0.717*thermal_act_s, 
+    "nuc_ppl": 0.0, 
+    "solar_pv_ppl": 0.01,
+    "oil_ppl": 0.019*thermal_act_s,
+    'grid_s': transmission_internal_act_s,
+}
+old_activity_1_s = { 'grid4': transmission_act_1_s,}
+old_activity_2_s = {'grid4': transmission_act_2_s,}
+
+
+#%% Bound Activity Up
+# Bound activities of hydros based on this source peak generation between 2018-2020 for the subsistem in order to keep the historical production from this source
+
+# North activity up bound
+bound_act_up_n = {
+    "hydro_4": 3.41,
+    "hydro_8": 3.91,
+    "hydro_9": 0.43,
+}
+
+# Northeast activity up bound
+bound_act_up_ne = {
+    "hydro_3": 4.33, 
+}
+
+# Southeast activity up bound
+bound_act_up_se = {
+    "hydro_1": 3.15, 
+    "hydro_5": 6.89,
+    "hydro_6": 3.59,
+    "hydro_7": 1.58,
+    "hydro_10": 13.58,
+    "hydro_12": 1.18, 
+}
+
+# South activity up bound
+bound_act_up_s = {
+    "hydro_2": 3.66,
+    "hydro_11": 3.87,
+}
+
+
+#%% Bound Capacity Up
+
+# North capacity up bound
+total_cap_n = {
+    'hydro_4': 9.6,
+    'hydro_8': 11.03,
+    'hydro_9': 1.2,
+    #'sphs_4': 1.,
+    #'sphs_8': 1.,
+    #'sphs_9': 1.,
+    'wind_ppl': 0.18,
+    'nuc_ppl':0.,
+    'gas_ppl':1.5*thermal_capacity_n*0.623,
+    'gas_ppl_1':2*thermal_capacity_n*0.623,
+    'gas_ppl_ccs':1.5*thermal_capacity_n*0.623,
+    'gas_ppl_ccs_1':2*thermal_capacity_n*0.623,
+    "bio_ppl": 3.,
+    'solar_pv_ppl': 5.,
+    'coal_ppl': 2.9,
+    'oil_ppl': 0.6, #oil ppl won't be able to raise up it's capacity on the country, considering the environmental restrictions related to this resource.
+    #"batt_n": 10.,
+}
+
+# Northeast capacity up bound
+total_cap_ne = {
+    'hydro_3': 8.3,
+    #'sphs_3': 1.,
+    'wind_ppl_cos': 80,
+    'wind_ppl_int': 80,
+    'solar_pv_ppl': 10,
+    "gas_ppl": 4.71,
+    "gas_ppl_1": 16,                   
+    "gas_ppl_ccs": 4.71,
+    "gas_ppl_ccs_1": 16,
+    'nuc_ppl': 0.,
+    "bio_ppl": 5.,
+    'coal_ppl': 7.0, 
+    'oil_ppl': 2.9,#oil ppl won't be able to raise up it's capacity on the country, considering the environmental restrictions related to this resource
+    #"batt_ne": 20,
+}
+
+# Southeast capacity up bound
+total_cap_se = { 
+    "hydro_1": 6.4,
+    "hydro_5": 14.,
+    "hydro_6": 7.3,
+    "hydro_7": 3.2,
+    "hydro_10": 27.6,
+    "hydro_12": 2.4,
+    #"sphs_1": 1.,
+    #"sphs_6": 1.,
+    #"sphs_7": 1.,
+    #"sphs_10": 1.,
+    #"sphs_12": 1.,
+    "coal_ppl": 7.0,
+    "bio_ppl": 17.,
+    "oil_ppl": 3,
+    "gas_ppl": 12.24,
+    "gas_ppl_1": 30,
+    "gas_ppl_ccs": 12.24,
+    "gas_ppl_ccs_1": 30,
+    "nuc_ppl": 5.,
+    "wind_ppl": 0.03,
+    "solar_pv_ppl": 25.,
+    #"batt_se": 50.,       
+}
+
+# South capacity up bound
+total_cap_s = {
+    "hydro_2": 6.9,
+    "hydro_11": 7.3,
+    #"sphs_2": 1.,
+    #"sphs_11": 1.,
+    "coal_ppl": 7.0,
+    "oil_ppl": 0.13,
+    "gas_ppl": 1.5*thermal_capacity_n*0.291,
+    "gas_ppl_1": 16,
+    "gas_ppl_ccs": 1.5*thermal_capacity_n*0.291,
+    "gas_ppl_ccs_1": 16,
+    'nuc_ppl':0.,
+    "bio_ppl": 5.,
+    "wind_ppl_rs": 70.0,
+    "solar_pv_ppl": 10.0,
+    #"batt_s": 20.,
+}
 
 # %% Technology efficiency and water consumption
 
@@ -1965,7 +2142,7 @@ for tec, val in var_cost_s.items():
     scenario.add_par('var_cost', df)
 
 
-# %% Acitvity and Capacity
+# %% Add Historical Acitvity
 
 base_activity = {
     'year_act': history,
@@ -1993,7 +2170,7 @@ for tec, val in old_activity_n_2.items():
     df = make_df(base_activity_grid, node_loc='North', mode='ne-to-n', technology=tec, value=val)
     scenario.add_par('historical_activity', df)
     
-    
+
 ### 2.2) Northeast base and growth
 for tec, val in old_activity_ne.items():
     df = make_df(base_activity, node_loc='Northeast', technology=tec, value=val)
@@ -2007,362 +2184,80 @@ for tec, val in old_activity_ne_2.items():
     df = make_df(base_activity_grid, node_loc='Northeast', mode='se-to-ne', technology=tec, value=val)
     scenario.add_par('historical_activity', df)
 
-base_growth_n = {
-    'node_loc': 'North',
+
+### 3.1) Southeast base and growth
+for tec, val in old_activity_se.items():
+    df = make_df(base_activity, node_loc='Southeast', technology=tec, value=val)
+    scenario.add_par('historical_activity', df)
+    
+for tec, val in old_activity_se_1.items():
+    df = make_df(base_activity_grid, node_loc='Southeast', mode='n-to-se' , technology=tec, value=val)
+    scenario.add_par('historical_activity', df)
+
+for tec, val in old_activity_se_2.items():
+    df = make_df(base_activity_grid, node_loc='Southeast', mode='se-to-n', technology=tec, value=val)
+    scenario.add_par('historical_activity', df)
+
+### 4) South base and growth
+for tec, val in old_activity_s.items():
+    df = make_df(base_activity, node_loc='South', technology=tec, value=val)
+    scenario.add_par('historical_activity', df)
+
+for tec, val in old_activity_1_s.items():
+    df = make_df(base_activity_grid, node_loc='South', mode='se-to-s', technology=tec, value=val)
+    scenario.add_par('historical_activity', df)
+    
+for tec, val in old_activity_2_s.items():
+    df = make_df(base_activity_grid, node_loc='South', mode='s-to-se', technology=tec, value=val)
+    scenario.add_par('historical_activity', df)
+
+# %% Add Bound Activity up
+
+base_act_up = {
     'year_act': horizon,
     'time': 'year',
     'mode':'M1',
     'unit': 'GWa',
 }
 
-# Bound activities of hydros based on this source peak generation between 2018-2020 for the subsistem in order to keep the historical production from this source
-bound_technologies = {
-    "hydro_4": 3.41,
-    "hydro_8": 3.91,
-    "hydro_9": 0.43,
-}
+for tec, val in bound_act_up_n.items():
+    df = make_df(base_act_up, node_loc='North', technology=tec, value=val) 
+    scenario.add_par('bound_activity_up', df)
 
-for tec, val in bound_technologies.items():
-    df = make_df(base_growth_n, technology=tec, value=val) 
+for tec, val in bound_act_up_ne.items():
+    df = make_df(base_act_up, node_loc='Northeast', technology=tec, value=val) 
+    scenario.add_par('bound_activity_up', df)
+
+for tec, val in bound_act_up_se.items():
+    df = make_df(base_act_up, node_loc='Southeast', technology=tec, value=val) 
     scenario.add_par('bound_activity_up', df)
     
-## Bound capacity up
-       
-total_cap_n = {'hydro_4': 9.6,
-                  'hydro_8': 11.03,
-                  'hydro_9': 1.2,
-                  #'sphs_4': 1.,
-                  #'sphs_8': 1.,
-                  #'sphs_9': 1.,
-                  'wind_ppl': 0.18,
-                  'nuc_ppl':0.,
-                  'gas_ppl':1.5*thermal_capacity_n*0.623,
-                  'gas_ppl_1':2*thermal_capacity_n*0.623,
-                  'gas_ppl_ccs':1.5*thermal_capacity_n*0.623,
-                  'gas_ppl_ccs_1':2*thermal_capacity_n*0.623,
-                  "bio_ppl": 3.,
-                  'solar_pv_ppl': 5.,
-                  'coal_ppl': 2.9,
-                  'oil_ppl': 0.6, #oil ppl won't be able to raise up it's capacity on the country, considering the environmental restrictions related to this resource.
-                  #"batt_n": 10.,
-                 }
+for tec, val in bound_act_up_s.items():
+    df = make_df(base_act_up, node_loc='South', technology=tec, value=val) 
+    scenario.add_par('bound_activity_up', df)
 
-base_capa = {
-    'node_loc': 'North',
+    
+# %% Add Bound Capacity up
+       
+base_cap = {
     'year_act': horizon,
-    #'time': 'year',
     'unit': 'GW',
 }
 
 for tec, val in total_cap_n.items():
-    df = make_df(base_capa, technology=tec, value=val)
+    df = make_df(base_cap, node_loc='North', technology=tec, value=val)
     scenario.add_par('bound_total_capacity_up', df)
-
-# %% 2) Northeast baseline Acitvity and Capacity
-
-
-base_growth_ne = {
-    'node_loc': 'Northeast',
-    'year_act': horizon,
-    'time': 'year',
-    'mode':'M1',
-    'unit':'GWa',
-}
-
-# Bound activities of hydros based on this source peak generation between 2018-2020 for the subsistem in order to keep the historical production from this source
-bound_technologies = {
-    "hydro_3": 4.33, 
-}
-
-
-for tec, val in bound_technologies.items():
-    df = make_df(base_growth_ne, technology=tec, value=val) 
-    scenario.add_par('bound_activity_up', df)
-
-## Bound capacity
-
-total_cap_ne = {'hydro_3': 8.3,
-                   #'sphs_3': 1.,
-                   'wind_ppl_cos': 80,
-                   'wind_ppl_int': 80,
-                   'solar_pv_ppl': 10,
-                   "gas_ppl": 4.71,
-                   "gas_ppl_1": 16,                   
-                   "gas_ppl_ccs": 4.71,
-                   "gas_ppl_ccs_1": 16,
-                   'nuc_ppl': 0.,
-                   "bio_ppl": 5.,
-                   'coal_ppl': 7.0, 
-                   'oil_ppl': 2.9,#oil ppl won't be able to raise up it's capacity on the country, considering the environmental restrictions related to this resource
-                   #"batt_ne": 20,
-}
-
-base_capa = {
-    'node_loc': 'Northeast',
-    'year_act': horizon,
-    #'time': 'year',
-    'unit': 'GW',
-}
 
 for tec, val in total_cap_ne.items():
-    df = make_df(base_capa, technology=tec, value=val)
+    df = make_df(base_cap, node_loc='Northeast', technology=tec, value=val)
     scenario.add_par('bound_total_capacity_up', df)
-    
-# %% 3) Southeast baseline Acitvity and Capacity
-
-### 3.1) Southeast base and growth
-
-base_activity_se = {
-    'node_loc': 'Southeast',
-    'year_act': history,
-    'mode': 'M1',
-    'time': 'year',
-    'unit': 'GWa',
-}
-
-base_activity_se1 = {
-    'node_loc': 'Southeast',
-    'year_act': history,
-    'mode': 'n-to-se',
-    'time': 'year',
-    'unit': 'GWa',
-}
-
-base_activity_se2 = {
-    'node_loc': 'Southeast',
-    'year_act': history,
-    'mode': 'se-to-n',
-    'time': 'year',
-    'unit': 'GWa',
-}
-
-thermal_act = 5.11
-hydro_act = 28.93
-transmission_act_1 = 0.48*transmission_capacity_se
-transmission_act_2 = 0.05*transmission_capacity_se
-transmission_internal_act = 0.48*transmission_internal_capacity_se
-#old activity basen on 2019 BEN
-old_activity = {
-    "hydro_1": 0.48*6.4, 
-    "hydro_5": 0.48*14, 
-    "hydro_6": 0.48*7.3, 
-    "hydro_7": 0.48*3.2,
-    "hydro_10": 0.48*27.6,
-    "hydro_12": 0.48*2.4,
-    'bio_ppl': thermal_act*0.445,
-    'gas_ppl': thermal_act*0.522,
-    'gas_ppl_1': thermal_act*0.,
-    'gas_ppl_2': thermal_act*0.,
-    'gas_ppl_ccs': 0., 
-    'gas_ppl_ccs_1': 0.,
-    'gas_ppl_ccs_2': 0.,
-    'wind_ppl': 0.007,
-    'coal_ppl': thermal_act*0.0, 
-    'nuc_ppl': 1.841,
-    'solar_pv_ppl': 0.19,
-    'oil_ppl': thermal_act *0.033,
-    'grid_se': transmission_internal_act,
-}
-
-# Adding the old activity of transmission sistem in both modes
-old_activity_1 = {
-    'grid3': transmission_act_1,
-    }
-
-old_activity_2 = {
-    'grid3': transmission_act_2,
-    }
-
-for tec, val in old_activity.items():
-    df = make_df(base_activity_se, technology=tec, value=val)
-    scenario.add_par('historical_activity', df)
-    
-for tec, val in old_activity_1.items():
-    df = make_df(base_activity_se1, technology=tec, value=val)
-    scenario.add_par('historical_activity', df)
-
-for tec, val in old_activity_2.items():
-    df = make_df(base_activity_se2, technology=tec, value=val)
-    scenario.add_par('historical_activity', df)
-
-base_growth_se = {
-    'node_loc': 'Southeast',
-    'year_act': horizon,
-    'time': 'year',
-    'mode':'M1',
-    'unit': 'GWa',
-}
-
-# Bound activities of hydros based on this source peak generation between 2018-2020 for the subsistem in order to keep the historical production from this source
-bound_technologies = {
-    "hydro_1": 3.15, 
-    "hydro_5": 6.89,
-    "hydro_6": 3.59,
-    "hydro_7": 1.58,
-    "hydro_10": 13.58,
-    "hydro_12": 1.18, 
-}
-
-for tec, val in bound_technologies.items():
-    df = make_df(base_growth_se, technology=tec, value=val) 
-    scenario.add_par('bound_activity_up', df)
-    
-## Bound capacity
-
-total_cap_se = { "hydro_1": 6.4,
-    "hydro_5": 14.,
-    "hydro_6": 7.3,
-    "hydro_7": 3.2,
-    "hydro_10": 27.6,
-    "hydro_12": 2.4,
-    #"sphs_1": 1.,
-    #"sphs_6": 1.,
-    #"sphs_7": 1.,
-    #"sphs_10": 1.,
-    #"sphs_12": 1.,
-    "coal_ppl": 7.0,
-    "bio_ppl": 17.,
-    "oil_ppl": 3,
-    "gas_ppl": 12.24,
-    "gas_ppl_1": 30,
-    "gas_ppl_ccs": 12.24,
-    "gas_ppl_ccs_1": 30,
-    "nuc_ppl": 5.,
-    "wind_ppl": 0.03,
-    "solar_pv_ppl": 25.,
-    #"batt_se": 50.,       
-}
-
-base_capa = {
-    'node_loc': 'Southeast',
-    'year_act': horizon,
-    #'time': 'year',
-    'unit': 'GW',
-}
 
 for tec, val in total_cap_se.items():
-    df = make_df(base_capa, technology=tec, value=val)
+    df = make_df(base_cap, node_loc='Southeast', technology=tec, value=val)
     scenario.add_par('bound_total_capacity_up', df)
 
-# %% 4) South baseline Acitvity and Capacity
-### 4.1) South base and growth
-
-base_activity_s = {
-    'node_loc': 'South',
-    'year_act': history,
-    'mode': 'M1',
-    'time': 'year',
-    'unit': 'GWa',
-}
-
-base_activity_s1 = {
-    'node_loc': 'South',
-    'year_act': history,
-    'mode': 'se-to-s',
-    'time': 'year',
-    'unit': 'GWa',
-}
-
-base_activity_s2 = {
-    'node_loc': 'South',
-    'year_act': history,
-    'mode': 's-to-se',
-    'time': 'year',
-    'unit': 'GWa',
-}
-
-thermal_act = 1.05
-hydro_act = 7.45
-transmission_act_1 = 0.47*transmission_capacity_s
-transmission_act_2 = 0.11*transmission_capacity_s
-transmission_internal_act = 0.42*transmission_internal_capacity_s
-#old activity basen on 2019 BEN
-old_activity = {
-    "hydro_2": 0.52*6.9,
-    "hydro_11": 0.52*7.3,
-    "bio_ppl": 0.24*thermal_act,  
-    "gas_ppl": 0.023*thermal_act,
-    "gas_ppl_1": 0.0*thermal_act,
-    "gas_ppl_2": 0.0*thermal_act,
-    "gas_ppl_ccs": 0.,
-    "gas_ppl_ccs_1": 0.,
-    "gas_ppl_ccs_2": 0.,
-    "wind_ppl_rs": 0.7, 
-    "coal_ppl": 0.717*thermal_act, 
-    "nuc_ppl": 0.0, 
-    "solar_pv_ppl": 0.01,
-    "oil_ppl": 0.019*thermal_act,
-    'grid_s': transmission_internal_act,
-}
-
-# Adding the old activity of transmission sistem in both modes
-old_activity_1 = {
-    'grid4': transmission_act_1,
-    }
-
-old_activity_2 = {
-    'grid4': transmission_act_2,
-    }
-
-for tec, val in old_activity.items():
-    df = make_df(base_activity_s, technology=tec, value=val)
-    scenario.add_par('historical_activity', df)
-
-for tec, val in old_activity_1.items():
-    df = make_df(base_activity_s1, technology=tec, value=val)
-    scenario.add_par('historical_activity', df)
-    
-for tec, val in old_activity_2.items():
-    df = make_df(base_activity_s2, technology=tec, value=val)
-    scenario.add_par('historical_activity', df)
-
-    
-base_growth_s = {
-    'node_loc': 'South',
-    'year_act': horizon,
-    'time': 'year',
-    'mode':'M1',
-    'unit': 'GWa',
-}
-
-# Bound activities of hydros based on this source peak generation between 2018-2020 for the subsistem in order to keep the historical production from this source
-bound_technologies = {
-    "hydro_2": 3.66,
-    "hydro_11": 3.87,
-}
-
-for tec, val in bound_technologies.items():
-    df = make_df(base_growth_s, technology=tec, value=val) 
-    scenario.add_par('bound_activity_up', df)
-
-## Bound capacity
-
-total_cap_s = {"hydro_2": 6.9,
-                  "hydro_11": 7.3,
-                  #"sphs_2": 1.,
-                  #"sphs_11": 1.,
-                  "coal_ppl": 7.0,
-                  "oil_ppl": 0.13,
-                  "gas_ppl": 1.5*thermal_capacity_n*0.291,
-                  "gas_ppl_1": 16,
-                  "gas_ppl_ccs": 1.5*thermal_capacity_n*0.291,
-                  "gas_ppl_ccs_1": 16,
-                  'nuc_ppl':0.,
-                  "bio_ppl": 5.,
-                  "wind_ppl_rs": 70.0,
-                  "solar_pv_ppl": 10.0,
-                  #"batt_s": 20.,
-                   }
-
-base_capa = {
-    'node_loc': 'South',
-    'year_act': horizon,
-    #'time': 'year',
-    'unit': 'GW',
-}
-
 for tec, val in total_cap_s.items():
-    df = make_df(base_capa, technology=tec, value=val)
+    df = make_df(base_cap, node_loc='South', technology=tec, value=val)
     scenario.add_par('bound_total_capacity_up', df)
 
 # %% solving the model

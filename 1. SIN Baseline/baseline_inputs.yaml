@@ -1,0 +1,818 @@
+inputs:
+  general:
+    model: "SIN Brasil expandido"
+    scen: "base"
+    history: [2020]
+    horizon: [2030, 2040, 2050]
+    country: "Brazil"
+    nodes: ["South", "North", "Northeast", "Southeast"]
+    commodities:
+      - "electricity"
+      - "water_1"
+      - "water_2"
+      - "water_3"
+      - "water_4"
+      - "water_5"
+      - "water_6"
+      - "water_7"
+      - "water_8"
+      - "water_9"
+      - "water_10"
+      - "water_11"
+      - "water_12"
+    energy_lvl: ["primary", "secondary", "final"]
+    modes: ["n-to-ne", "ne-to-n", "n-to-se", "se-to-n", "ne-to-se", "se-to-ne", "se-to-s", "s-to-se", "M1", "M2"]
+    int_rate: 0.08
+    demand_per_year:
+      South: 11.67
+      North: 5.57
+      Northeast: 11.05
+      Southeast: 39.55
+    elec_growth:
+      years: [2030, 2040, 2050]
+      values: [1.31, 1.69, 2.11]
+
+  technology_sets:
+    plants: ["bio_ppl", "gas_ppl", "gas_ppl_1", "gas_ppl_2", "gas_ppl_ccs", "gas_ppl_ccs_1", "gas_ppl_ccs_2", "coal_ppl", "nuc_ppl", "oil_ppl", "solar_pv_ppl"]
+    battery_n: ["batt_n"]
+    battery_ne: ["batt_ne"]
+    battery_se: ["batt_se"]
+    battery_s: ["batt_s"]
+    brazil_wind: ["wind_ppl"]
+    northeast_wind: ["wind_ppl_cos", "wind_ppl_int"]
+    south_wind: ["wind_ppl_rs"]
+    north_hydro: ["hydro_4", "hydro_8", "hydro_9"]
+    northeast_hydro: ["hydro_3"]
+    southeast_hydro: ["hydro_1", "hydro_5", "hydro_6", "hydro_7", "hydro_10", "hydro_12"]
+    south_hydro: ["hydro_2", "hydro_11"]
+    north_pump: ["sphs_4", "sphs_8", "sphs_9"]
+    northeast_pump: ["sphs_3"]
+    southeast_pump: ["sphs_1", "sphs_6", "sphs_7", "sphs_10", "sphs_12"]
+    south_pump: ["sphs_2", "sphs_11"]
+    north_res: ["river4", "river8", "river9"]
+    northeast_res: ["river3"]
+    southeast_res: ["river1", "river5", "river6", "river7", "river10", "river12"]
+    south_res: ["river2", "river11"]
+    north_wat: ["water_supply_4", "water_supply_8", "water_supply_9"]
+    northeast_wat: ["water_supply_3"]
+    southeast_wat: ["water_supply_1", "water_supply_5", "water_supply_6", "water_supply_7", "water_supply_10", "water_supply_12"]
+    south_wat: ["water_supply_2", "water_supply_11"]
+    final_energy_techs: ["grid1", "grid2", "grid3", "grid4", "grid_n", "grid_ne", "grid_se", "grid_s"]
+
+  lifetimes:
+    north:
+      hydro_4: 60
+      hydro_8: 60
+      hydro_9: 60
+      sphs_4: 60
+      sphs_8: 60
+      sphs_9: 60
+      bio_ppl: 20
+      gas_ppl: 20
+      gas_ppl_1: 20
+      gas_ppl_2: 20
+      wind_ppl: 20
+      coal_ppl: 25
+      batt_n: 15
+      gas_ppl_ccs: 20
+      gas_ppl_ccs_1: 20
+      gas_ppl_ccs_2: 20
+      nuc_ppl: 60
+      solar_pv_ppl: 20
+      oil_ppl: 20
+      grid1: 25
+      grid_n: 25
+      river4: 1000
+      river8: 1000
+      river9: 1000
+      water_supply_4: 1000
+      water_supply_8: 1000
+      water_supply_9: 1000
+    northeast:
+      hydro_3: 60
+      sphs_3: 60
+      bio_ppl: 20
+      gas_ppl: 20
+      gas_ppl_1: 20
+      gas_ppl_2: 20
+      gas_ppl_ccs: 20
+      gas_ppl_ccs_1: 20
+      gas_ppl_ccs_2: 20
+      wind_ppl_int: 20
+      wind_ppl_cos: 20
+      coal_ppl: 25
+      nuc_ppl: 60
+      solar_pv_ppl: 20
+      oil_ppl: 20
+      batt_ne: 15
+      grid2: 25
+      grid_ne: 25
+      river3: 1000
+      water_supply_3: 1000
+    southeast:
+      hydro_1: 60
+      hydro_5: 60
+      hydro_6: 60
+      hydro_7: 60
+      hydro_10: 60
+      hydro_12: 60
+      sphs_1: 60
+      sphs_6: 60
+      sphs_7: 60
+      sphs_10: 60
+      sphs_12: 60
+      bio_ppl: 20
+      gas_ppl: 20
+      gas_ppl_1: 20
+      gas_ppl_2: 20
+      gas_ppl_ccs: 20
+      gas_ppl_ccs_1: 20
+      gas_ppl_ccs_2: 20
+      wind_ppl: 20
+      coal_ppl: 25
+      batt_se: 15
+      nuc_ppl: 60
+      solar_pv_ppl: 20
+      oil_ppl: 20
+      grid3: 25
+      grid_se: 25
+      river1: 1000
+      river5: 1000
+      river6: 1000
+      river7: 1000
+      river10: 1000
+      river12: 1000
+      water_supply_1: 1000
+      water_supply_5: 1000
+      water_supply_6: 1000
+      water_supply_7: 1000
+      water_supply_10: 1000
+      water_supply_12: 1000
+    south:
+      hydro_2: 60
+      hydro_11: 60
+      sphs_2: 60
+      sphs_11: 60
+      bio_ppl: 20
+      gas_ppl: 20
+      gas_ppl_1: 20
+      gas_ppl_2: 20
+      gas_ppl_ccs: 20
+      gas_ppl_ccs_1: 20
+      gas_ppl_ccs_2: 20
+      wind_ppl_rs: 20
+      coal_ppl: 25
+      nuc_ppl: 60
+      solar_pv_ppl: 20
+      oil_ppl: 20
+      batt_s: 15
+      grid4: 25
+      grid_s: 25
+      river2: 1000
+      river11: 1000
+      water_supply_2: 1000
+      water_supply_11: 1000
+
+  capacity_factors:
+    north:
+      hydro_4: 0.9
+      hydro_8: 0.9
+      hydro_9: 0.9
+      sphs_4: 0.7
+      sphs_8: 0.7
+      sphs_9: 0.7
+      bio_ppl: 0.33
+      gas_ppl: 0.75
+      gas_ppl_1: 0.75
+      gas_ppl_2: 0.75
+      gas_ppl_ccs: 0.75
+      gas_ppl_ccs_1: 0.75
+      gas_ppl_ccs_2: 0.75
+      wind_ppl: 0.435
+      coal_ppl: 0.69
+      nuc_ppl: 0.85
+      solar_pv_ppl: 0.3
+      oil_ppl: 0.75
+      grid1: 0.8
+      batt_n: 0.85
+      grid_n: 0.8
+    northeast:
+      hydro_3: 0.9
+      sphs_3: 0.7
+      bio_ppl: 0.33
+      gas_ppl: 0.75
+      gas_ppl_1: 0.75
+      gas_ppl_2: 0.75
+      gas_ppl_ccs: 0.75
+      gas_ppl_ccs_1: 0.75
+      gas_ppl_ccs_2: 0.75
+      wind_ppl_cos: 0.47
+      wind_ppl_int: 0.47
+      coal_ppl: 0.69
+      nuc_ppl: 0.85
+      solar_pv_ppl: 0.3
+      oil_ppl: 0.75
+      grid2: 0.8
+      batt_ne: 0.85
+      grid_ne: 0.8
+    southeast:
+      hydro_1: 0.9
+      hydro_5: 0.9
+      hydro_6: 0.9
+      hydro_7: 0.9
+      hydro_10: 0.9
+      hydro_12: 0.9
+      sphs_1: 0.7
+      sphs_6: 0.7
+      sphs_7: 0.7
+      sphs_10: 0.7
+      sphs_12: 0.7
+      bio_ppl: 0.33
+      gas_ppl: 0.75
+      gas_ppl_1: 0.75
+      gas_ppl_2: 0.75
+      gas_ppl_ccs: 0.75
+      gas_ppl_ccs_1: 0.75
+      gas_ppl_ccs_2: 0.75
+      wind_ppl: 0.435
+      coal_ppl: 0.69
+      nuc_ppl: 0.85
+      solar_pv_ppl: 0.29
+      oil_ppl: 0.75
+      grid3: 0.8
+      batt_se: 0.85
+      grid_se: 0.8
+    south:
+      hydro_2: 0.9
+      hydro_11: 0.9
+      sphs_2: 0.7
+      sphs_11: 0.7
+      bio_ppl: 0.33
+      gas_ppl: 0.75
+      gas_ppl_1: 0.75
+      gas_ppl_2: 0.75
+      gas_ppl_ccs: 0.75
+      gas_ppl_ccs_1: 0.75
+      gas_ppl_ccs_2: 0.75
+      wind_ppl_rs: 0.4
+      coal_ppl: 0.69
+      nuc_ppl: 0.85
+      solar_pv_ppl: 0.29
+      oil_ppl: 0.75
+      grid4: 0.8
+      batt_s: 0.85
+      grid_s: 0.8
+
+  historical_new_capacity:
+    assumptions:
+      times: 10.0
+      thermal_capacity_n: 3.87
+      hydro_capacity_n: 22.12
+      transmission_capacity_n: 5.02
+      transmission_internal_capacity_n: 6.59
+      thermal_capacity_ne: 8.40
+      hydro_capacity_ne: 11.0
+      transmission_capacity_ne: 2.51
+      transmission_internal_capacity_ne: 13.23
+      thermal_capacity_se: 18.69
+      hydro_capacity_se: 65.2
+      transmission_capacity_se: 9.46
+      transmission_internal_capacity_se: 51.2
+      thermal_capacity_s: 4.72
+      transmission_capacity_s: 11.22
+      transmission_internal_capacity_s: 18.0
+      hydro_capacity_s: 17.0
+    north:
+      hydro_4: 0.96
+      hydro_8: 1.103
+      hydro_9: 0.12
+      sphs_4: 0.0
+      sphs_8: 0.0
+      sphs_9: 0.0
+      bio_ppl: 0.042957
+      gas_ppl: 0.241101
+      gas_ppl_1: 0.0
+      gas_ppl_2: 0.0
+      gas_ppl_ccs: 0.0
+      gas_ppl_ccs_1: 0.0
+      gas_ppl_ccs_2: 0.0
+      wind_ppl: 0.033
+      coal_ppl: 0.035991
+      nuc_ppl: 0.0
+      solar_pv_ppl: 0.005
+      oil_ppl: 0.066951
+      grid1: 0.502
+      batt_n: 0.0
+      grid_n: 0.659
+    northeast:
+      hydro_3: 0.83
+      sphs_3: 0.0
+      bio_ppl: 0.13776
+      gas_ppl: 0.30156
+      gas_ppl_1: 0.0
+      gas_ppl_2: 0.0
+      gas_ppl_ccs: 0.0
+      gas_ppl_ccs_1: 0.0
+      gas_ppl_ccs_2: 0.0
+      wind_ppl_cos: 0.62
+      wind_ppl_int: 0.594
+      coal_ppl: 0.10836
+      nuc_ppl: 0.0
+      solar_pv_ppl: 0.14
+      oil_ppl: 0.29232
+      grid2: 0.251
+      batt_ne: 0.0
+      grid_ne: 1.323
+    southeast:
+      hydro_1: 0.64
+      hydro_5: 1.4
+      hydro_6: 0.73
+      hydro_7: 0.32
+      hydro_10: 2.76
+      hydro_12: 0.24
+      sphs_1: 0.0
+      sphs_6: 0.0
+      sphs_7: 0.0
+      sphs_10: 0.0
+      sphs_12: 0.0
+      bio_ppl: 1.031688
+      gas_ppl: 0.680316
+      gas_ppl_1: 0.0
+      gas_ppl_2: 0.0
+      gas_ppl_ccs: 0.0
+      gas_ppl_ccs_1: 0.0
+      gas_ppl_ccs_2: 0.0
+      wind_ppl: 0.003
+      coal_ppl: 0.0
+      nuc_ppl: 0.2
+      solar_pv_ppl: 0.074
+      oil_ppl: 0.1570
+      grid3: 0.946
+      batt_se: 0.0
+      grid_se: 5.12
+    south:
+      hydro_2: 0.69
+      hydro_11: 0.73
+      sphs_2: 0.0
+      sphs_11: 0.0
+      bio_ppl: 0.125552
+      gas_ppl: 0.137352
+      gas_ppl_1: 0.0
+      gas_ppl_2: 0.0
+      gas_ppl_ccs: 0.0
+      gas_ppl_ccs_1: 0.0
+      gas_ppl_ccs_2: 0.0
+      wind_ppl_rs: 0.207
+      coal_ppl: 0.206736
+      nuc_ppl: 0.0
+      solar_pv_ppl: 0.0004
+      oil_ppl: 0.00236
+      grid4: 1.122
+      batt_s: 0.0
+      grid_s: 1.8
+
+  historical_activity:
+    assumptions:
+      thermal_act_n: 1.82
+      hydro_act_s_n: 7.53
+      transmission_act_1_s_n: 2.1586
+      transmission_act_2_n: 2.008
+      transmission_internal_act_n: 2.7019
+      thermal_act_ne: 1.98
+      hydro_act_s_ne: 2.47
+      transmission_act_1_s_ne: 1.2299
+      transmission_act_2_ne: 0.6024
+      transmission_internal_act_ne: 5.5566
+      thermal_act_se: 5.11
+      hydro_act_s_se: 28.93
+      transmission_act_1_s_se: 4.5408
+      transmission_act_2_se: 0.473
+      transmission_internal_act_se: 24.576
+      thermal_act_s: 1.05
+      hydro_act_s: 7.45
+      transmission_act_1_s: 5.2734
+      transmission_act_2_s: 1.2342
+      transmission_internal_act_s: 7.56
+    north:
+      old_activity_n:
+        hydro_4: 3.36
+        hydro_8: 3.8605
+        hydro_9: 0.42
+        bio_ppl: 0.1638
+        gas_ppl: 1.4742
+        gas_ppl_1: 0.0
+        gas_ppl_2: 0.0
+        gas_ppl_ccs: 0.0
+        gas_ppl_ccs_1: 0.0
+        gas_ppl_ccs_2: 0.0
+        wind_ppl: 0.13
+        coal_ppl: 0.1638
+        nuc_ppl: 0.0
+        solar_pv_ppl: 0.001
+        oil_ppl: 0.0182
+        grid_n: 2.7019
+      old_activity_n_1: {grid1: 2.1586}
+      old_activity_n_2: {grid1: 2.008}
+    northeast:
+      old_activity_ne:
+        hydro_3: 2.49
+        bio_ppl: 0.20196
+        gas_ppl: 0.97614
+        gas_ppl_1: 0.0
+        gas_ppl_2: 0.0
+        gas_ppl_ccs: 0.0
+        gas_ppl_ccs_1: 0.0
+        gas_ppl_ccs_2: 0.0
+        wind_ppl_cos: 2.86
+        wind_ppl_int: 2.68
+        coal_ppl: 0.6633
+        nuc_ppl: 0.0
+        solar_pv_ppl: 0.37
+        oil_ppl: 0.14058
+        grid_ne: 5.5566
+      old_activity_ne_1: {grid2: 1.2299}
+      old_activity_ne_2: {grid2: 0.6024}
+    southeast:
+      old_activity_se:
+        hydro_1: 3.072
+        hydro_5: 6.72
+        hydro_6: 3.504
+        hydro_7: 1.536
+        hydro_10: 13.248
+        hydro_12: 1.152
+        bio_ppl: 2.27395
+        gas_ppl: 2.66742
+        gas_ppl_1: 0.0
+        gas_ppl_2: 0.0
+        gas_ppl_ccs: 0.0
+        gas_ppl_ccs_1: 0.0
+        gas_ppl_ccs_2: 0.0
+        wind_ppl: 0.007
+        coal_ppl: 0.0
+        nuc_ppl: 1.841
+        solar_pv_ppl: 0.19
+        oil_ppl: 0.16863
+        grid_se: 24.576
+      old_activity_se_1: {grid3: 4.5408}
+      old_activity_se_2: {grid3: 0.473}
+    south:
+      old_activity_s:
+        hydro_2: 3.588
+        hydro_11: 3.796
+        bio_ppl: 0.252
+        gas_ppl: 0.02415
+        gas_ppl_1: 0.0
+        gas_ppl_2: 0.0
+        gas_ppl_ccs: 0.0
+        gas_ppl_ccs_1: 0.0
+        gas_ppl_ccs_2: 0.0
+        wind_ppl_rs: 0.7
+        coal_ppl: 0.75285
+        nuc_ppl: 0.0
+        solar_pv_ppl: 0.01
+        oil_ppl: 0.01995
+        grid_s: 7.56
+      old_activity_1_s: {grid4: 5.2734}
+      old_activity_2_s: {grid4: 1.2342}
+
+  bounds:
+    bound_activity_up:
+      north: {hydro_4: 3.41, hydro_8: 3.91, hydro_9: 0.43}
+      northeast: {hydro_3: 4.33}
+      southeast: {hydro_1: 3.15, hydro_5: 6.89, hydro_6: 3.59, hydro_7: 1.58, hydro_10: 13.58, hydro_12: 1.18}
+      south: {hydro_2: 3.66, hydro_11: 3.87}
+    bound_total_capacity_up:
+      north:
+        hydro_4: 9.6
+        hydro_8: 11.03
+        hydro_9: 1.2
+        wind_ppl: 0.18
+        nuc_ppl: 0.0
+        gas_ppl: 3.616515
+        gas_ppl_1: 4.82202
+        gas_ppl_ccs: 3.616515
+        gas_ppl_ccs_1: 4.82202
+        bio_ppl: 3.0
+        solar_pv_ppl: 5.0
+        coal_ppl: 2.9
+        oil_ppl: 0.6
+      northeast:
+        hydro_3: 8.3
+        wind_ppl_cos: 80
+        wind_ppl_int: 80
+        solar_pv_ppl: 10
+        gas_ppl: 4.71
+        gas_ppl_1: 16
+        gas_ppl_ccs: 4.71
+        gas_ppl_ccs_1: 16
+        nuc_ppl: 0.0
+        bio_ppl: 5.0
+        coal_ppl: 7.0
+        oil_ppl: 2.9
+      southeast:
+        hydro_1: 6.4
+        hydro_5: 14.0
+        hydro_6: 7.3
+        hydro_7: 3.2
+        hydro_10: 27.6
+        hydro_12: 2.4
+        coal_ppl: 7.0
+        bio_ppl: 17.0
+        oil_ppl: 3
+        gas_ppl: 12.24
+        gas_ppl_1: 30
+        gas_ppl_ccs: 12.24
+        gas_ppl_ccs_1: 30
+        nuc_ppl: 5.0
+        wind_ppl: 0.03
+        solar_pv_ppl: 25.0
+      south:
+        hydro_2: 6.9
+        hydro_11: 7.3
+        coal_ppl: 7.0
+        oil_ppl: 0.13
+        gas_ppl: 1.689255
+        gas_ppl_1: 16
+        gas_ppl_ccs: 1.689255
+        gas_ppl_ccs_1: 16
+        nuc_ppl: 0.0
+        bio_ppl: 5.0
+        wind_ppl_rs: 70.0
+        solar_pv_ppl: 10.0
+
+  efficiencies:
+    transmission_efficiency: 0.95
+    distribution_efficiency: 0.95
+    battery_efficiency: 1.2
+
+  hydro:
+    north:
+      out: {hydro_4: 1, hydro_8: 1, hydro_9: 1}
+      out_water: {hydro_4: 1558.6, hydro_8: 1317.0, hydro_9: 4898.5}
+      in_water: {hydro_4: 1558.6, hydro_8: 1317.0, hydro_9: 4898.5}
+    northeast:
+      out: {hydro_3: 1.0}
+      out_water: {hydro_3: 595.1}
+      in_water: {hydro_3: 595.1}
+    southeast:
+      out: {hydro_1: 1, hydro_5: 1.0, hydro_6: 1.0, hydro_7: 1.0, hydro_10: 1.0, hydro_12: 1.0}
+      out_water: {hydro_1: 456.0, hydro_5: 968.0, hydro_6: 3793.4, hydro_7: 1205.3, hydro_10: 560.6, hydro_12: 1004.9}
+      in_water: {hydro_1: 456.0, hydro_5: 968.0, hydro_6: 3793.4, hydro_7: 1205.3, hydro_10: 560.6, hydro_12: 1004.9}
+    south:
+      out: {hydro_2: 1.0, hydro_11: 1.0}
+      out_water: {hydro_2: 431.4, hydro_11: 457.4}
+      in_water: {hydro_2: 431.4, hydro_11: 457.4}
+
+  sphs:
+    north:
+      out: {sphs_4: 1, sphs_8: 1, sphs_9: 1}
+      out_water: {sphs_4: 73.0, sphs_8: 86.0, sphs_9: 23.0}
+      in_water: {sphs_4: 73.0, sphs_8: 86.0, sphs_9: 23.0}
+      in_electricity: {sphs_4: 1.2, sphs_8: 1.2, sphs_9: 1.2}
+    northeast:
+      out: {sphs_3: 1}
+      out_water: {sphs_3: 190.0}
+      in_water: {sphs_3: 190.0}
+      in_electricity: {sphs_3: 1.2}
+    southeast:
+      out: {sphs_1: 1, sphs_6: 1, sphs_7: 1, sphs_10: 1, sphs_12: 1}
+      out_water: {sphs_1: 248, sphs_6: 30, sphs_7: 94, sphs_10: 202, sphs_12: 112}
+      in_water: {sphs_1: 248, sphs_6: 30, sphs_7: 94, sphs_10: 202, sphs_12: 112}
+      in_electricity: {sphs_1: 1.2, sphs_6: 1.2, sphs_7: 1.2, sphs_10: 1.2, sphs_12: 1.2}
+    south:
+      out: {sphs_2: 1, sphs_11: 1}
+      out_water: {sphs_2: 263, sphs_11: 247}
+      in_water: {sphs_2: 263, sphs_11: 247}
+      in_electricity: {sphs_2: 1.2, sphs_11: 1.2}
+
+  water_supply:
+    north:
+      out: {water_supply_4: 1558.6, water_supply_8: 1317.0, water_supply_9: 4898.5}
+      in: {water_supply_4: 1558.6, water_supply_8: 1317.0, water_supply_9: 4898.5}
+    northeast:
+      out: {water_supply_3: 595.1}
+      in: {water_supply_3: 595.1}
+    southeast:
+      out: {water_supply_1: 456.0, water_supply_5: 968.0, water_supply_6: 3793.4, water_supply_7: 1205.3, water_supply_10: 560.6, water_supply_12: 1004.9}
+      in: {water_supply_1: 456.0, water_supply_5: 968.0, water_supply_6: 3793.4, water_supply_7: 1205.3, water_supply_10: 560.6, water_supply_12: 1004.9}
+    south:
+      out: {water_supply_2: 431.4, water_supply_11: 457.4}
+      in: {water_supply_2: 431.4, water_supply_11: 457.4}
+
+  costs:
+    north:
+      inv_cost:
+        hydro_4: 1352
+        hydro_8: 1352
+        hydro_9: 1352
+        sphs_4: 1500
+        sphs_8: 1500
+        sphs_9: 1500
+        bio_ppl: 1200
+        gas_ppl: 900
+        gas_ppl_1: 1000
+        gas_ppl_2: 1000
+        gas_ppl_ccs: 1620
+        gas_ppl_ccs_1: 1800
+        gas_ppl_ccs_2: 1800
+        wind_ppl: 1200
+        coal_ppl: 2500
+        nuc_ppl: 5000
+        solar_pv_ppl: 1100
+        oil_ppl: 1100
+        grid1: 359
+        batt_n: 1271
+        grid_n: 205
+      fix_cost:
+        hydro_4: 12.8
+        hydro_8: 12.8
+        hydro_9: 12.8
+        sphs_4: 20.5
+        sphs_8: 20.5
+        sphs_9: 20.5
+        bio_ppl: 30.8
+        gas_ppl: 43.6
+        gas_ppl_1: 43.6
+        gas_ppl_2: 43.6
+        gas_ppl_ccs: 43.6
+        gas_ppl_ccs_1: 43.6
+        gas_ppl_ccs_2: 43.6
+        wind_ppl: 25.6
+        coal_ppl: 89.7
+        nuc_ppl: 83.3
+        solar_pv_ppl: 16.7
+        oil_ppl: 56.4
+        batt_n: 31.8
+      var_cost:
+        gas_ppl: 219.8
+        gas_ppl_1: 329.8
+        gas_ppl_2: 439.7
+        gas_ppl_ccs: 219.8
+        gas_ppl_ccs_1: 329.8
+        gas_ppl_ccs_2: 439.7
+        coal_ppl: 298.7
+        oil_ppl: 898
+        bio_ppl: 0.000001
+
+    northeast:
+      inv_cost:
+        hydro_3: 1352
+        sphs_3: 1500
+        bio_ppl: 1200
+        gas_ppl: 900
+        gas_ppl_1: 1000
+        gas_ppl_2: 1000
+        gas_ppl_ccs: 1620
+        gas_ppl_ccs_1: 1800
+        gas_ppl_ccs_2: 1800
+        wind_ppl_cos: 1200
+        wind_ppl_int: 1200
+        coal_ppl: 2500
+        nuc_ppl: 5000
+        solar_pv_ppl: 1100
+        oil_ppl: 1100
+        grid2: 359
+        batt_ne: 1271
+        grid_ne: 205
+      fix_cost:
+        hydro_3: 12.8
+        sphs_3: 20.5
+        bio_ppl: 30.8
+        gas_ppl: 43.6
+        gas_ppl_1: 43.6
+        gas_ppl_2: 43.6
+        gas_ppl_ccs: 43.6
+        gas_ppl_ccs_1: 43.6
+        gas_ppl_ccs_2: 43.6
+        wind_ppl_cos: 25.6
+        wind_ppl_int: 25.6
+        coal_ppl: 89.7
+        nuc_ppl: 83.3
+        solar_pv_ppl: 16.7
+        oil_ppl: 56.4
+        batt_ne: 31.8
+      var_cost:
+        gas_ppl: 219.8
+        gas_ppl_1: 329.8
+        gas_ppl_2: 439.7
+        gas_ppl_ccs: 219.8
+        gas_ppl_ccs_1: 329.8
+        gas_ppl_ccs_2: 439.7
+        coal_ppl: 298.7
+        oil_ppl: 898
+        bio_ppl: 0.000001
+
+    southeast:
+      inv_cost:
+        hydro_1: 1352
+        hydro_5: 1352
+        hydro_6: 1352
+        hydro_7: 1352
+        hydro_10: 1352
+        hydro_12: 1352
+        sphs_1: 1500
+        sphs_6: 1500
+        sphs_7: 1500
+        sphs_10: 1500
+        sphs_12: 1500
+        bio_ppl: 1200
+        gas_ppl: 900
+        gas_ppl_1: 1000
+        gas_ppl_2: 1000
+        gas_ppl_ccs: 1620
+        gas_ppl_ccs_1: 1800
+        gas_ppl_ccs_2: 1800
+        wind_ppl: 1200
+        coal_ppl: 2500
+        nuc_ppl: 5000
+        solar_pv_ppl: 1100
+        oil_ppl: 1100
+        grid3: 462
+        batt_se: 1271
+        grid_se: 205
+      fix_cost:
+        hydro_1: 12.8
+        hydro_5: 12.8
+        hydro_6: 12.8
+        hydro_7: 12.8
+        hydro_10: 12.8
+        hydro_12: 12.8
+        sphs_1: 20.5
+        sphs_6: 20.5
+        sphs_7: 20.5
+        sphs_10: 20.5
+        sphs_12: 20.5
+        bio_ppl: 30.8
+        gas_ppl: 43.6
+        gas_ppl_1: 43.6
+        gas_ppl_2: 43.6
+        gas_ppl_ccs: 43.6
+        gas_ppl_ccs_1: 43.6
+        gas_ppl_ccs_2: 43.6
+        wind_ppl: 25.6
+        coal_ppl: 89.7
+        nuc_ppl: 83.3
+        solar_pv_ppl: 16.7
+        oil_ppl: 56.4
+        batt_se: 31.8
+      var_cost:
+        gas_ppl: 219.8
+        gas_ppl_1: 329.8
+        gas_ppl_2: 439.7
+        gas_ppl_ccs: 219.8
+        gas_ppl_ccs_1: 329.8
+        gas_ppl_ccs_2: 439.7
+        coal_ppl: 298.7
+        oil_ppl: 898
+        nuc_ppl: 53.3
+        bio_ppl: 0.000001
+
+    south:
+      inv_cost:
+        hydro_2: 1352
+        hydro_11: 1352
+        sphs_2: 1500
+        sphs_11: 1500
+        bio_ppl: 1200
+        gas_ppl: 900
+        gas_ppl_1: 1000
+        gas_ppl_2: 1000
+        gas_ppl_ccs: 1620
+        gas_ppl_ccs_1: 1800
+        gas_ppl_ccs_2: 1800
+        wind_ppl_rs: 1200
+        coal_ppl: 2100
+        nuc_ppl: 5000
+        solar_pv_ppl: 1100
+        oil_ppl: 1100
+        grid4: 205
+        batt_s: 1271
+        grid_s: 205
+      fix_cost:
+        hydro_2: 12.8
+        hydro_11: 12.8
+        sphs_2: 20.5
+        sphs_11: 20.5
+        bio_ppl: 30.8
+        gas_ppl: 43.6
+        gas_ppl_1: 43.6
+        gas_ppl_2: 43.6
+        gas_ppl_ccs: 43.6
+        gas_ppl_ccs_1: 43.6
+        gas_ppl_ccs_2: 43.6
+        wind_ppl_rs: 25.6
+        coal_ppl: 89.7
+        nuc_ppl: 83.3
+        solar_pv_ppl: 16.7
+        oil_ppl: 56.4
+        batt_s: 31.8
+      var_cost:
+        gas_ppl: 219.8
+        gas_ppl_1: 329.8
+        gas_ppl_2: 439.7
+        gas_ppl_ccs: 219.8
+        gas_ppl_ccs_1: 329.8
+        gas_ppl_ccs_2: 439.7
+        coal_ppl: 136.6
+        oil_ppl: 898
+        bio_ppl: 0.000001
