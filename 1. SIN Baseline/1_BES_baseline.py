@@ -22,7 +22,7 @@ mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
 
 # Adding units to the library
 mp.add_unit('m^3/s')  
-
+mp.add_unit('MMUSD/GW')
 # =============================================================================
 # %% Inputs
 # =============================================================================
@@ -1600,11 +1600,9 @@ for tec, val in base_cap_s.items():
 base_inv_cost_n = {
     'node_loc': 'North',
     'year_vtg': horizon,
-    'unit': 'MMUSD/GWa',
+    'unit': 'MMUSD/GW',
 }
-
-# Adding a new unit to the library
-mp.add_unit('MMUSD/GWa')    
+    
 
 # in $ / kW (specific investment cost) dollar price in 2015 R$ 3,87 source: https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-227/topico-456/NT%20PR%20007-2018%20Premissas%20e%20Custos%20Oferta%20de%20Energia%20El%C3%A9trica.pdf
 costs = {
