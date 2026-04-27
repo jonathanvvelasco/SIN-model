@@ -16,12 +16,6 @@ from message_ix.utils import make_df
 
 def start_model(dados):
     # Set model attributes
-    
-    # Create a new scenario
-    mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
-    model = "SIN Brasil expandido"
-    scen = "base"
-    scenario = message_ix.Scenario(mp, model, scen, version = 'new')
 
     # Adding units to the library
     mp.add_unit('m^3/s')  
@@ -93,7 +87,7 @@ def start_model(dados):
 
 def technical_lifetime(scenario, dados):
     base_technical_lifetime = {
-        'year_vtg': dados['general']['horizon'],
+        'year_vtg': dados['general']['history'] + dados['general']['horizon'],
         'unit': 'y',
     }
 
@@ -922,8 +916,8 @@ def technologies(scenario, dados):
                     level='secondary', value=1., unit="GWa")
 
         # Removing extra years based on lifetime 
-        condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + dados['lifetimes']['North'][tech] 
-        tech_out_n = tech_out_n.loc[condition]
+        # condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + dados['lifetimes']['North'][tech] 
+        # tech_out_n = tech_out_n.loc[condition]
         
         scenario.add_par('output', tech_out_n)
         
@@ -932,8 +926,8 @@ def technologies(scenario, dados):
                     level='secondary', value=1., unit="GWa")
 
         # Removing extra years based on lifetime 
-        condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + dados['lifetimes']['North'][tech] 
-        tech_out_n = tech_out_n.loc[condition] 
+        # condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + dados['lifetimes']['North'][tech] 
+        # tech_out_n = tech_out_n.loc[condition] 
         scenario.add_par('output', tech_out_n)
 
     # Techs in Northeast
@@ -941,16 +935,16 @@ def technologies(scenario, dados):
         tech_out_ne = make_df(output_ne, technology=tech, commodity='electricity', 
                     level='secondary', value=1., unit="GWa")
         # Removing extra years based on lifetime 
-        condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + dados['lifetimes']['Northeast'][tech] 
-        tech_out_ne = tech_out_ne.loc[condition]
+        # condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + dados['lifetimes']['Northeast'][tech] 
+        # tech_out_ne = tech_out_ne.loc[condition]
         scenario.add_par('output', tech_out_ne)
 
     for tech in dados['technology']['northeast_wind']:
         tech_out_ne = make_df(output_ne, technology=tech, commodity='electricity', 
                     level='secondary', value=1., unit="GWa")
         # Removing extra years based on lifetime 
-        condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + dados['lifetimes']['Northeast'][tech] 
-        tech_out_ne = tech_out_ne.loc[condition]
+        # condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + dados['lifetimes']['Northeast'][tech] 
+        # tech_out_ne = tech_out_ne.loc[condition]
         scenario.add_par('output', tech_out_ne)
 
     # Techs in Southeast
@@ -958,16 +952,16 @@ def technologies(scenario, dados):
         tech_out_se = make_df(output_se, technology=tech, commodity='electricity', 
                     level='secondary', value=1., unit="GWa")
         # Removing extra years based on lifetime 
-        condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + dados['lifetimes']['Southeast'][tech] 
-        tech_out_se = tech_out_se.loc[condition]
+        # condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + dados['lifetimes']['Southeast'][tech] 
+        # tech_out_se = tech_out_se.loc[condition]
         scenario.add_par('output', tech_out_se)
 
     for tech in dados['technology']['plants']:
         tech_out_se = make_df(output_se, technology=tech, commodity='electricity', 
                     level='secondary', value=1., unit="GWa")
         # Removing extra years based on lifetime 
-        condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + dados['lifetimes']['Southeast'][tech] 
-        tech_out_se = tech_out_se.loc[condition]
+        # condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + dados['lifetimes']['Southeast'][tech] 
+        # tech_out_se = tech_out_se.loc[condition]
         scenario.add_par('output', tech_out_se)
 
     # Techs in South
@@ -975,16 +969,16 @@ def technologies(scenario, dados):
         tech_out_s = make_df(output_s, technology=tech, commodity='electricity', 
                     level='secondary', value=1., unit="GWa")
         # Removing extra years based on lifetime 
-        condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + dados['lifetimes']['South'][tech] 
-        tech_out_s = tech_out_s.loc[condition]
+        # condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + dados['lifetimes']['South'][tech] 
+        # tech_out_s = tech_out_s.loc[condition]
         scenario.add_par('output', tech_out_s)
 
     for tech in dados['technology']['south_wind']:
         tech_out_s = make_df(output_s, technology=tech, commodity='electricity', 
                     level='secondary', value=1., unit="GWa")
         # Removing extra years based on lifetime 
-        condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + dados['lifetimes']['South'][tech] 
-        tech_out_s = tech_out_s.loc[condition]
+        # condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + dados['lifetimes']['South'][tech] 
+        # tech_out_s = tech_out_s.loc[condition]
         scenario.add_par('output', tech_out_s)
 
     # %% Add Technology Water Supply    (input and output) 
@@ -1096,7 +1090,7 @@ def capacity_factors_and_historical_capacity(scenario, dados):
         scenario.add_par('capacity_factor', df)
     # Capacity dados['general']['history'] for Southeast
     for tec, val in dados['historical_new_capacity']['Southeast'].items():
-        df = make_df(base_capacity, node_loc='Southeast', technology=tec, value=val)
+        df = make_df(base_capacity, node_loc='Southeast', technology=tec, value=val/dados['historical_new_capacity']['times'])
         scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
 
     # Capacity Factor for South
@@ -1108,7 +1102,7 @@ def capacity_factors_and_historical_capacity(scenario, dados):
         scenario.add_par('capacity_factor', df)
 
     for tec, val in dados['historical_new_capacity']['South'].items():
-        df = make_df(base_capacity, node_loc='South', technology=tec, value=val)
+        df = make_df(base_capacity, node_loc='South', technology=tec, value=val/dados['historical_new_capacity']['times'])
         scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
 
     return scenario
@@ -1318,10 +1312,37 @@ def bound_total_capacity_up(scenario, dados):
 
     return scenario
 
+def bound_growth_capacity_up(scenario, dados, growth_cap=0.1):
+    '''Add Bound Growth Capacity up'''
+
+    for node in dados['general']['nodes']:
+        for tec in scenario.add_set("technology"):
+            try:
+                df = make_df(
+                "growth_activity_up",
+                node_loc=node,
+                year_act=dados['general']['horizon'],
+                time="year",
+                unit="-",
+                technology=tec,
+                value=growth_cap,
+                )
+                scenario.add_par("growth_activity_up", df)
+            except:
+                pass
+
+    return scenario
+
 if __name__ == "__main__":
     # Open input data
     with open ("baseline_inputs.yaml", "r") as f:
         dados = yaml.safe_load(f)
+    
+    # Create a new scenario
+    mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
+    model = "SIN Brasil expandido"
+    scen = "base"
+    scenario = message_ix.Scenario(mp, model, scen, version = 'new')
 
     # Add data to the model
     scenario = start_model(dados)   # Creates a new scenario
@@ -1332,6 +1353,7 @@ if __name__ == "__main__":
     scenario = historical_activity(scenario, dados)
     scenario = bound_activity_up(scenario, dados)
     scenario = bound_total_capacity_up(scenario, dados)
+    # scenario = bound_growth_capacity_up(scenario, dados, growth_cap=0.3) # Growth capacity bound to 30%
 
     # solving the model
     scenario.commit(comment='Brazilian_base')       ## Commit the datastructure and solve the model
