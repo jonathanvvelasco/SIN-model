@@ -16,370 +16,361 @@ from message_ix.utils import make_df
 mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
 
 
-# Adding units to the library
-mp.add_unit('m^3/s')  
-mp.add_unit('MMUSD/GW')
-# =============================================================================
-# %% Inputs
-# =============================================================================
-
-# General Inputs
-# Scenario id
 model = "SIN Brasil expandido"
 scen = "base"
 
 with open ("baseline_inputs.yaml", "r") as f:
     dados = yaml.safe_load(f)
+# =============================================================================
+# :check %% Inputs
+# =============================================================================
 
-# Model horizon
-history = dados['inputs']['general']['history']
-horizon = [2030, 2040, 2050]
+# General Inputs
+# Scenario id
+
 
 # Include sets
-country     = 'Brazil'
-nodes       = ['South', 'North', 'Northeast', 'Southeast']  # Spacial sets
-commodities = ["electricity", "water_1", "water_2", "water_3", "water_4",
-                               "water_5", "water_6","water_7", "water_8",
-                               "water_9", "water_10", "water_11", "water_12"]     # commoditie sets #ion commodities are storage especifications for batteries
-energy_lvl  = ["primary" , "secondary", "final"] # Energy level
-modes       = ['n-to-ne', 'ne-to-n', 'n-to-se', 'se-to-n', 'ne-to-se', 
-               'se-to-ne', 'se-to-s', 's-to-se', 'M1','M2'] # Technology modes
+# country     = 'Brazil'
+# nodes       = ['South', 'North', 'Northeast', 'Southeast']  # Spacial sets
+# commodities = ["electricity", "water_1", "water_2", "water_3", "water_4",
+#                                "water_5", "water_6","water_7", "water_8",
+#                                "water_9", "water_10", "water_11", "water_12"]     # commoditie sets #ion commodities are storage especifications for batteries
+# energy_lvl  = ["primary" , "secondary", "final"] # Energy level
+# modes       = ['n-to-ne', 'ne-to-n', 'n-to-se', 'se-to-n', 'ne-to-se', 
+#                'se-to-ne', 'se-to-s', 's-to-se', 'M1','M2'] # Technology modes
 
-# Include parameters
-int_rate = 0.08                 # Interest rate
-demand_per_year = {
-        'South': 11.67, # electricity demand GWa BEN year 2019
-        'North': 5.57,
-        'Northeast': 11.05,
-        'Southeast': 39.55,
-        }
-elec_growth = pd.Series([1.31, 1.69, 2.11], index=pd.Index(horizon, name='Time'))   # centralized demand
+# demand_per_year = {
+#         'South': 11.67, # electricity demand GWa BEN year 2019
+#         'North': 5.57,
+#         'Northeast': 11.05,
+#         'Southeast': 39.55,
+#         }
 
-# %% Tecnhology sets
+# :check %% Tecnhology sets
 
 # Overall echnologies
-plants = [
-    "bio_ppl",
-    "gas_ppl",
-    "gas_ppl_1",
-    "gas_ppl_2",
-    "gas_ppl_ccs",
-    "gas_ppl_ccs_1",
-    "gas_ppl_ccs_2",
-    "coal_ppl",
-    "nuc_ppl",
-    "oil_ppl",
-    "solar_pv_ppl"
-]
+# dados['technology']['plants'] = [
+#     "bio_ppl",
+#     "gas_ppl",
+#     "gas_ppl_1",
+#     "gas_ppl_2",
+#     "gas_ppl_ccs",
+#     "gas_ppl_ccs_1",
+#     "gas_ppl_ccs_2",
+#     "coal_ppl",
+#     "nuc_ppl",
+#     "oil_ppl",
+#     "solar_pv_ppl"
+# ]
 
 # Battery technologies
-battery_n = ['batt_n']
-battery_ne = ['batt_ne']
-battery_se = ['batt_se']
-battery_s = ['batt_s']
+# dados['technology']['battery_n'] = ['batt_n']
+# dados['technology']['battery_ne'] = ['batt_ne']
+# dados['technology']['battery_se'] = ['batt_se']
+# dados['technology']['battery_s'] = ['batt_s']
 
 # Wind technologies
-brazil_wind = ["wind_ppl"]
-northeast_wind = ["wind_ppl_cos", "wind_ppl_int"]
-south_wind = ["wind_ppl_rs"]
+# brazil_wind = ["wind_ppl"]
+# northeast_wind = ["wind_ppl_cos", "wind_ppl_int"]
+# south_wind = ["wind_ppl_rs"]
 #wind_ppl_cos means wind_ppl on the coast of northeast of Brazil. To obtain it's parameters, it was considered data from RN and CE states.
 #wind_ppl_int means wind_ppl on inlands of northeast of Brazil. To obtain it's parameters, it was considered data from BA and PI states.
 #wind_ppl_rs means wind_ppl on Rio Grande do Sul state. To obtain it's parameters, it was considered data from RS state.
 #wind_ppl means wind on the rest of the country
 
 # Hidro technologies
-north_hydro = ["hydro_4", "hydro_8", "hydro_9"]     # REE Norte, Belo Monte e Amazonas
-northeast_hydro = ["hydro_3"]                       # REE Nordeste
-                # REE Sudeste, Itaipu, Madeira, Teles Pires, Paraná e Paranapanema
-southeast_hydro = ["hydro_1", "hydro_5", "hydro_6", "hydro_7", "hydro_10", "hydro_12"]
-south_hydro = ["hydro_2", "hydro_11"]               # REE Sul e Iguaçu
+# north_hydro = ["hydro_4", "hydro_8", "hydro_9"]     # REE Norte, Belo Monte e Amazonas
+# northeast_hydro = ["hydro_3"]                       # REE Nordeste
+#                 # REE Sudeste, Itaipu, Madeira, Teles Pires, Paraná e Paranapanema
+# southeast_hydro = ["hydro_1", "hydro_5", "hydro_6", "hydro_7", "hydro_10", "hydro_12"]
+# south_hydro = ["hydro_2", "hydro_11"]               # REE Sul e Iguaçu
         
-north_pump = ["sphs_4", "sphs_8", "sphs_9"]
-northeast_pump = ["sphs_3"]
-southeast_pump = ["sphs_1", "sphs_6", "sphs_7", "sphs_10", "sphs_12"]
-south_pump = ["sphs_2", "sphs_11"]
+# north_pump = ["sphs_4", "sphs_8", "sphs_9"]
+# northeast_pump = ["sphs_3"]
+# southeast_pump = ["sphs_1", "sphs_6", "sphs_7", "sphs_10", "sphs_12"]
+# south_pump = ["sphs_2", "sphs_11"]
 
-north_res = [ "river4", "river8", "river9"]
-northeast_res = ["river3"]
-southeast_res = ["river1", "river5", "river6", "river7", "river10", "river12" ]
-south_res = ["river2", "river11"]
+# north_res = [ "river4", "river8", "river9"]
+# northeast_res = ["river3"]
+# southeast_res = ["river1", "river5", "river6", "river7", "river10", "river12" ]
+# south_res = ["river2", "river11"]
 
-north_wat = [ "water_supply_4", "water_supply_8", "water_supply_9"]
-northeast_wat = ["water_supply_3"]
-southeast_wat = ["water_supply_1", "water_supply_5", "water_supply_6", "water_supply_7", "water_supply_10", "water_supply_12" ]
-south_wat = ["water_supply_2", "water_supply_11"]
+# north_wat = [ "water_supply_4", "water_supply_8", "water_supply_9"]
+# northeast_wat = ["water_supply_3"]
+# southeast_wat = ["water_supply_1", "water_supply_5", "water_supply_6", "water_supply_7", "water_supply_10", "water_supply_12" ]
+# south_wat = ["water_supply_2", "water_supply_11"]
 
-# Transmission and Distribution technologies 
-final_energy_techs = ["grid1", "grid2", "grid3", "grid4", "grid_n", "grid_ne", "grid_se", "grid_s"]
-
-
-# %% Technology lifetimes
-
-lifetimes_north = { # considering NREL COST utility scale for batteries
-    "hydro_4": 60, "hydro_8": 60, "hydro_9": 60, "sphs_4": 60, "sphs_8": 60, "sphs_9": 60,
-    "bio_ppl": 20, "gas_ppl": 20, "gas_ppl_1":20, "gas_ppl_2":20, "wind_ppl": 20,  
-    "coal_ppl": 25, "batt_n": 15, "gas_ppl_ccs": 20, "gas_ppl_ccs_1": 20, 
-    "gas_ppl_ccs_2": 20, "nuc_ppl": 60,  "solar_pv_ppl":20,  "oil_ppl": 20,
-    "grid1": 25, "grid_n": 25,"river4":1000, "river8":1000, "river9":1000,
-    "water_supply_4":1000, "water_supply_8":1000, "water_supply_9":1000,
-} 
-
-lifetimes_northeast = {
-    "hydro_3": 60, "sphs_3": 60, "bio_ppl": 20, "gas_ppl": 20, "gas_ppl_1": 20, 
-    "gas_ppl_2": 20, "gas_ppl_ccs": 20, "gas_ppl_ccs_1": 20, "gas_ppl_ccs_2": 20,
-    "wind_ppl_int": 20, "wind_ppl_cos": 20, "coal_ppl": 25, "nuc_ppl": 60,
-    "solar_pv_ppl":20,  "oil_ppl": 20, "batt_ne": 15,
-    "grid2": 25, "grid_ne": 25, "river3":1000,"water_supply_3":1000,
-}
-
-lifetimes_southeast = {
-    "hydro_1": 60, "hydro_5": 60, "hydro_6": 60, "hydro_7": 60, "hydro_10": 60, "hydro_12": 60,
-    "sphs_1": 60, "sphs_6": 60, "sphs_7": 60, "sphs_10": 60, "sphs_12": 60,
-    "bio_ppl": 20, "gas_ppl": 20, "gas_ppl_1": 20, "gas_ppl_2": 20, "gas_ppl_ccs": 20, 
-    "gas_ppl_ccs_1": 20, "gas_ppl_ccs_2": 20,"wind_ppl": 20,  "coal_ppl": 25, "batt_se": 15,
-    "nuc_ppl": 60,  "solar_pv_ppl":20,  "oil_ppl": 20,"grid3": 25, "grid_se": 25, "river1":1000, 
-    "river5":1000, "river6":1000, "river7":1000, "river10":1000, "river12":1000, "water_supply_1":1000, 
-    "water_supply_5":1000, "water_supply_6":1000, "water_supply_7":1000, "water_supply_10":1000, "water_supply_12":1000
-}
-
-lifetimes_south = {
-    "hydro_2": 60, "hydro_11": 60, "sphs_2": 60, "sphs_11": 60, "bio_ppl": 20, 
-    "gas_ppl": 20, "gas_ppl_1": 20, "gas_ppl_2": 20,"gas_ppl_ccs": 20, "gas_ppl_ccs_1": 20, 
-    "gas_ppl_ccs_2": 20, "wind_ppl_rs": 20, "coal_ppl": 25, "nuc_ppl": 60, 
-    "solar_pv_ppl":20,  "oil_ppl": 20, "batt_s": 15, "grid4": 25, "grid_s": 25, 
-    "river2":1000, "river11":1000,"water_supply_2":1000, "water_supply_11":1000
-}
-
-# %% Technology Capacity Factor
-
-# Capacity Factors for North
-capacity_factor_n = {
-    "hydro_4": 0.9, #EPE
-    "hydro_8": 0.9, #EPE
-    "hydro_9": 0.9, #EPE
-    "sphs_4": 0.7, #EPE
-    "sphs_8": 0.7, #EPE
-    "sphs_9": 0.7, #EPE
-    "bio_ppl": 0.33, #EPE
-    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "wind_ppl": 0.435,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
-    "coal_ppl": 0.69,#EPE
-    "nuc_ppl": 0.85, #EPE - eff 33%
-    "solar_pv_ppl":0.3,
-    "oil_ppl": 0.75,
-    "grid1": 0.8,
-    "batt_n": 0.85,
-    "grid_n": 0.8,
-}
-
-# Capacity Factors for Northeast
-capacity_factor_ne = {
-    "hydro_3": 0.9,#EPE 
-    "sphs_3": 0.7,#EPE 
-    "bio_ppl": 0.33, #EPE
-    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "wind_ppl_cos": 0.47,#For now, the EPE data of 0.47 in North and Northeast is maintained.
-    "wind_ppl_int": 0.47,#For now, the EPE data of 0.47 in North and Northeast is maintained.
-    "coal_ppl": 0.69,#EPE
-    "nuc_ppl": 0.85, #EPE - eff 33%
-    "solar_pv_ppl":0.3,
-    "oil_ppl": 0.75, #EPE
-    "grid2": 0.8,
-    "batt_ne": 0.85,
-    "grid_ne": 0.8,
-}
-
-# Capacity Factors for Southeast
-capacity_factor_se = {
-    "hydro_1": 0.9, #EPE
-    "hydro_5": 0.9,#EPE
-    "hydro_6": 0.9,#EPE
-    "hydro_7": 0.9,#EPE
-    "hydro_10": 0.9,#EPE
-    "hydro_12": 0.9,#EPE
-    "sphs_1": 0.7, #EPE
-    "sphs_6": 0.7,#EPE
-    "sphs_7": 0.7,#EPE
-    "sphs_10": 0.7,#EPE
-    "sphs_12": 0.7,#EPE    
-    "bio_ppl": 0.33, #EPE
-    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "wind_ppl": 0.435,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
-    "coal_ppl": 0.69,#EPE
-    "nuc_ppl": 0.85, #EPE - eff 33%
-    "solar_pv_ppl":0.29,
-    "oil_ppl": 0.75, #EPE
-    "grid3": 0.8,
-    "batt_se": 0.85,
-    "grid_se": 0.8,
-}
-
-# Capacity Factors for South
-
-capacity_factor_s = {
-    "hydro_2": 0.9,#EPE 
-    "hydro_11": 0.9,#EPE 
-    "sphs_2": 0.7,#EPE 
-    "sphs_11": 0.7,#EPE 
-    "bio_ppl": 0.33, #EPE
-    "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
-    "wind_ppl_rs": 0.4,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
-    "coal_ppl": 0.69,#EPE
-    "nuc_ppl": 0.85, #EPE - eff 33%
-    "solar_pv_ppl":0.29,
-    "oil_ppl": 0.75, #EPE
-    "grid4": 0.8,
-    "batt_s": 0.85,
-    "grid_s": 0.8,
-}
+# # Transmission and Distribution technologies 
+# final_energy_techs = ["grid1", "grid2", "grid3", "grid4", "grid_n", "grid_ne", "grid_se", "grid_s"]
 
 
-# %% Technology Historical New Capacity
+# :check %% Technology lifetimes
+
+# dados['lifetimes']['North'] = { # considering NREL COST utility scale for batteries
+#     "hydro_4": 60, "hydro_8": 60, "hydro_9": 60, "sphs_4": 60, "sphs_8": 60, "sphs_9": 60,
+#     "bio_ppl": 20, "gas_ppl": 20, "gas_ppl_1":20, "gas_ppl_2":20, "wind_ppl": 20,  
+#     "coal_ppl": 25, "batt_n": 15, "gas_ppl_ccs": 20, "gas_ppl_ccs_1": 20, 
+#     "gas_ppl_ccs_2": 20, "nuc_ppl": 60,  "solar_pv_ppl":20,  "oil_ppl": 20,
+#     "grid1": 25, "grid_n": 25,"river4":1000, "river8":1000, "river9":1000,
+#     "water_supply_4":1000, "water_supply_8":1000, "water_supply_9":1000,
+# } 
+
+# dados['lifetimes']['Northeast'] = {
+#     "hydro_3": 60, "sphs_3": 60, "bio_ppl": 20, "gas_ppl": 20, "gas_ppl_1": 20, 
+#     "gas_ppl_2": 20, "gas_ppl_ccs": 20, "gas_ppl_ccs_1": 20, "gas_ppl_ccs_2": 20,
+#     "wind_ppl_int": 20, "wind_ppl_cos": 20, "coal_ppl": 25, "nuc_ppl": 60,
+#     "solar_pv_ppl":20,  "oil_ppl": 20, "batt_ne": 15,
+#     "grid2": 25, "grid_ne": 25, "river3":1000,"water_supply_3":1000,
+# }
+
+# dados['lifetimes']['Southeast'] = {
+#     "hydro_1": 60, "hydro_5": 60, "hydro_6": 60, "hydro_7": 60, "hydro_10": 60, "hydro_12": 60,
+#     "sphs_1": 60, "sphs_6": 60, "sphs_7": 60, "sphs_10": 60, "sphs_12": 60,
+#     "bio_ppl": 20, "gas_ppl": 20, "gas_ppl_1": 20, "gas_ppl_2": 20, "gas_ppl_ccs": 20, 
+#     "gas_ppl_ccs_1": 20, "gas_ppl_ccs_2": 20,"wind_ppl": 20,  "coal_ppl": 25, "batt_se": 15,
+#     "nuc_ppl": 60,  "solar_pv_ppl":20,  "oil_ppl": 20,"grid3": 25, "grid_se": 25, "river1":1000, 
+#     "river5":1000, "river6":1000, "river7":1000, "river10":1000, "river12":1000, "water_supply_1":1000, 
+#     "water_supply_5":1000, "water_supply_6":1000, "water_supply_7":1000, "water_supply_10":1000, "water_supply_12":1000
+# }
+
+# dados['lifetimes']['South'] = {
+#     "hydro_2": 60, "hydro_11": 60, "sphs_2": 60, "sphs_11": 60, "bio_ppl": 20, 
+#     "gas_ppl": 20, "gas_ppl_1": 20, "gas_ppl_2": 20,"gas_ppl_ccs": 20, "gas_ppl_ccs_1": 20, 
+#     "gas_ppl_ccs_2": 20, "wind_ppl_rs": 20, "coal_ppl": 25, "nuc_ppl": 60, 
+#     "solar_pv_ppl":20,  "oil_ppl": 20, "batt_s": 15, "grid4": 25, "grid_s": 25, 
+#     "river2":1000, "river11":1000,"water_supply_2":1000, "water_supply_11":1000
+# }
+
+# :check %% Technology Capacity Factor
+
+# # Capacity Factors for North
+# capacity_factor_n = {
+#     "hydro_4": 0.9, #EPE
+#     "hydro_8": 0.9, #EPE
+#     "hydro_9": 0.9, #EPE
+#     "sphs_4": 0.7, #EPE
+#     "sphs_8": 0.7, #EPE
+#     "sphs_9": 0.7, #EPE
+#     "bio_ppl": 0.33, #EPE
+#     "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "wind_ppl": 0.435,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
+#     "coal_ppl": 0.69,#EPE
+#     "nuc_ppl": 0.85, #EPE - eff 33%
+#     "solar_pv_ppl":0.3,
+#     "oil_ppl": 0.75,
+#     "grid1": 0.8,
+#     "batt_n": 0.85,
+#     "grid_n": 0.8,
+# }
+
+# # Capacity Factors for Northeast
+# capacity_factor_ne = {
+#     "hydro_3": 0.9,#EPE 
+#     "sphs_3": 0.7,#EPE 
+#     "bio_ppl": 0.33, #EPE
+#     "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "wind_ppl_cos": 0.47,#For now, the EPE data of 0.47 in North and Northeast is maintained.
+#     "wind_ppl_int": 0.47,#For now, the EPE data of 0.47 in North and Northeast is maintained.
+#     "coal_ppl": 0.69,#EPE
+#     "nuc_ppl": 0.85, #EPE - eff 33%
+#     "solar_pv_ppl":0.3,
+#     "oil_ppl": 0.75, #EPE
+#     "grid2": 0.8,
+#     "batt_ne": 0.85,
+#     "grid_ne": 0.8,
+# }
+
+# # Capacity Factors for Southeast
+# capacity_factor_se = {
+#     "hydro_1": 0.9, #EPE
+#     "hydro_5": 0.9,#EPE
+#     "hydro_6": 0.9,#EPE
+#     "hydro_7": 0.9,#EPE
+#     "hydro_10": 0.9,#EPE
+#     "hydro_12": 0.9,#EPE
+#     "sphs_1": 0.7, #EPE
+#     "sphs_6": 0.7,#EPE
+#     "sphs_7": 0.7,#EPE
+#     "sphs_10": 0.7,#EPE
+#     "sphs_12": 0.7,#EPE    
+#     "bio_ppl": 0.33, #EPE
+#     "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "wind_ppl": 0.435,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
+#     "coal_ppl": 0.69,#EPE
+#     "nuc_ppl": 0.85, #EPE - eff 33%
+#     "solar_pv_ppl":0.29,
+#     "oil_ppl": 0.75, #EPE
+#     "grid3": 0.8,
+#     "batt_se": 0.85,
+#     "grid_se": 0.8,
+# }
+
+# # Capacity Factors for South
+
+# capacity_factor_s = {
+#     "hydro_2": 0.9,#EPE 
+#     "hydro_11": 0.9,#EPE 
+#     "sphs_2": 0.7,#EPE 
+#     "sphs_11": 0.7,#EPE 
+#     "bio_ppl": 0.33, #EPE
+#     "gas_ppl": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs_1": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "gas_ppl_ccs_2": 0.75,#EPE 56% of gas_ppl are combined cycle
+#     "wind_ppl_rs": 0.4,#EPE 0.4 in South and Southeast and 0.47 in North and Northeast
+#     "coal_ppl": 0.69,#EPE
+#     "nuc_ppl": 0.85, #EPE - eff 33%
+#     "solar_pv_ppl":0.29,
+#     "oil_ppl": 0.75, #EPE
+#     "grid4": 0.8,
+#     "batt_s": 0.85,
+#     "grid_s": 0.8,
+# }
+
+
+# :check %% Technology Historical New Capacity
 #base capacity [GW] in 07/2019 according to CCEE historical operation for each subsystem [North, Northeast, SE/MW, South]
 #base capacity [GW] of the BES in 2019 according to ONS historical operation for each subsystem [North, Northeast, SE/MW, South]
 
 # Capacity for North
-times = 10. # Assumption Built in last 10 years
-thermal_capacity_n = 3.87 
-hydro_capacity_n = 22.12
-transmission_capacity_n = 5.02
-transmission_internal_capacity_n = 6.59
+# times = 10. # Assumption Built in last 10 years
+# thermal_capacity_n = 3.87 
+# hydro_capacity_n = 22.12
+# transmission_capacity_n = 5.02
+# transmission_internal_capacity_n = 6.59
 
-# Capacity for Northeast
-thermal_capacity_ne = 8.40
-hydro_capacity_ne = 11.0
-transmission_capacity_ne = 2.51
-transmission_internal_capacity_ne = 13.23
+# # Capacity for Northeast
+# thermal_capacity_ne = 8.40
+# hydro_capacity_ne = 11.0
+# transmission_capacity_ne = 2.51
+# transmission_internal_capacity_ne = 13.23
 
-# Capacity for Southeast
-thermal_capacity_se = 18.69 
-hydro_capacity_se = 65.2
-transmission_capacity_se = 9.46
-transmission_internal_capacity_se = 51.2
+# # Capacity for Southeast
+# thermal_capacity_se = 18.69 
+# hydro_capacity_se = 65.2
+# transmission_capacity_se = 9.46
+# transmission_internal_capacity_se = 51.2
 
-# Capacity for South
-thermal_capacity_s = 4.72
-transmission_capacity_s = 11.22
-transmission_internal_capacity_s = 18.0
-hydro_capacity_s = 17.0
-
-
-base_cap_n = {
-    "hydro_4": 9.6/times, 
-    "hydro_8": 11.03/times, 
-    "hydro_9": 1.2/times, 
-    "sphs_4": 0./times, 
-    "sphs_8": 0./times, 
-    "sphs_9": 0./times, 
-    "bio_ppl": thermal_capacity_n*0.111/times,  
-    "gas_ppl": thermal_capacity_n*0.623/times,
-    "gas_ppl_1": thermal_capacity_n*0./times,
-    "gas_ppl_2": thermal_capacity_n*0./times,
-    "gas_ppl_ccs": 0./times,
-    "gas_ppl_ccs_1": 0./times,
-    "gas_ppl_ccs_2": 0./times,
-    "wind_ppl": 0.33/times, 
-    "coal_ppl": thermal_capacity_n*0.093/times, 
-    "nuc_ppl": 0./times, 
-    "solar_pv_ppl": 0.05/times,
-    "oil_ppl": thermal_capacity_n*0.173/times,
-    "grid1": transmission_capacity_n/times,
-    "batt_n": 0./times,
-    "grid_n": transmission_internal_capacity_n/times,
-}
-
-base_cap_ne = {
-    "hydro_3": 8.3/times, 
-    "sphs_3": 0./times, 
-    "bio_ppl": thermal_capacity_ne*0.164/times,  
-    "gas_ppl": thermal_capacity_ne*0.359/times,
-    "gas_ppl_1": thermal_capacity_ne*0./times,
-    "gas_ppl_2": thermal_capacity_ne*0./times,
-    "gas_ppl_ccs": 0./times,
-    "gas_ppl_ccs_1": 0./times,
-    "gas_ppl_ccs_2": 0./times,
-    "wind_ppl_cos": 6.2/times, 
-    "wind_ppl_int": 5.94/times, 
-    "coal_ppl": thermal_capacity_ne*0.129/times, 
-    "nuc_ppl": 0./times, 
-    "solar_pv_ppl": 1.4/times,
-    "oil_ppl": thermal_capacity_ne*0.348/times,
-    "grid2": transmission_capacity_ne/times,
-    "batt_ne": 0./times,
-    "grid_ne": transmission_internal_capacity_ne/times,
-}
-
-base_cap_se = {
-    "hydro_1": 6.4/times, 
-    "hydro_5": 14./times, 
-    "hydro_6": 7.3/times, 
-    "hydro_7": 3.2/times,
-    "hydro_10": 27.6/times,
-    "hydro_12": 2.4/times,
-    "sphs_1": 0./times, 
-    "sphs_6": 0./times, 
-    "sphs_7": 0./times,
-    "sphs_10": 0./times,
-    "sphs_12": 0./times,
-    "bio_ppl": thermal_capacity_se*0.552/times,  
-    "gas_ppl": thermal_capacity_se*0.364/times,
-    "gas_ppl_1": thermal_capacity_se*0./times,
-    "gas_ppl_2": thermal_capacity_se*0./times,
-    "gas_ppl_ccs": 0./times,
-    "gas_ppl_ccs_1": 0./times,
-    "gas_ppl_ccs_2": 0./times,
-    "wind_ppl": 0.03/times, 
-    "coal_ppl": thermal_capacity_se*0.0/times, 
-    "nuc_ppl": 2.0/times, 
-    "solar_pv_ppl": 0.74/times,
-    "oil_ppl": thermal_capacity_se*0.084/times,
-    "grid3": transmission_capacity_se/times,
-    "batt_se": 0./times,
-    "grid_se": transmission_internal_capacity_se/times,
-}
+# # Capacity for South
+# thermal_capacity_s = 4.72
+# transmission_capacity_s = 11.22
+# transmission_internal_capacity_s = 18.0
+# hydro_capacity_s = 17.0
 
 
-base_cap_s = {
-    "hydro_2": 6.9/times,
-    "hydro_11": 7.3/times,
-    "sphs_2": 0./times,
-    "sphs_11": 0./times,
-    "bio_ppl": thermal_capacity_s*0.266/times,  
-    "gas_ppl": thermal_capacity_s*0.291/times,
-    "gas_ppl_1": thermal_capacity_s*0./times,
-    "gas_ppl_2": thermal_capacity_s*0./times,
-    "gas_ppl_ccs": 0./times,
-    "gas_ppl_ccs_1": 0./times,
-    "gas_ppl_ccs_2": 0./times,
-    "wind_ppl_rs": 2.07/times,        
-    "coal_ppl": thermal_capacity_s*0.438/times, 
-    "nuc_ppl": 0./times, 
-    "solar_pv_ppl": 0.004/times,
-    "oil_ppl": thermal_capacity_s*0.005/times,
-    "grid4": transmission_capacity_s/times,
-    "batt_s": 0./times,
-    "grid_s": transmission_internal_capacity_s/times,
-}
+# base_cap_n = {
+#     "hydro_4": 9.6, 
+#     "hydro_8": 11.03, 
+#     "hydro_9": 1.2, 
+#     "sphs_4": 0., 
+#     "sphs_8": 0., 
+#     "sphs_9": 0., 
+#     "bio_ppl": 0.42957,     #thermal_capacity_n*0.111,  
+#     "gas_ppl": 2.41101,     #thermal_capacity_n*0.623,
+#     "gas_ppl_1": 0.,        #thermal_capacity_n*0.,
+#     "gas_ppl_2": 0.,        #thermal_capacity_n*0.,
+#     "gas_ppl_ccs": 0.,
+#     "gas_ppl_ccs_1": 0.,
+#     "gas_ppl_ccs_2": 0.,
+#     "wind_ppl": 0.33, 
+#     "coal_ppl": thermal_capacity_n*0.093, 
+#     "nuc_ppl": 0., 
+#     "solar_pv_ppl": 0.05,
+#     "oil_ppl": thermal_capacity_n*0.173,
+#     "grid1": transmission_capacity_n,
+#     "batt_n": 0.,
+#     "grid_n": transmission_internal_capacity_n,
+# }
+
+# base_cap_ne = {
+#     "hydro_3": 8.3/times, 
+#     "sphs_3": 0./times, 
+#     "bio_ppl": thermal_capacity_ne*0.164/times,  
+#     "gas_ppl": thermal_capacity_ne*0.359/times,
+#     "gas_ppl_1": thermal_capacity_ne*0./times,
+#     "gas_ppl_2": thermal_capacity_ne*0./times,
+#     "gas_ppl_ccs": 0./times,
+#     "gas_ppl_ccs_1": 0./times,
+#     "gas_ppl_ccs_2": 0./times,
+#     "wind_ppl_cos": 6.2/times, 
+#     "wind_ppl_int": 5.94/times, 
+#     "coal_ppl": thermal_capacity_ne*0.129/times, 
+#     "nuc_ppl": 0./times, 
+#     "solar_pv_ppl": 1.4/times,
+#     "oil_ppl": thermal_capacity_ne*0.348/times,
+#     "grid2": transmission_capacity_ne/times,
+#     "batt_ne": 0./times,
+#     "grid_ne": transmission_internal_capacity_ne/times,
+# }
+
+# base_cap_se = {
+#     "hydro_1": 6.4/times, 
+#     "hydro_5": 14./times, 
+#     "hydro_6": 7.3/times, 
+#     "hydro_7": 3.2/times,
+#     "hydro_10": 27.6/times,
+#     "hydro_12": 2.4/times,
+#     "sphs_1": 0./times, 
+#     "sphs_6": 0./times, 
+#     "sphs_7": 0./times,
+#     "sphs_10": 0./times,
+#     "sphs_12": 0./times,
+#     "bio_ppl": thermal_capacity_se*0.552/times,  
+#     "gas_ppl": thermal_capacity_se*0.364/times,
+#     "gas_ppl_1": thermal_capacity_se*0./times,
+#     "gas_ppl_2": thermal_capacity_se*0./times,
+#     "gas_ppl_ccs": 0./times,
+#     "gas_ppl_ccs_1": 0./times,
+#     "gas_ppl_ccs_2": 0./times,
+#     "wind_ppl": 0.03/times, 
+#     "coal_ppl": thermal_capacity_se*0.0/times, 
+#     "nuc_ppl": 2.0/times, 
+#     "solar_pv_ppl": 0.74/times,
+#     "oil_ppl": thermal_capacity_se*0.084/times,
+#     "grid3": transmission_capacity_se/times,
+#     "batt_se": 0./times,
+#     "grid_se": transmission_internal_capacity_se/times,
+# }
+
+
+# base_cap_s = {
+#     "hydro_2": 6.9/times,
+#     "hydro_11": 7.3/times,
+#     "sphs_2": 0./times,
+#     "sphs_11": 0./times,
+#     "bio_ppl": thermal_capacity_s*0.266/times,  
+#     "gas_ppl": thermal_capacity_s*0.291/times,
+#     "gas_ppl_1": thermal_capacity_s*0./times,
+#     "gas_ppl_2": thermal_capacity_s*0./times,
+#     "gas_ppl_ccs": 0./times,
+#     "gas_ppl_ccs_1": 0./times,
+#     "gas_ppl_ccs_2": 0./times,
+#     "wind_ppl_rs": 2.07/times,        
+#     "coal_ppl": thermal_capacity_s*0.438/times, 
+#     "nuc_ppl": 0./times, 
+#     "solar_pv_ppl": 0.004/times,
+#     "oil_ppl": thermal_capacity_s*0.005/times,
+#     "grid4": transmission_capacity_s/times,
+#     "batt_s": 0./times,
+#     "grid_s": transmission_internal_capacity_s/times,
+# }
 
 
 # %% Technology Historical Activity
@@ -500,7 +491,7 @@ old_activity_1_s = { 'grid4': transmission_act_1_s,}
 old_activity_2_s = {'grid4': transmission_act_2_s,}
 
 
-#%% Bound Activity Up
+# %% Bound Activity Up
 # Bound activities of hydros based on this source peak generation between 2018-2020 for the subsistem in order to keep the historical production from this source
 
 # North activity up bound
@@ -532,100 +523,100 @@ bound_act_up_s = {
 }
 
 
-#%% Bound Capacity Up
+# %% :check Bound Capacity Up
 
 # North capacity up bound
-total_cap_n = {
-    'hydro_4': 9.6,
-    'hydro_8': 11.03,
-    'hydro_9': 1.2,
-    #'sphs_4': 1.,
-    #'sphs_8': 1.,
-    #'sphs_9': 1.,
-    'wind_ppl': 0.18,
-    'nuc_ppl':0.,
-    'gas_ppl':1.5*thermal_capacity_n*0.623,
-    'gas_ppl_1':2*thermal_capacity_n*0.623,
-    'gas_ppl_ccs':1.5*thermal_capacity_n*0.623,
-    'gas_ppl_ccs_1':2*thermal_capacity_n*0.623,
-    "bio_ppl": 3.,
-    'solar_pv_ppl': 5.,
-    'coal_ppl': 2.9,
-    'oil_ppl': 0.6, #oil ppl won't be able to raise up it's capacity on the country, considering the environmental restrictions related to this resource.
-    #"batt_n": 10.,
-}
+# total_cap_n = {
+#     'hydro_4': 9.6,
+#     'hydro_8': 11.03,
+#     'hydro_9': 1.2,
+#     #'sphs_4': 1.,
+#     #'sphs_8': 1.,
+#     #'sphs_9': 1.,
+#     'wind_ppl': 0.18,
+#     'nuc_ppl':0.,
+#     'gas_ppl':1.5*thermal_capacity_n*0.623,
+#     'gas_ppl_1':2*thermal_capacity_n*0.623,
+#     'gas_ppl_ccs':1.5*thermal_capacity_n*0.623,
+#     'gas_ppl_ccs_1':2*thermal_capacity_n*0.623,
+#     "bio_ppl": 3.,
+#     'solar_pv_ppl': 5.,
+#     'coal_ppl': 2.9,
+#     'oil_ppl': 0.6, # oil ppl won't be able to raise up it's capacity on the country, considering the environmental restrictions related to this resource.
+#     #"batt_n": 10.,
+# }
 
-# Northeast capacity up bound
-total_cap_ne = {
-    'hydro_3': 8.3,
-    #'sphs_3': 1.,
-    'wind_ppl_cos': 80,
-    'wind_ppl_int': 80,
-    'solar_pv_ppl': 10,
-    "gas_ppl": 4.71,
-    "gas_ppl_1": 16,                   
-    "gas_ppl_ccs": 4.71,
-    "gas_ppl_ccs_1": 16,
-    'nuc_ppl': 0.,
-    "bio_ppl": 5.,
-    'coal_ppl': 7.0, 
-    'oil_ppl': 2.9,#oil ppl won't be able to raise up it's capacity on the country, considering the environmental restrictions related to this resource
-    #"batt_ne": 20,
-}
+# # Northeast capacity up bound
+# total_cap_ne = {
+#     'hydro_3': 8.3,
+#     #'sphs_3': 1.,
+#     'wind_ppl_cos': 80,
+#     'wind_ppl_int': 80,
+#     'solar_pv_ppl': 10,
+#     "gas_ppl": 4.71,
+#     "gas_ppl_1": 16,                   
+#     "gas_ppl_ccs": 4.71,
+#     "gas_ppl_ccs_1": 16,
+#     'nuc_ppl': 0.,
+#     "bio_ppl": 5.,
+#     'coal_ppl': 7.0, 
+#     'oil_ppl': 2.9,#oil ppl won't be able to raise up it's capacity on the country, considering the environmental restrictions related to this resource
+#     #"batt_ne": 20,
+# }
 
-# Southeast capacity up bound
-total_cap_se = { 
-    "hydro_1": 6.4,
-    "hydro_5": 14.,
-    "hydro_6": 7.3,
-    "hydro_7": 3.2,
-    "hydro_10": 27.6,
-    "hydro_12": 2.4,
-    #"sphs_1": 1.,
-    #"sphs_6": 1.,
-    #"sphs_7": 1.,
-    #"sphs_10": 1.,
-    #"sphs_12": 1.,
-    "coal_ppl": 7.0,
-    "bio_ppl": 17.,
-    "oil_ppl": 3,
-    "gas_ppl": 12.24,
-    "gas_ppl_1": 30,
-    "gas_ppl_ccs": 12.24,
-    "gas_ppl_ccs_1": 30,
-    "nuc_ppl": 5.,
-    "wind_ppl": 0.03,
-    "solar_pv_ppl": 25.,
-    #"batt_se": 50.,       
-}
+# # Southeast capacity up bound
+# total_cap_se = { 
+#     "hydro_1": 6.4,
+#     "hydro_5": 14.,
+#     "hydro_6": 7.3,
+#     "hydro_7": 3.2,
+#     "hydro_10": 27.6,
+#     "hydro_12": 2.4,
+#     #"sphs_1": 1.,
+#     #"sphs_6": 1.,
+#     #"sphs_7": 1.,
+#     #"sphs_10": 1.,
+#     #"sphs_12": 1.,
+#     "coal_ppl": 7.0,
+#     "bio_ppl": 17.,
+#     "oil_ppl": 3,
+#     "gas_ppl": 12.24,
+#     "gas_ppl_1": 30,
+#     "gas_ppl_ccs": 12.24,
+#     "gas_ppl_ccs_1": 30,
+#     "nuc_ppl": 5.,
+#     "wind_ppl": 0.03,
+#     "solar_pv_ppl": 25.,
+#     #"batt_se": 50.,       
+# }
 
-# South capacity up bound
-total_cap_s = {
-    "hydro_2": 6.9,
-    "hydro_11": 7.3,
-    #"sphs_2": 1.,
-    #"sphs_11": 1.,
-    "coal_ppl": 7.0,
-    "oil_ppl": 0.13,
-    "gas_ppl": 1.5*thermal_capacity_n*0.291,
-    "gas_ppl_1": 16,
-    "gas_ppl_ccs": 1.5*thermal_capacity_n*0.291,
-    "gas_ppl_ccs_1": 16,
-    'nuc_ppl':0.,
-    "bio_ppl": 5.,
-    "wind_ppl_rs": 70.0,
-    "solar_pv_ppl": 10.0,
-    #"batt_s": 20.,
-}
+# # South capacity up bound
+# total_cap_s = {
+#     "hydro_2": 6.9,
+#     "hydro_11": 7.3,
+#     #"sphs_2": 1.,
+#     #"sphs_11": 1.,
+#     "coal_ppl": 7.0,
+#     "oil_ppl": 0.13,
+#     "gas_ppl": 1.5*thermal_capacity_n*0.291,
+#     "gas_ppl_1": 16,
+#     "gas_ppl_ccs": 1.5*thermal_capacity_n*0.291,
+#     "gas_ppl_ccs_1": 16,
+#     'nuc_ppl':0.,
+#     "bio_ppl": 5.,
+#     "wind_ppl_rs": 70.0,
+#     "solar_pv_ppl": 10.0,
+#     #"batt_s": 20.,
+# }
 
-# %% Technology efficiency and water consumption
+# %% :check Technology efficiency and water consumption
 
-# Grid efficiency
-transmission_efficiency = 0.95
-distribution_efficiency = 0.95
+# # Grid efficiency
+# dados['efficiency']['transmission'] = 0.95
+# dados['efficiency']['distribution'] = 0.95
 
-# Battery efficiency
-battery_efficiency = 1.2 # losses to store 1 GWa of energy. eg.: 20%
+# # Battery efficiency
+# dados['efficiency']['battery'] = 1.2 # losses to store 1 GWa of energy. eg.: 20%
 
 # %% Hydro
 # Hydro North
@@ -1016,39 +1007,66 @@ var_cost_s = {
 # %% =============================== Start Model ===============================
 
 scenario = message_ix.Scenario(mp, model, scen, version = 'new')
+
+# Adding units to the library
+mp.add_unit('m^3/s')  
+mp.add_unit('MMUSD/GW')
+
 scenario.add_horizon(
-    year= history + horizon,
-    firstmodelyear=horizon[0]
+    year= dados['general']['history'] + dados['general']['horizon'],
+    firstmodelyear=dados['general']['horizon'][0]
 )
 
-scenario.add_spatial_sets({'country': country})
+scenario.add_spatial_sets({'country': dados['general']['country']})
 space_level = 'province'
 scenario.add_set('lvl_spatial', space_level)
-for node in nodes:
+for node in dados['general']['nodes']:
     scenario.add_set('node', node)
-    scenario.add_set('map_spatial_hierarchy', [space_level, node, country])
+    scenario.add_set('map_spatial_hierarchy', [space_level, node, dados['general']['country']])
 
-scenario.add_set("commodity", commodities)
-scenario.add_set("level", energy_lvl)
-scenario.add_set('mode', modes)
+scenario.add_set("commodity", dados['general']['commodities'])
+scenario.add_set("level", dados['general']['energy_lvl'])
+scenario.add_set('mode', dados['general']['modes'])
 
-technologies = (plants + north_hydro + northeast_hydro + southeast_hydro + 
-                south_hydro + north_pump + northeast_pump + southeast_pump + 
-                south_pump +north_res + northeast_res + southeast_res + 
-                south_res + northeast_wind + south_wind + brazil_wind + 
-                final_energy_techs + north_wat + northeast_wat + southeast_wat 
-                + south_wat + battery_n + battery_ne + battery_se + battery_s)
+technologies = (
+    dados['technology']['plants'] +
+    dados['technology']['north_hydro'] +
+    dados['technology']['northeast_hydro'] +
+    dados['technology']['southeast_hydro'] +
+    dados['technology']['south_hydro'] +
+    dados['technology']['north_pump'] +
+    dados['technology']['northeast_pump'] +
+    dados['technology']['southeast_pump'] +
+    dados['technology']['south_pump'] +
+    dados['technology']['north_res'] +
+    dados['technology']['northeast_res'] +
+    dados['technology']['southeast_res'] +
+    dados['technology']['south_res'] +
+    dados['technology']['northeast_wind'] +
+    dados['technology']['south_wind'] +
+    dados['technology']['brazil_wind'] +
+    dados['technology']['final_energy_techs'] +
+    dados['technology']['north_wat'] +
+    dados['technology']['northeast_wat'] +
+    dados['technology']['southeast_wat'] +
+    dados['technology']['south_wat'] +
+    dados['technology']['battery_n'] +
+    dados['technology']['battery_ne'] +
+    dados['technology']['battery_se'] +
+    dados['technology']['battery_s']
+)
 scenario.add_set("technology", technologies)
 
-scenario.add_par("interestrate", horizon, value=int_rate, unit='-') #EPE
+scenario.add_par("interestrate", dados['general']['horizon'], value=dados['general']['int_rate'], unit='-') #EPE
 
 # Adding electricity demand
-for node, dem in demand_per_year.items():
+elec_growth = pd.Series(dados['general']['dem_growth'], index=pd.Index(dados['general']['horizon'], name='Time'))   # centralized demand
+for node, dem in dados['general']['demand_per_year'].items():
     demand_data = pd.DataFrame({
             'node': node,
             'commodity': 'electricity',
             'level': 'final',
-            'year': horizon,
+            'year': dados['general']['horizon'],
             'time': 'year',
             'value': dem * elec_growth, #retirada a multiplicação por demanda regional por esta ser incluída posteriormente. Caso se deseje voltar para o estágio anterior, é só colocar dem * na parte do value.
             'unit': 'GWa',
@@ -1063,23 +1081,23 @@ vintage_years, act_years = year_df['year_vtg'], year_df['year_act']
 
 # %% Technical lifetime
 base_technical_lifetime = {
-    'year_vtg': horizon,
+    'year_vtg': dados['general']['horizon'],
     'unit': 'y',
 }
 
-for tec, val in lifetimes_north.items():
+for tec, val in dados['lifetimes']['North'].items():
     df_n = make_df(base_technical_lifetime, node_loc='North', technology=tec, value=val)
     scenario.add_par('technical_lifetime', df_n)
 
-for tec, val in lifetimes_northeast.items():
+for tec, val in dados['lifetimes']['Northeast'].items():
     df_ne = make_df(base_technical_lifetime, node_loc='Northeast', technology=tec, value=val)
     scenario.add_par('technical_lifetime', df_ne)
 
-for tec, val in lifetimes_southeast.items():
+for tec, val in dados['lifetimes']['Southeast'].items():
     df_se = make_df(base_technical_lifetime, node_loc='Southeast', technology=tec, value=val)
     scenario.add_par('technical_lifetime', df_se)
 
-for tec, val in lifetimes_south.items():
+for tec, val in dados['lifetimes']['South'].items():
     df_s = make_df(base_technical_lifetime, node_loc='South', technology=tec, value=val)
     scenario.add_par('technical_lifetime', df_s)
 
@@ -1140,7 +1158,7 @@ grid_out_n1 = make_df(base_output_n1, technology='grid1', commodity='electricity
 scenario.add_par('output', grid_out_n1)
 
 grid_in_n1 = make_df(base_input_n1, technology='grid1', commodity='electricity',
-                  level='secondary', value=1/transmission_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['transmission'], unit="GWa")
 scenario.add_par('input', grid_in_n1)
 
 grid_out_n2 = make_df(base_output_n2, technology='grid1', commodity='electricity', 
@@ -1148,7 +1166,7 @@ grid_out_n2 = make_df(base_output_n2, technology='grid1', commodity='electricity
 scenario.add_par('output', grid_out_n2)
 
 grid_in_n2 = make_df(base_input_n2, technology='grid1', commodity='electricity',
-                  level='secondary', value=1/transmission_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['transmission'], unit="GWa")
 scenario.add_par('input', grid_in_n2)
 
 input_n = {
@@ -1175,7 +1193,7 @@ grid_out_n = make_df(output_n, technology='grid_n', commodity='electricity',
                    level='final', value=1.0, unit="GWa")
 scenario.add_par('output', grid_out_n)
 grid_in_n = make_df(input_n, technology='grid_n', commodity='electricity',
-                  level='secondary', value=1/distribution_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['distribution'], unit="GWa")
 scenario.add_par('input', grid_in_n)
 
 # Northeast grid
@@ -1235,7 +1253,7 @@ grid_out_ne1 = make_df(base_output_ne1, technology='grid2', commodity='electrici
 scenario.add_par('output', grid_out_ne1)
 
 grid_in_ne1 = make_df(base_input_ne1, technology='grid2', commodity='electricity',
-                  level='secondary', value=1/transmission_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['transmission'], unit="GWa")
 scenario.add_par('input', grid_in_ne1)
 
 grid_out_ne2 = make_df(base_output_ne2, technology='grid2', commodity='electricity', 
@@ -1243,7 +1261,7 @@ grid_out_ne2 = make_df(base_output_ne2, technology='grid2', commodity='electrici
 scenario.add_par('output', grid_out_ne2)
 
 grid_in_ne2 = make_df(base_input_ne2, technology='grid2', commodity='electricity',
-                  level='secondary', value=1/transmission_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['transmission'], unit="GWa")
 scenario.add_par('input', grid_in_ne2)
 
 input_ne = {
@@ -1274,7 +1292,7 @@ grid_out_ne = make_df(output_ne, technology='grid_ne', commodity='electricity',
 scenario.add_par('output', grid_out_ne)
 
 grid_in_ne = make_df(input_ne, technology='grid_ne', commodity='electricity',
-                  level='secondary', value=1/distribution_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['distribution'], unit="GWa")
 scenario.add_par('input', grid_in_ne)
 
 # Southeast grid
@@ -1334,7 +1352,7 @@ grid_out_se1 = make_df(base_output_se1, technology='grid3', commodity='electrici
 scenario.add_par('output', grid_out_se1)
 
 grid_in_se1 = make_df(base_input_se1, technology='grid3', commodity='electricity',
-                  level='secondary', value=1/transmission_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['transmission'], unit="GWa")
 scenario.add_par('input', grid_in_se1)
 
 grid_out_se2 = make_df(base_output_se2, technology='grid3', commodity='electricity', 
@@ -1342,7 +1360,7 @@ grid_out_se2 = make_df(base_output_se2, technology='grid3', commodity='electrici
 scenario.add_par('output', grid_out_se2)
 
 grid_in_se2 = make_df(base_input_se2, technology='grid3', commodity='electricity',
-                  level='secondary', value=1/transmission_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['transmission'], unit="GWa")
 scenario.add_par('input', grid_in_se2)
 
 input_se = {
@@ -1374,7 +1392,7 @@ grid_out_se = make_df(output_se, technology='grid_se', commodity='electricity',
 scenario.add_par('output', grid_out_se)
 
 grid_in_se = make_df(input_se, technology='grid_se', commodity='electricity',
-                  level='secondary', value=1/distribution_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['distribution'], unit="GWa")
 scenario.add_par('input', grid_in_se)
 
 # South grid
@@ -1434,7 +1452,7 @@ grid_out_s1 = make_df(base_output_s1, technology='grid4', commodity='electricity
 scenario.add_par('output', grid_out_s1)
 
 grid_in_s1 = make_df(base_input_s1, technology='grid4', commodity='electricity',
-                  level='secondary', value=1/transmission_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['transmission'], unit="GWa")
 scenario.add_par('input', grid_in_s1)
 
 grid_out_s2 = make_df(base_output_s2, technology='grid4', commodity='electricity', 
@@ -1442,7 +1460,7 @@ grid_out_s2 = make_df(base_output_s2, technology='grid4', commodity='electricity
 scenario.add_par('output', grid_out_s2)
 
 grid_in_s2 = make_df(base_input_s2, technology='grid4', commodity='electricity',
-                  level='secondary', value=1/transmission_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['transmission'], unit="GWa")
 scenario.add_par('input', grid_in_s2)
 
 input_s = {
@@ -1473,7 +1491,7 @@ grid_out_s = make_df(output_s, technology='grid_s', commodity='electricity',
 scenario.add_par('output', grid_out_s)
 
 grid_in_s = make_df(input_s, technology='grid_s', commodity='electricity',
-                  level='secondary', value=1/distribution_efficiency, unit="GWa")
+                  level='secondary', value=1/dados['efficiency']['distribution'], unit="GWa")
 scenario.add_par('input', grid_in_s)
 
 # %% Add Technology hydro_ppl       (input and output)
@@ -1484,7 +1502,7 @@ for h_plant, val in n_hydro_out.items():
                    level='secondary', value= val, unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_out_n['year_act'] < h_plant_out_n['year_vtg'] + lifetimes_north[h_plant] 
+    condition = h_plant_out_n['year_act'] < h_plant_out_n['year_vtg'] + dados['lifetimes']['North'][h_plant] 
     h_plant_out_n = h_plant_out_n.loc[condition] 
 
     scenario.add_par('output', h_plant_out_n)
@@ -1495,7 +1513,7 @@ for h_plant, val in n_hydro_out_2.items():
                    level='secondary', value=val, unit="m^3/s")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_out_n_2['year_act'] < h_plant_out_n_2['year_vtg'] + lifetimes_north[h_plant] 
+    condition = h_plant_out_n_2['year_act'] < h_plant_out_n_2['year_vtg'] + dados['lifetimes']['North'][h_plant] 
     h_plant_out_n_2 = h_plant_out_n_2.loc[condition]
     
     scenario.add_par('output', h_plant_out_n_2)
@@ -1506,12 +1524,12 @@ for h_plant, val in n_hydro_in.items():
                    level='primary', value= val, unit="m^3/s")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_in_n['year_act'] < h_plant_in_n['year_vtg'] + lifetimes_north[h_plant] 
+    condition = h_plant_in_n['year_act'] < h_plant_in_n['year_vtg'] + dados['lifetimes']['North'][h_plant] 
 
     h_plant_in_n = h_plant_in_n.loc[condition]
     scenario.add_par('input', h_plant_in_n)
     
-for river in north_res:
+for river in dados['technology']['north_res']:
     riv = 'water_' + river.split('river')[1]  
     river_out_n = make_df(output_n, technology= river, commodity= riv, 
                    level='primary', value=val, unit="m^3/s")
@@ -1524,7 +1542,7 @@ for h_plant, val in ne_hydro_out.items():
                    level='secondary', value=val, unit="GWa")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_out_ne['year_act'] < h_plant_out_ne['year_vtg'] + lifetimes_northeast[h_plant] 
+    condition = h_plant_out_ne['year_act'] < h_plant_out_ne['year_vtg'] + dados['lifetimes']['Northeast'][h_plant] 
     h_plant_out_ne = h_plant_out_ne.loc[condition] 
     scenario.add_par('output', h_plant_out_ne)
     
@@ -1534,7 +1552,7 @@ for h_plant, val in ne_hydro_out_2.items():
                    level='secondary', value=val, unit="m^3/s")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_out_ne_2['year_act'] < h_plant_out_ne_2['year_vtg'] + lifetimes_northeast[h_plant] 
+    condition = h_plant_out_ne_2['year_act'] < h_plant_out_ne_2['year_vtg'] + dados['lifetimes']['Northeast'][h_plant] 
     h_plant_out_ne_2 = h_plant_out_ne_2.loc[condition]
     
     scenario.add_par('output', h_plant_out_ne_2)
@@ -1545,7 +1563,7 @@ for h_plant, val in ne_hydro_in.items():
                    level='primary', value= val, unit="m^3/s")
     scenario.add_par('input', h_plant_in_ne)
     
-for river in northeast_res:
+for river in dados['technology']['northeast_res']:
     riv = 'water_' + river.split('river')[1]  
     river_out_ne = make_df(output_ne, technology= river, commodity= riv, 
                    level='primary', value=val, unit="m^3/s")
@@ -1558,7 +1576,7 @@ for h_plant, val in se_hydro_out.items():
                    level='secondary', value=val, unit="GWa")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_out_se['year_act'] < h_plant_out_se['year_vtg'] + lifetimes_southeast[h_plant] 
+    condition = h_plant_out_se['year_act'] < h_plant_out_se['year_vtg'] + dados['lifetimes']['Southeast'][h_plant] 
     h_plant_out_se = h_plant_out_se.loc[condition]
     scenario.add_par('output', h_plant_out_se)
     
@@ -1568,7 +1586,7 @@ for h_plant, val in se_hydro_out_2.items():
                    level='secondary', value=val, unit="m^3/s")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_out_se_2['year_act'] < h_plant_out_se_2['year_vtg'] + lifetimes_southeast[h_plant] 
+    condition = h_plant_out_se_2['year_act'] < h_plant_out_se_2['year_vtg'] + dados['lifetimes']['Southeast'][h_plant] 
     h_plant_out_se_2 = h_plant_out_se_2.loc[condition]
     scenario.add_par('output', h_plant_out_se_2)
 
@@ -1578,11 +1596,11 @@ for h_plant, val in se_hydro_in.items():
                    level='primary', value= val, unit="m^3/s")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_in_se['year_act'] < h_plant_in_se['year_vtg'] + lifetimes_southeast[h_plant] 
+    condition = h_plant_in_se['year_act'] < h_plant_in_se['year_vtg'] + dados['lifetimes']['Southeast'][h_plant] 
     h_plant_in_se = h_plant_in_se.loc[condition]
     scenario.add_par('input', h_plant_in_se)
     
-for river in southeast_res:
+for river in dados['technology']['southeast_res']:
     riv = 'water_' + river.split('river')[1]  
     river_out_se = make_df(output_se, technology= river, commodity= riv, 
                    level='primary', value=val, unit="m^3/s") 
@@ -1595,7 +1613,7 @@ for h_plant, val in s_hydro_out.items():
                    level='secondary', value=val, unit="GWa")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_out_s['year_act'] < h_plant_out_s['year_vtg'] + lifetimes_south[h_plant] 
+    condition = h_plant_out_s['year_act'] < h_plant_out_s['year_vtg'] + dados['lifetimes']['South'][h_plant] 
     h_plant_out_s = h_plant_out_s.loc[condition]
     scenario.add_par('output', h_plant_out_s)
     
@@ -1605,7 +1623,7 @@ for h_plant, val in s_hydro_out_2.items():
                    level='secondary', value=val, unit="m^3/s")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_out_s_2['year_act'] < h_plant_out_s_2['year_vtg'] + lifetimes_south[h_plant] 
+    condition = h_plant_out_s_2['year_act'] < h_plant_out_s_2['year_vtg'] + dados['lifetimes']['South'][h_plant] 
     h_plant_out_s_2 = h_plant_out_s_2.loc[condition]
     scenario.add_par('output', h_plant_out_s_2)
 
@@ -1614,11 +1632,11 @@ for h_plant, val in s_hydro_in.items():
     h_plant_in_s = make_df(input_s, technology= h_plant, commodity= wat, 
                    level='primary', value= val, unit="m^3/s")
     # Removing extra years based on lifetime 
-    condition = h_plant_in_s['year_act'] < h_plant_in_s['year_vtg'] + lifetimes_south[h_plant] 
+    condition = h_plant_in_s['year_act'] < h_plant_in_s['year_vtg'] + dados['lifetimes']['South'][h_plant] 
     h_plant_in_s = h_plant_in_s.loc[condition]
     scenario.add_par('input', h_plant_in_s)
     
-for river in south_res:
+for river in dados['technology']['south_res']:
     riv = 'water_' + river.split('river')[1]  
     river_out_s = make_df(output_s, technology= river, commodity= riv, 
                    level='primary', value=val, unit="m^3/s")
@@ -1632,7 +1650,7 @@ for h_plant, val in n_sphs_out.items():
                    level='secondary', value= val, unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_out_n_3['year_act'] < h_plant_out_n_3['year_vtg'] + lifetimes_north[h_plant] 
+    condition = h_plant_out_n_3['year_act'] < h_plant_out_n_3['year_vtg'] + dados['lifetimes']['North'][h_plant] 
     h_plant_out_n_3 = h_plant_out_n_3.loc[condition] 
 
     scenario.add_par('output', h_plant_out_n_3)
@@ -1643,7 +1661,7 @@ for h_plant, val in n_sphs_out_2.items():
                    level='secondary', value=val, unit="m^3/s")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_out_n_4['year_act'] < h_plant_out_n_4['year_vtg'] + lifetimes_north[h_plant] 
+    condition = h_plant_out_n_4['year_act'] < h_plant_out_n_4['year_vtg'] + dados['lifetimes']['North'][h_plant] 
     h_plant_out_n_4 = h_plant_out_n_4.loc[condition]
     
     scenario.add_par('output', h_plant_out_n_4)
@@ -1654,7 +1672,7 @@ for h_plant, val in n_sphs_in.items():
                    level='secondary', value= val, unit="m^3/s")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_in_n_2['year_act'] < h_plant_in_n_2['year_vtg'] + lifetimes_north[h_plant] 
+    condition = h_plant_in_n_2['year_act'] < h_plant_in_n_2['year_vtg'] + dados['lifetimes']['North'][h_plant] 
 
     h_plant_in_n_2 = h_plant_in_n_2.loc[condition]
     scenario.add_par('input', h_plant_in_n_2)
@@ -1664,7 +1682,7 @@ for h_plant, val in n_sphs_in_2.items():
                       level='secondary', value= val, unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_in_n_3['year_act'] < h_plant_in_n_3['year_vtg'] + lifetimes_north[h_plant] 
+    condition = h_plant_in_n_3['year_act'] < h_plant_in_n_3['year_vtg'] + dados['lifetimes']['North'][h_plant] 
 
     h_plant_in_n_3 = h_plant_in_n_3.loc[condition]
     scenario.add_par('input', h_plant_in_n_3)
@@ -1675,7 +1693,7 @@ for h_plant, val in ne_sphs_out.items():
                    level='secondary', value= val, unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_out_ne_3['year_act'] < h_plant_out_ne_3['year_vtg'] + lifetimes_northeast[h_plant] 
+    condition = h_plant_out_ne_3['year_act'] < h_plant_out_ne_3['year_vtg'] + dados['lifetimes']['Northeast'][h_plant] 
     h_plant_out_ne_3 = h_plant_out_ne_3.loc[condition] 
 
     scenario.add_par('output', h_plant_out_ne_3)
@@ -1686,7 +1704,7 @@ for h_plant, val in ne_sphs_out_2.items():
                    level='secondary', value=val, unit="m^3/s")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_out_ne_4['year_act'] < h_plant_out_ne_4['year_vtg'] + lifetimes_northeast[h_plant] 
+    condition = h_plant_out_ne_4['year_act'] < h_plant_out_ne_4['year_vtg'] + dados['lifetimes']['Northeast'][h_plant] 
     h_plant_out_ne_4 = h_plant_out_ne_4.loc[condition]
     
     scenario.add_par('output', h_plant_out_ne_4)
@@ -1697,7 +1715,7 @@ for h_plant, val in ne_sphs_in.items():
                    level='secondary', value= val, unit="m^3/s")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_in_ne_2['year_act'] < h_plant_in_ne_2['year_vtg'] + lifetimes_northeast[h_plant] 
+    condition = h_plant_in_ne_2['year_act'] < h_plant_in_ne_2['year_vtg'] + dados['lifetimes']['Northeast'][h_plant] 
 
     h_plant_in_ne_2 = h_plant_in_ne_2.loc[condition]
     scenario.add_par('input', h_plant_in_ne_2)
@@ -1707,7 +1725,7 @@ for h_plant, val in ne_sphs_in_2.items():
                       level='secondary', value= val, unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_in_ne_3['year_act'] < h_plant_in_ne_3['year_vtg'] + lifetimes_northeast[h_plant] 
+    condition = h_plant_in_ne_3['year_act'] < h_plant_in_ne_3['year_vtg'] + dados['lifetimes']['Northeast'][h_plant] 
 
     h_plant_in_ne_3 = h_plant_in_ne_3.loc[condition]
     scenario.add_par('input', h_plant_in_ne_3)
@@ -1719,7 +1737,7 @@ for h_plant, val in se_sphs_out.items():
                    level='secondary', value= val, unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_out_se_3['year_act'] < h_plant_out_se_3['year_vtg'] + lifetimes_southeast[h_plant] 
+    condition = h_plant_out_se_3['year_act'] < h_plant_out_se_3['year_vtg'] + dados['lifetimes']['Southeast'][h_plant] 
     h_plant_out_se_3 = h_plant_out_se_3.loc[condition] 
 
     scenario.add_par('output', h_plant_out_se_3)
@@ -1730,7 +1748,7 @@ for h_plant, val in se_sphs_out_2.items():
                    level='secondary', value=val, unit="m^3/s")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_out_se_4['year_act'] < h_plant_out_se_4['year_vtg'] + lifetimes_southeast[h_plant] 
+    condition = h_plant_out_se_4['year_act'] < h_plant_out_se_4['year_vtg'] + dados['lifetimes']['Southeast'][h_plant] 
     h_plant_out_se_4 = h_plant_out_se_4.loc[condition]
     
     scenario.add_par('output', h_plant_out_se_4)
@@ -1741,7 +1759,7 @@ for h_plant, val in se_sphs_in.items():
                    level='secondary', value= val, unit="m^3/s")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_in_se_2['year_act'] < h_plant_in_se_2['year_vtg'] + lifetimes_southeast[h_plant] 
+    condition = h_plant_in_se_2['year_act'] < h_plant_in_se_2['year_vtg'] + dados['lifetimes']['Southeast'][h_plant] 
 
     h_plant_in_se_2 = h_plant_in_se_2.loc[condition]
     scenario.add_par('input', h_plant_in_se_2)
@@ -1751,7 +1769,7 @@ for h_plant, val in se_sphs_in_2.items():
                       level='secondary', value= val, unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_in_se_3['year_act'] < h_plant_in_se_3['year_vtg'] + lifetimes_southeast[h_plant] 
+    condition = h_plant_in_se_3['year_act'] < h_plant_in_se_3['year_vtg'] + dados['lifetimes']['Southeast'][h_plant] 
 
     h_plant_in_se_3 = h_plant_in_se_3.loc[condition]
     scenario.add_par('input', h_plant_in_se_3)
@@ -1762,7 +1780,7 @@ for h_plant, val in s_sphs_out.items():
                    level='secondary', value= val, unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_out_s_3['year_act'] < h_plant_out_s_3['year_vtg'] + lifetimes_south[h_plant] 
+    condition = h_plant_out_s_3['year_act'] < h_plant_out_s_3['year_vtg'] + dados['lifetimes']['South'][h_plant] 
     h_plant_out_s_3 = h_plant_out_s_3.loc[condition] 
 
     scenario.add_par('output', h_plant_out_s_3)
@@ -1773,7 +1791,7 @@ for h_plant, val in s_sphs_out_2.items():
                    level='secondary', value=val, unit="m^3/s")
     
     # Removing extra years based on lifetime 
-    condition = h_plant_out_s_4['year_act'] < h_plant_out_s_4['year_vtg'] + lifetimes_south[h_plant] 
+    condition = h_plant_out_s_4['year_act'] < h_plant_out_s_4['year_vtg'] + dados['lifetimes']['South'][h_plant] 
     h_plant_out_s_4 = h_plant_out_s_4.loc[condition]
     
     scenario.add_par('output', h_plant_out_s_4)
@@ -1784,7 +1802,7 @@ for h_plant, val in s_sphs_in.items():
                    level='secondary', value= val, unit="m^3/s")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_in_s_2['year_act'] < h_plant_in_s_2['year_vtg'] + lifetimes_south[h_plant] 
+    condition = h_plant_in_s_2['year_act'] < h_plant_in_s_2['year_vtg'] + dados['lifetimes']['South'][h_plant] 
 
     h_plant_in_s_2 = h_plant_in_s_2.loc[condition]
     scenario.add_par('input', h_plant_in_s_2)
@@ -1794,7 +1812,7 @@ for h_plant, val in s_sphs_in_2.items():
                       level='secondary', value= val, unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = h_plant_in_s_3['year_act'] < h_plant_in_s_3['year_vtg'] + lifetimes_south[h_plant] 
+    condition = h_plant_in_s_3['year_act'] < h_plant_in_s_3['year_vtg'] + dados['lifetimes']['South'][h_plant] 
 
     h_plant_in_s_3 = h_plant_in_s_3.loc[condition]
     scenario.add_par('input', h_plant_in_s_3)
@@ -1858,147 +1876,147 @@ for w_supply, val in se_water_in.items():
 
 # %% Add Technology Battery         (input and output)
 # Battery in North
-for tech in battery_n:
+for tech in dados['technology']['battery_n']:
     tech_out_n = make_df(output_n, technology=tech, commodity='electricity', 
                   level='secondary', value=1., unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + lifetimes_north[tech] 
+    condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + dados['lifetimes']['North'][tech] 
     tech_out_n = tech_out_n.loc[condition] 
     scenario.add_par('output', tech_out_n)
     
-for tech in battery_n:
+for tech in dados['technology']['battery_n']:
     tech_in_n = make_df(input_n, technology=tech, commodity='electricity', 
-                  level='secondary', value=battery_efficiency, unit="GWa")
+                  level='secondary', value=dados['efficiency']['battery'], unit="GWa")
     # Removing extra years based on lifetime 
-    condition = tech_in_n['year_act'] < tech_in_n['year_vtg'] + lifetimes_north[tech] 
+    condition = tech_in_n['year_act'] < tech_in_n['year_vtg'] + dados['lifetimes']['North'][tech] 
     tech_in_n = tech_in_n.loc[condition] 
     scenario.add_par('input', tech_in_n)
 
 # Battery in Northeast
-for tech in battery_ne:
+for tech in dados['technology']['battery_ne']:
     tech_out_ne = make_df(output_ne, technology=tech, commodity='electricity', 
                   level='secondary', value=1., unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + lifetimes_northeast[tech] 
+    condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + dados['lifetimes']['Northeast'][tech] 
     tech_out_ne = tech_out_ne.loc[condition] 
     scenario.add_par('output', tech_out_ne)
     
-for tech in battery_ne:
+for tech in dados['technology']['battery_ne']:
     tech_in_ne = make_df(input_ne, technology=tech, commodity='electricity', 
-                  level='secondary', value=battery_efficiency, unit="GWa")
+                  level='secondary', value=dados['efficiency']['battery'], unit="GWa")
     # Removing extra years based on lifetime 
-    condition = tech_in_ne['year_act'] < tech_in_ne['year_vtg'] + lifetimes_northeast[tech] 
+    condition = tech_in_ne['year_act'] < tech_in_ne['year_vtg'] + dados['lifetimes']['Northeast'][tech] 
     tech_in_ne = tech_in_ne.loc[condition] 
     scenario.add_par('input', tech_in_ne)
 
 # Battery in Southeast
-for tech in battery_se:
+for tech in dados['technology']['battery_se']:
     tech_out_se = make_df(output_se, technology=tech, commodity='electricity', 
                   level='secondary', value=1., unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + lifetimes_southeast[tech] 
+    condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + dados['lifetimes']['Southeast'][tech] 
     tech_out_se = tech_out_se.loc[condition] 
     scenario.add_par('output', tech_out_se)
     
-for tech in battery_se:
+for tech in dados['technology']['battery_se']:
     tech_in_se = make_df(input_se, technology=tech, commodity='electricity', 
-                  level='secondary', value=battery_efficiency, unit="GWa")
+                  level='secondary', value=dados['efficiency']['battery'], unit="GWa")
     # Removing extra years based on lifetime 
-    condition = tech_in_se['year_act'] < tech_in_se['year_vtg'] + lifetimes_southeast[tech] 
+    condition = tech_in_se['year_act'] < tech_in_se['year_vtg'] + dados['lifetimes']['Southeast'][tech] 
     tech_in_se = tech_in_se.loc[condition] 
     scenario.add_par('input', tech_in_se)
 
 # Battery in South
-for tech in battery_s:
+for tech in dados['technology']['battery_s']:
     tech_out_s = make_df(output_s, technology=tech, commodity='electricity', 
                   level='secondary', value=1., unit="GWa")
 
     # Removing extra years based on lifetime 
-    condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + lifetimes_south[tech] 
+    condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + dados['lifetimes']['South'][tech] 
     tech_out_s = tech_out_s.loc[condition] 
     scenario.add_par('output', tech_out_s)
     
-for tech in battery_s:
+for tech in dados['technology']['battery_s']:
     tech_in_s = make_df(input_s, technology=tech, commodity='electricity', 
-                  level='secondary', value=battery_efficiency, unit="GWa")
+                  level='secondary', value=dados['efficiency']['battery'], unit="GWa")
     # Removing extra years based on lifetime 
-    condition = tech_in_s['year_act'] < tech_in_s['year_vtg'] + lifetimes_south[tech] 
+    condition = tech_in_s['year_act'] < tech_in_s['year_vtg'] + dados['lifetimes']['South'][tech] 
     tech_in_s = tech_in_s.loc[condition] 
     scenario.add_par('input', tech_in_s)
 
     
 # %% Add Other Technologies         (input and output)
 # Techs in North
-for tech in brazil_wind:
+for tech in dados['technology']['brazil_wind']:
      tech_out_n = make_df(output_n, technology=tech, commodity='electricity', 
                    level='secondary', value=1., unit="GWa")
 
      # Removing extra years based on lifetime 
-     condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + lifetimes_north[tech] 
+     condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + dados['lifetimes']['North'][tech] 
      tech_out_n = tech_out_n.loc[condition]
      
      scenario.add_par('output', tech_out_n)
      
-for tech in plants:
+for tech in dados['technology']['plants']:
      tech_out_n = make_df(output_n, technology=tech, commodity='electricity', 
                    level='secondary', value=1., unit="GWa")
 
      # Removing extra years based on lifetime 
-     condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + lifetimes_north[tech] 
+     condition = tech_out_n['year_act'] < tech_out_n['year_vtg'] + dados['lifetimes']['North'][tech] 
      tech_out_n = tech_out_n.loc[condition] 
      scenario.add_par('output', tech_out_n)
 
 # Techs in Northeast
-for tech in plants:
+for tech in dados['technology']['plants']:
      tech_out_ne = make_df(output_ne, technology=tech, commodity='electricity', 
                    level='secondary', value=1., unit="GWa")
       # Removing extra years based on lifetime 
-     condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + lifetimes_northeast[tech] 
+     condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + dados['lifetimes']['Northeast'][tech] 
      tech_out_ne = tech_out_ne.loc[condition]
      scenario.add_par('output', tech_out_ne)
 
-for tech in northeast_wind:
+for tech in dados['technology']['northeast_wind']:
      tech_out_ne = make_df(output_ne, technology=tech, commodity='electricity', 
                    level='secondary', value=1., unit="GWa")
       # Removing extra years based on lifetime 
-     condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + lifetimes_northeast[tech] 
+     condition = tech_out_ne['year_act'] < tech_out_ne['year_vtg'] + dados['lifetimes']['Northeast'][tech] 
      tech_out_ne = tech_out_ne.loc[condition]
      scenario.add_par('output', tech_out_ne)
 
 # Techs in Southeast
-for tech in brazil_wind:
+for tech in dados['technology']['brazil_wind']:
      tech_out_se = make_df(output_se, technology=tech, commodity='electricity', 
                    level='secondary', value=1., unit="GWa")
      # Removing extra years based on lifetime 
-     condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + lifetimes_southeast[tech] 
+     condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + dados['lifetimes']['Southeast'][tech] 
      tech_out_se = tech_out_se.loc[condition]
      scenario.add_par('output', tech_out_se)
 
-for tech in plants:
+for tech in dados['technology']['plants']:
      tech_out_se = make_df(output_se, technology=tech, commodity='electricity', 
                    level='secondary', value=1., unit="GWa")
      # Removing extra years based on lifetime 
-     condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + lifetimes_southeast[tech] 
+     condition = tech_out_se['year_act'] < tech_out_se['year_vtg'] + dados['lifetimes']['Southeast'][tech] 
      tech_out_se = tech_out_se.loc[condition]
      scenario.add_par('output', tech_out_se)
 
 # Techs in South
-for tech in plants:
+for tech in dados['technology']['plants']:
      tech_out_s = make_df(output_s, technology=tech, commodity='electricity', 
                    level='secondary', value=1., unit="GWa")
      # Removing extra years based on lifetime 
-     condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + lifetimes_south[tech] 
+     condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + dados['lifetimes']['South'][tech] 
      tech_out_s = tech_out_s.loc[condition]
      scenario.add_par('output', tech_out_s)
 
-for tech in south_wind:
+for tech in dados['technology']['south_wind']:
      tech_out_s = make_df(output_s, technology=tech, commodity='electricity', 
                    level='secondary', value=1., unit="GWa")
      # Removing extra years based on lifetime 
-     condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + lifetimes_south[tech] 
+     condition = tech_out_s['year_act'] < tech_out_s['year_vtg'] + dados['lifetimes']['South'][tech] 
      tech_out_s = tech_out_s.loc[condition]
      scenario.add_par('output', tech_out_s)
 
@@ -2013,64 +2031,64 @@ base_capacity_factor = {
 }
   
 base_capacity = {
-    'year_vtg': history,
+    'year_vtg': dados['general']['history'],
     'time': 'year',
     'unit': 'GW',
 }
 
 # Capacity Factor for North
-for tec, val in capacity_factor_n.items():
+for tec, val in dados['capacity_factor']['North'].items():
     df = make_df(base_capacity_factor, node_loc='North', technology=tec, value=val)
     # Removing extra years based on lifetime
-    condition = df['year_act'] < df['year_vtg'] + lifetimes_north[tec]
+    condition = df['year_act'] < df['year_vtg'] + dados['lifetimes']['North'][tec]
     df = df.loc[condition]
     scenario.add_par('capacity_factor', df)
-# Capacity History for North
-for tec, val in base_cap_n.items():
-    df = make_df(base_capacity, node_loc='North', technology=tec, value=val)
+# Capacity dados['general']['history'] for North
+for tec, val in dados['historical_new_capacity']['North'].items():
+    df = make_df(base_capacity, node_loc='North', technology=tec, value=val/dados['historical_new_capacity']['times'])
     scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
 
 # Capacity Factor for Northeast
-for tec, val in capacity_factor_ne.items():
+for tec, val in dados['capacity_factor']['Northeast'].items():
     df = make_df(base_capacity_factor, node_loc='Northeast', technology=tec, value=val)
     # Removing extra years based on lifetime 
-    condition = df['year_act'] < df['year_vtg'] + lifetimes_northeast[tec] 
+    condition = df['year_act'] < df['year_vtg'] + dados['lifetimes']['Northeast'][tec] 
     df = df.loc[condition] 
     scenario.add_par('capacity_factor', df)
-# Capacity History for Northeast
-for tec, val in base_cap_ne.items():
-    df = make_df(base_capacity, node_loc='Northeast', technology=tec, value=val, unit= 'GW')
+# Capacity dados['general']['history'] for Northeast
+for tec, val in dados['historical_new_capacity']['Northeast'].items():
+    df = make_df(base_capacity, node_loc='Northeast', technology=tec, value=val/dados['historical_new_capacity']['times'])
     scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
 
 # Capacity Factor for Southeast
-for tec, val in capacity_factor_se.items():
+for tec, val in dados['capacity_factor']['Southeast'].items():
     df = make_df(base_capacity_factor, node_loc='Southeast', technology=tec, value=val)
      # Removing extra years based on lifetime 
-    condition = df['year_act'] < df['year_vtg'] + lifetimes_southeast[tec] 
+    condition = df['year_act'] < df['year_vtg'] + dados['lifetimes']['Southeast'][tec] 
     df = df.loc[condition] 
     scenario.add_par('capacity_factor', df)
-# Capacity History for Southeast
+# Capacity dados['general']['history'] for Southeast
 for tec, val in base_cap_se.items():
-    df = make_df(base_capacity, node_loc='Southeast', technology=tec, value=val, unit= 'GW')
+    df = make_df(base_capacity, node_loc='Southeast', technology=tec, value=val)
     scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
 
 # Capacity Factor for South
-for tec, val in capacity_factor_s.items():
+for tec, val in dados['capacity_factor']['South'].items():
     df = make_df(base_capacity_factor, node_loc='South', technology=tec, value=val)
     # Removing extra years based on lifetime 
-    condition = df['year_act'] < df['year_vtg'] + lifetimes_south[tec] 
+    condition = df['year_act'] < df['year_vtg'] + dados['lifetimes']['South'][tec] 
     df = df.loc[condition] 
     scenario.add_par('capacity_factor', df)
 
 for tec, val in base_cap_s.items():
-    df = make_df(base_capacity, node_loc='South', technology=tec, value=val, unit= 'GW')
+    df = make_df(base_capacity, node_loc='South', technology=tec, value=val)
     scenario.add_par('historical_new_capacity', df) #fixed_capacity or fixed_new_capacity?
 
 
 # %% Add Costs                      (investment, fixed and variable)
 
 base_inv_cost = {
-    'year_vtg': horizon,
+    'year_vtg': dados['general']['horizon'],
     'unit': 'MMUSD/GW',
 }
 
@@ -2097,7 +2115,7 @@ for tec, val in fix_cost_n.items():
     df = make_df(base_fix_cost, node_loc='North', technology=tec, value=val)
     scenario.add_par('fix_cost', df)
 
-for tec, val in var_cost_n.items():                                     # Adding variable cost = fuel cost to thermal power plants
+for tec, val in var_cost_n.items():                                     # Adding variable cost = fuel cost to thermal power dados['technology']['plants']
     df = make_df(var_cost, node_loc='North', technology=tec, value=val)
     scenario.add_par('var_cost', df)
 
@@ -2144,14 +2162,14 @@ for tec, val in var_cost_s.items():
 # %% Add Historical Acitvity
 
 base_activity = {
-    'year_act': history,
+    'year_act': dados['general']['history'],
     'mode': 'M1',
     'time': 'year',
     'unit': 'GWa',
 }
 
 base_activity_grid = {
-    'year_act': history,
+    'year_act': dados['general']['history'],
     'time': 'year',
     'unit': 'GWa',
 }
@@ -2213,7 +2231,7 @@ for tec, val in old_activity_2_s.items():
 # %% Add Bound Activity up
 
 base_act_up = {
-    'year_act': horizon,
+    'year_act': dados['general']['horizon'],
     'time': 'year',
     'mode':'M1',
     'unit': 'GWa',
@@ -2239,23 +2257,23 @@ for tec, val in bound_act_up_s.items():
 # %% Add Bound Capacity up
        
 base_cap = {
-    'year_act': horizon,
+    'year_act': dados['general']['horizon'],
     'unit': 'GW',
 }
 
-for tec, val in total_cap_n.items():
+for tec, val in dados['bound']['total_capacity_up']['North'].items():
     df = make_df(base_cap, node_loc='North', technology=tec, value=val)
     scenario.add_par('bound_total_capacity_up', df)
 
-for tec, val in total_cap_ne.items():
+for tec, val in dados['bound']['total_capacity_up']['Northeast'].items():
     df = make_df(base_cap, node_loc='Northeast', technology=tec, value=val)
     scenario.add_par('bound_total_capacity_up', df)
 
-for tec, val in total_cap_se.items():
+for tec, val in dados['bound']['total_capacity_up']['Southeast'].items():
     df = make_df(base_cap, node_loc='Southeast', technology=tec, value=val)
     scenario.add_par('bound_total_capacity_up', df)
 
-for tec, val in total_cap_s.items():
+for tec, val in dados['bound']['total_capacity_up']['South'].items():
     df = make_df(base_cap, node_loc='South', technology=tec, value=val)
     scenario.add_par('bound_total_capacity_up', df)
 
