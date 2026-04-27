@@ -363,7 +363,7 @@ historical_new_capacity:
   #base capacity [GW] in 07/2019 according to CCEE historical operation for each subsystem [North, Northeast, SE/MW, South]
   #base capacity [GW] of the BES in 2019 according to ONS historical operation for each subsystem [North, Northeast, SE/MW, South]
   times: 10               # Assumption Built in last 10 years
-  ccee_data:
+  historical_data:
     North:
       thermal_capacity: 3.87
       hydro_capacity: 22.12
@@ -499,8 +499,8 @@ historical_activity:
       transmission_act_1: 5.2734
       transmission_act_2: 1.2342
       transmission_internal_act: 7.56
-  north:
-    old_activity_n:
+  North:
+    old_activity:
       hydro_4: 3.36
       hydro_8: 3.8605
       hydro_9: 0.42
@@ -517,10 +517,10 @@ historical_activity:
       solar_pv_ppl: 0.001
       oil_ppl: 0.0182
       grid_n: 2.7019
-    old_activity_n_1: {grid1: 2.1586}
-    old_activity_n_2: {grid1: 2.008}
-  northeast:
-    old_activity_ne:
+    old_activity_1: {grid1: 2.1586}
+    old_activity_2: {grid1: 2.008}
+  Northeast:
+    old_activity:
       hydro_3: 2.49
       bio_ppl: 0.20196
       gas_ppl: 0.97614
@@ -536,10 +536,10 @@ historical_activity:
       solar_pv_ppl: 0.37
       oil_ppl: 0.14058
       grid_ne: 5.5566
-    old_activity_ne_1: {grid2: 1.2299}
-    old_activity_ne_2: {grid2: 0.6024}
-  southeast:
-    old_activity_se:
+    old_activity_1: {grid2: 1.2299}
+    old_activity_2: {grid2: 0.6024}
+  Southeast:
+    old_activity:
       hydro_1: 3.072
       hydro_5: 6.72
       hydro_6: 3.504
@@ -559,10 +559,10 @@ historical_activity:
       solar_pv_ppl: 0.19
       oil_ppl: 0.16863
       grid_se: 24.576
-    old_activity_se_1: {grid3: 4.5408}
-    old_activity_se_2: {grid3: 0.473}
-  south:
-    old_activity_s:
+    old_activity_1: {grid3: 4.5408}
+    old_activity_2: {grid3: 0.473}
+  South:
+    old_activity:
       hydro_2: 3.588
       hydro_11: 3.796
       bio_ppl: 0.252
@@ -578,60 +578,60 @@ historical_activity:
       solar_pv_ppl: 0.01
       oil_ppl: 0.01995
       grid_s: 7.56
-    old_activity_1_s: {grid4: 5.2734}
-    old_activity_2_s: {grid4: 1.2342}
+    old_activity_1: {grid4: 5.2734}
+    old_activity_2: {grid4: 1.2342}
 
 hydro:
-  north:
+  North:
     out: {hydro_4: 1, hydro_8: 1, hydro_9: 1}
     out_water: {hydro_4: 1558.6, hydro_8: 1317.0, hydro_9: 4898.5}
     in_water: {hydro_4: 1558.6, hydro_8: 1317.0, hydro_9: 4898.5}
-  northeast:
+  Northeast:
     out: {hydro_3: 1.0}
     out_water: {hydro_3: 595.1}
     in_water: {hydro_3: 595.1}
-  southeast:
+  Southeast:
     out: {hydro_1: 1, hydro_5: 1.0, hydro_6: 1.0, hydro_7: 1.0, hydro_10: 1.0, hydro_12: 1.0}
     out_water: {hydro_1: 456.0, hydro_5: 968.0, hydro_6: 3793.4, hydro_7: 1205.3, hydro_10: 560.6, hydro_12: 1004.9}
     in_water: {hydro_1: 456.0, hydro_5: 968.0, hydro_6: 3793.4, hydro_7: 1205.3, hydro_10: 560.6, hydro_12: 1004.9}
-  south:
+  South:
     out: {hydro_2: 1.0, hydro_11: 1.0}
     out_water: {hydro_2: 431.4, hydro_11: 457.4}
     in_water: {hydro_2: 431.4, hydro_11: 457.4}
 
 sphs:
-  north:
+  North:
     out: {sphs_4: 1, sphs_8: 1, sphs_9: 1}
     out_water: {sphs_4: 73.0, sphs_8: 86.0, sphs_9: 23.0}
     in_water: {sphs_4: 73.0, sphs_8: 86.0, sphs_9: 23.0}
     in_electricity: {sphs_4: 1.2, sphs_8: 1.2, sphs_9: 1.2}
-  northeast:
+  Northeast:
     out: {sphs_3: 1}
     out_water: {sphs_3: 190.0}
     in_water: {sphs_3: 190.0}
     in_electricity: {sphs_3: 1.2}
-  southeast:
+  Southeast:
     out: {sphs_1: 1, sphs_6: 1, sphs_7: 1, sphs_10: 1, sphs_12: 1}
     out_water: {sphs_1: 248, sphs_6: 30, sphs_7: 94, sphs_10: 202, sphs_12: 112}
     in_water: {sphs_1: 248, sphs_6: 30, sphs_7: 94, sphs_10: 202, sphs_12: 112}
     in_electricity: {sphs_1: 1.2, sphs_6: 1.2, sphs_7: 1.2, sphs_10: 1.2, sphs_12: 1.2}
-  south:
+  South:
     out: {sphs_2: 1, sphs_11: 1}
     out_water: {sphs_2: 263, sphs_11: 247}
     in_water: {sphs_2: 263, sphs_11: 247}
     in_electricity: {sphs_2: 1.2, sphs_11: 1.2}
 
 water_supply:
-  north:
+  Sorth:
     out: {water_supply_4: 1558.6, water_supply_8: 1317.0, water_supply_9: 4898.5}
     in: {water_supply_4: 1558.6, water_supply_8: 1317.0, water_supply_9: 4898.5}
-  northeast:
+  Northeast:
     out: {water_supply_3: 595.1}
     in: {water_supply_3: 595.1}
-  southeast:
+  Southeast:
     out: {water_supply_1: 456.0, water_supply_5: 968.0, water_supply_6: 3793.4, water_supply_7: 1205.3, water_supply_10: 560.6, water_supply_12: 1004.9}
     in: {water_supply_1: 456.0, water_supply_5: 968.0, water_supply_6: 3793.4, water_supply_7: 1205.3, water_supply_10: 560.6, water_supply_12: 1004.9}
-  south:
+  South:
     out: {water_supply_2: 431.4, water_supply_11: 457.4}
     in: {water_supply_2: 431.4, water_supply_11: 457.4}
 
@@ -855,22 +855,23 @@ costs:
 
 bound:
   activity_up:
-    north:
-      - hydro_4: 3.41
-      - hydro_8: 3.91
-      - hydro_9: 0.43
-    northeast:
-      - hydro_3: 4.33
-    southeast:
-      - hydro_1: 3.15
-      - hydro_5: 6.89
-      - hydro_6: 3.59
-      - hydro_7: 1.58
-      - hydro_10: 13.58
-      - hydro_12: 1.18
-    south:
-      - hydro_2: 3.66
-      - hydro_11: 3.87
+    # Bound activities of hydros based on this source peak generation between 2018-2020 for the subsistem in order to keep the historical production from this source
+    North:
+      hydro_4: 3.41
+      hydro_8: 3.91
+      hydro_9: 0.43
+    Northeast:
+      hydro_3: 4.33
+    Southeast:
+      hydro_1: 3.15
+      hydro_5: 6.89
+      hydro_6: 3.59
+      hydro_7: 1.58
+      hydro_10: 13.58
+      hydro_12: 1.18
+    South:
+      hydro_2: 3.66
+      hydro_11: 3.87
   total_capacity_up:
     North:
       hydro_4: 9.6
