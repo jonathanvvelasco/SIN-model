@@ -602,27 +602,27 @@ hydro:
 sphs:
   North:
     out: {sphs_4: 1, sphs_8: 1, sphs_9: 1}
+    in: {sphs_4: 1.2, sphs_8: 1.2, sphs_9: 1.2}
     out_water: {sphs_4: 73.0, sphs_8: 86.0, sphs_9: 23.0}
     in_water: {sphs_4: 73.0, sphs_8: 86.0, sphs_9: 23.0}
-    in_electricity: {sphs_4: 1.2, sphs_8: 1.2, sphs_9: 1.2}
   Northeast:
     out: {sphs_3: 1}
+    in: {sphs_3: 1.2}
     out_water: {sphs_3: 190.0}
     in_water: {sphs_3: 190.0}
-    in_electricity: {sphs_3: 1.2}
   Southeast:
     out: {sphs_1: 1, sphs_6: 1, sphs_7: 1, sphs_10: 1, sphs_12: 1}
+    in: {sphs_1: 1.2, sphs_6: 1.2, sphs_7: 1.2, sphs_10: 1.2, sphs_12: 1.2}
     out_water: {sphs_1: 248, sphs_6: 30, sphs_7: 94, sphs_10: 202, sphs_12: 112}
     in_water: {sphs_1: 248, sphs_6: 30, sphs_7: 94, sphs_10: 202, sphs_12: 112}
-    in_electricity: {sphs_1: 1.2, sphs_6: 1.2, sphs_7: 1.2, sphs_10: 1.2, sphs_12: 1.2}
   South:
     out: {sphs_2: 1, sphs_11: 1}
+    in: {sphs_2: 1.2, sphs_11: 1.2}
     out_water: {sphs_2: 263, sphs_11: 247}
     in_water: {sphs_2: 263, sphs_11: 247}
-    in_electricity: {sphs_2: 1.2, sphs_11: 1.2}
 
 water_supply:
-  Sorth:
+  North:
     out: {water_supply_4: 1558.6, water_supply_8: 1317.0, water_supply_9: 4898.5}
     in: {water_supply_4: 1558.6, water_supply_8: 1317.0, water_supply_9: 4898.5}
   Northeast:

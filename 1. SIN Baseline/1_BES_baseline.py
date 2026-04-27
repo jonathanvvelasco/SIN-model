@@ -618,7 +618,7 @@ with open ("baseline_inputs.yaml", "r") as f:
 # # Battery efficiency
 # dados['efficiency']['battery'] = 1.2 # losses to store 1 GWa of energy. eg.: 20%
 
-# %% Hydro
+# :check %% Hydro
 # Hydro North
 # n_hydro_out      = {"hydro_4": 1,       # GWa generated
 #                     "hydro_8": 1,
@@ -630,144 +630,144 @@ with open ("baseline_inputs.yaml", "r") as f:
 #                     "hydro_8": 1317.0,
 #                     "hydro_9": 4898.5}
 
-# Hydro Northeast
-ne_hydro_out     = {"hydro_3": 1.}      # GWa generated
-ne_hydro_out_2   = {"hydro_3": 595.1}   # m^3/s of water outflow to generate 1 GWa
-ne_hydro_in      = {"hydro_3": 595.1}   # m^3/s of water inflow to generate 1 GWa
+# # Hydro Northeast
+# ne_hydro_out     = {"hydro_3": 1.}      # GWa generated
+# ne_hydro_out_2   = {"hydro_3": 595.1}   # m^3/s of water outflow to generate 1 GWa
+# ne_hydro_in      = {"hydro_3": 595.1}   # m^3/s of water inflow to generate 1 GWa
 
-# Hydro Southeast
-se_hydro_out     = {"hydro_1": 1,
-                    "hydro_5": 1.,
-                    "hydro_6": 1., 
-                    "hydro_7": 1.,
-                    "hydro_10": 1., 
-                    "hydro_12": 1.,
-                    }
-se_hydro_out_2   = {"hydro_1": 456.0,
-                    "hydro_5": 968.0,
-                    "hydro_6": 3793.4, 
-                    "hydro_7": 1205.3,
-                    "hydro_10": 560.6, 
-                    "hydro_12": 1004.9,
-                    }
-se_hydro_in      = {"hydro_1": 456.0,
-                    "hydro_5": 968.0,
-                    "hydro_6": 3793.4, 
-                    "hydro_7": 1205.3,
-                    "hydro_10": 560.6, 
-                    "hydro_12": 1004.9,
-                    }
+# # Hydro Southeast
+# se_hydro_out     = {"hydro_1": 1,
+#                     "hydro_5": 1.,
+#                     "hydro_6": 1., 
+#                     "hydro_7": 1.,
+#                     "hydro_10": 1., 
+#                     "hydro_12": 1.,
+#                     }
+# se_hydro_out_2   = {"hydro_1": 456.0,
+#                     "hydro_5": 968.0,
+#                     "hydro_6": 3793.4, 
+#                     "hydro_7": 1205.3,
+#                     "hydro_10": 560.6, 
+#                     "hydro_12": 1004.9,
+#                     }
+# se_hydro_in      = {"hydro_1": 456.0,
+#                     "hydro_5": 968.0,
+#                     "hydro_6": 3793.4, 
+#                     "hydro_7": 1205.3,
+#                     "hydro_10": 560.6, 
+#                     "hydro_12": 1004.9,
+#                     }
 
-# Hydro South
-s_hydro_out      = {"hydro_2": 1.,
-                    "hydro_11": 1.}
-s_hydro_out_2    = {"hydro_2": 431.4,  # m^3/s of water outflow to generate 1 GWa
-                    "hydro_11": 457.4}
-s_hydro_in       = {"hydro_2": 431.4,  # m^3/s of water inflow to generate 1 GWa
-                    "hydro_11": 457.4}
+# # Hydro South
+# s_hydro_out      = {"hydro_2": 1.,
+#                     "hydro_11": 1.}
+# s_hydro_out_2    = {"hydro_2": 431.4,  # m^3/s of water outflow to generate 1 GWa
+#                     "hydro_11": 457.4}
+# s_hydro_in       = {"hydro_2": 431.4,  # m^3/s of water inflow to generate 1 GWa
+#                     "hydro_11": 457.4}
 
-#  %% SPHS
+# :check %% SPHS
 
 # SPHS North
-n_sphs_out       = {"sphs_4": 1,       # GWa generated
-                    "sphs_8": 1,
-                    "sphs_9": 1}
-n_sphs_out_2     = {"sphs_4": 73.,     # m^3/s of water outflow to generate 1 GWa
-                    "sphs_8": 86.,
-                    "sphs_9": 23.}
-n_sphs_in        = {"sphs_4": 73.,     # m^3/s of water inflow to generate 1 GWa
-                    "sphs_8": 86.,
-                    "sphs_9": 23.}
-n_sphs_in_2      = {"sphs_4": 1.2,     # losses to store 1 GWa of energy. eg.: 20%
-                    "sphs_8": 1.2,
-                    "sphs_9": 1.2}
+# n_sphs_out       = {"sphs_4": 1,       # GWa generated
+#                     "sphs_8": 1,
+#                     "sphs_9": 1}
+# n_sphs_out_2     = {"sphs_4": 73.,     # m^3/s of water outflow to generate 1 GWa
+#                     "sphs_8": 86.,
+#                     "sphs_9": 23.}
+# n_sphs_in        = {"sphs_4": 73.,     # m^3/s of water inflow to generate 1 GWa
+#                     "sphs_8": 86.,
+#                     "sphs_9": 23.}
+# n_sphs_in_2      = {"sphs_4": 1.2,     # losses to store 1 GWa of energy. eg.: 20%
+#                     "sphs_8": 1.2,
+#                     "sphs_9": 1.2}
 
-# SPHS Northeast
-ne_sphs_out = {"sphs_3": 1,}        # GWa generated
-ne_sphs_out_2 = {"sphs_3": 190.}    # m^3/s of water outflow to generate 1 GWa
-ne_sphs_in = {"sphs_3": 190.}       # m^3/s of water inflow to generate 1 GWa
-ne_sphs_in_2 = {"sphs_3": 1.2}      # losses to store 1 GWa of energy. eg.: 20%
+# # SPHS Northeast
+# ne_sphs_out = {"sphs_3": 1,}        # GWa generated
+# ne_sphs_out_2 = {"sphs_3": 190.}    # m^3/s of water outflow to generate 1 GWa
+# ne_sphs_in = {"sphs_3": 190.}       # m^3/s of water inflow to generate 1 GWa
+# ne_sphs_in_2 = {"sphs_3": 1.2}      # losses to store 1 GWa of energy. eg.: 20%
 
-# SPHS Southeast
-se_sphs_out = {"sphs_1": 1,
-               "sphs_6": 1,
-               "sphs_7": 1,
-               "sphs_10": 1,
-               "sphs_12": 1
-           }
-se_sphs_out_2 =  {"sphs_1": 248,
-               "sphs_6": 30,
-               "sphs_7": 94,
-               "sphs_10": 202,
-               "sphs_12": 112
-              }
-se_sphs_in = {"sphs_1": 248,
-               "sphs_6": 30,
-               "sphs_7": 94,
-               "sphs_10": 202,
-               "sphs_12": 112
-              }
-se_sphs_in_2 = {"sphs_1": 1.2,
-                    "sphs_6": 1.2,
-                    "sphs_7": 1.2, 
-                    "sphs_10": 1.2, 
-                    "sphs_12": 1.2,
-                    }
+# # SPHS Southeast
+# se_sphs_out = {"sphs_1": 1,
+#                "sphs_6": 1,
+#                "sphs_7": 1,
+#                "sphs_10": 1,
+#                "sphs_12": 1
+#            }
+# se_sphs_out_2 =  {"sphs_1": 248,
+#                "sphs_6": 30,
+#                "sphs_7": 94,
+#                "sphs_10": 202,
+#                "sphs_12": 112
+#               }
+# se_sphs_in = {"sphs_1": 248,
+#                "sphs_6": 30,
+#                "sphs_7": 94,
+#                "sphs_10": 202,
+#                "sphs_12": 112
+#               }
+# se_sphs_in_2 = {"sphs_1": 1.2,
+#                     "sphs_6": 1.2,
+#                     "sphs_7": 1.2, 
+#                     "sphs_10": 1.2, 
+#                     "sphs_12": 1.2,
+#                     }
 
-# SPHS South
-s_sphs_out = {"sphs_2": 1,
-              "sphs_11": 1,
-               }
-s_sphs_out_2 =  {"sphs_2": 263,
-              "sphs_11": 247,
-              }
-s_sphs_in = {"sphs_2": 263,
-              "sphs_11": 247,
-              }
-s_sphs_in_2 = {"sphs_2": 1.2,     # losses to store 1 GWa of energy. eg.: 20%
-                "sphs_11": 1.2,
-                }
+# # SPHS South
+# s_sphs_out = {"sphs_2": 1,
+#               "sphs_11": 1,
+#                }
+# s_sphs_out_2 =  {"sphs_2": 263,
+#               "sphs_11": 247,
+#               }
+# s_sphs_in = {"sphs_2": 263,
+#               "sphs_11": 247,
+#               }
+# s_sphs_in_2 = {"sphs_2": 1.2,     # losses to store 1 GWa of energy. eg.: 20%
+#                 "sphs_11": 1.2,
+#                 }
 
-# %% Water supply
+# :check %% Water supply
 
 # Water supply North
-n_water_out      = {"water_supply_4": 1558.6,   # water to final use
-                    "water_supply_8": 1317.0,
-                    "water_supply_9": 4898.5}
-n_water_in       = {"water_supply_4": 1558.6,   # water comming from river
-                    "water_supply_8": 1317.0,
-                    "water_supply_9": 4898.5}
+# n_water_out      = {"water_supply_4": 1558.6,   # water to final use
+#                     "water_supply_8": 1317.0,
+#                     "water_supply_9": 4898.5}
+# n_water_in       = {"water_supply_4": 1558.6,   # water comming from river
+#                     "water_supply_8": 1317.0,
+#                     "water_supply_9": 4898.5}
 
-# Water supply Northeast
-ne_water_out     = {"water_supply_3": 595.1,}
-ne_water_in      = {"water_supply_3": 595.1,}
+# # Water supply Northeast
+# ne_water_out     = {"water_supply_3": 595.1,}
+# ne_water_in      = {"water_supply_3": 595.1,}
 
-# Water supply Southeast
-se_water_out = {"water_supply_1": 456.0,
-                "water_supply_5": 968.0,
-                "water_supply_6": 3793.4, 
-                "water_supply_7": 1205.3,
-                "water_supply_10": 560.6, 
-                "water_supply_12": 1004.9,
-                 }
-se_water_in = {"water_supply_1": 456.0,
-                "water_supply_5": 968.0,
-                "water_supply_6": 3793.4, 
-                "water_supply_7": 1205.3,
-                "water_supply_10": 560.6, 
-                "water_supply_12": 1004.9,
-                 }
+# # Water supply Southeast
+# se_water_out = {"water_supply_1": 456.0,
+#                 "water_supply_5": 968.0,
+#                 "water_supply_6": 3793.4, 
+#                 "water_supply_7": 1205.3,
+#                 "water_supply_10": 560.6, 
+#                 "water_supply_12": 1004.9,
+#                  }
+# se_water_in = {"water_supply_1": 456.0,
+#                 "water_supply_5": 968.0,
+#                 "water_supply_6": 3793.4, 
+#                 "water_supply_7": 1205.3,
+#                 "water_supply_10": 560.6, 
+#                 "water_supply_12": 1004.9,
+#                  }
 
-# Water supply South
-s_water_out = {"water_supply_2": 431.4,
-                "water_supply_11": 457.4,
-              }
-s_water_in = {"water_supply_2": 431.4,
-                "water_supply_11": 457.4,
-              }
+# # Water supply South
+# s_water_out = {"water_supply_2": 431.4,
+#                 "water_supply_11": 457.4,
+#               }
+# s_water_in = {"water_supply_2": 431.4,
+#                 "water_supply_11": 457.4,
+#               }
 
 
-# %% Technology costs :check 
+# :check %% Technology costs :check 
 '''
 - inv cost in $ / kW (specific investment cost) dollar price in 2015 R$ 3,87 source: https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-227/topico-456/NT%20PR%20007-2018%20Premissas%20e%20Custos%20Oferta%20de%20Energia%20El%C3%A9trica.pdf
 - fix cost in $ / kW / year (every year a fixed quantity is destinated to cover part of the O&M costs based on the size of the plant, e.g. lightening, labor, scheduled maintenance, etc.)
@@ -1645,7 +1645,7 @@ for river in dados['technology']['south_res']:
 # %% Add Technology sphs_ppl        (input and output)
 
 # SPSH North ==================================================================
-for h_plant, val in n_sphs_out.items():
+for h_plant, val in dados['sphs']['North']['out'].items():
     h_plant_out_n_3 = make_df(output_n, technology= h_plant, commodity= 'electricity', 
                    level='secondary', value= val, unit="GWa")
 
@@ -1655,7 +1655,7 @@ for h_plant, val in n_sphs_out.items():
 
     scenario.add_par('output', h_plant_out_n_3)
     
-for h_plant, val in n_sphs_out_2.items():
+for h_plant, val in dados['sphs']['North']['out_water'].items():
     wat = 'water_' + h_plant.split('sphs_')[1]  
     h_plant_out_n_4 = make_df(output_n, technology= h_plant, commodity= wat, 
                    level='secondary', value=val, unit="m^3/s")
@@ -1666,7 +1666,7 @@ for h_plant, val in n_sphs_out_2.items():
     
     scenario.add_par('output', h_plant_out_n_4)
     
-for h_plant, val in n_sphs_in.items():
+for h_plant, val in dados['sphs']['North']['in_water'].items():
     wat = 'water_' + h_plant.split('sphs_')[1]  
     h_plant_in_n_2 = make_df(input_n, technology= h_plant, commodity= wat, 
                    level='secondary', value= val, unit="m^3/s")
@@ -1677,7 +1677,7 @@ for h_plant, val in n_sphs_in.items():
     h_plant_in_n_2 = h_plant_in_n_2.loc[condition]
     scenario.add_par('input', h_plant_in_n_2)
         
-for h_plant, val in n_sphs_in_2.items():
+for h_plant, val in dados['sphs']['North']['in'].items():
     h_plant_in_n_3 = make_df(input_n, technology= h_plant, commodity= 'electricity', 
                       level='secondary', value= val, unit="GWa")
 
@@ -1688,7 +1688,7 @@ for h_plant, val in n_sphs_in_2.items():
     scenario.add_par('input', h_plant_in_n_3)
 
 # SPSH Northeast ===============================================================
-for h_plant, val in ne_sphs_out.items():
+for h_plant, val in dados['sphs']['Northeast']['out'].items():
     h_plant_out_ne_3 = make_df(output_ne, technology= h_plant, commodity= 'electricity', 
                    level='secondary', value= val, unit="GWa")
 
@@ -1698,7 +1698,7 @@ for h_plant, val in ne_sphs_out.items():
 
     scenario.add_par('output', h_plant_out_ne_3)
     
-for h_plant, val in ne_sphs_out_2.items():
+for h_plant, val in dados['sphs']['Northeast']['out_water'].items():
     wat = 'water_' + h_plant.split('sphs_')[1]  
     h_plant_out_ne_4 = make_df(output_ne, technology= h_plant, commodity= wat, 
                    level='secondary', value=val, unit="m^3/s")
@@ -1709,7 +1709,7 @@ for h_plant, val in ne_sphs_out_2.items():
     
     scenario.add_par('output', h_plant_out_ne_4)
     
-for h_plant, val in ne_sphs_in.items():
+for h_plant, val in dados['sphs']['Northeast']['in_water'].items():
     wat = 'water_' + h_plant.split('sphs_')[1]  
     h_plant_in_ne_2 = make_df(input_ne, technology= h_plant, commodity= wat, 
                    level='secondary', value= val, unit="m^3/s")
@@ -1720,7 +1720,7 @@ for h_plant, val in ne_sphs_in.items():
     h_plant_in_ne_2 = h_plant_in_ne_2.loc[condition]
     scenario.add_par('input', h_plant_in_ne_2)
         
-for h_plant, val in ne_sphs_in_2.items():
+for h_plant, val in dados['sphs']['Northeast']['in'].items():
     h_plant_in_ne_3 = make_df(input_ne, technology= h_plant, commodity= 'electricity', 
                       level='secondary', value= val, unit="GWa")
 
@@ -1732,7 +1732,7 @@ for h_plant, val in ne_sphs_in_2.items():
 
 # SPSH Southeast ===============================================================
 
-for h_plant, val in se_sphs_out.items():
+for h_plant, val in dados['sphs']['Southeast']['out'].items():
     h_plant_out_se_3 = make_df(output_se, technology= h_plant, commodity= 'electricity', 
                    level='secondary', value= val, unit="GWa")
 
@@ -1742,7 +1742,7 @@ for h_plant, val in se_sphs_out.items():
 
     scenario.add_par('output', h_plant_out_se_3)
     
-for h_plant, val in se_sphs_out_2.items():
+for h_plant, val in dados['sphs']['Southeast']['out_water'].items():
     wat = 'water_' + h_plant.split('sphs_')[1]  
     h_plant_out_se_4 = make_df(output_se, technology= h_plant, commodity= wat, 
                    level='secondary', value=val, unit="m^3/s")
@@ -1753,7 +1753,7 @@ for h_plant, val in se_sphs_out_2.items():
     
     scenario.add_par('output', h_plant_out_se_4)
     
-for h_plant, val in se_sphs_in.items():
+for h_plant, val in dados['sphs']['Southeast']['in_water'].items():
     wat = 'water_' + h_plant.split('sphs_')[1]  
     h_plant_in_se_2 = make_df(input_se, technology= h_plant, commodity= wat, 
                    level='secondary', value= val, unit="m^3/s")
@@ -1764,7 +1764,7 @@ for h_plant, val in se_sphs_in.items():
     h_plant_in_se_2 = h_plant_in_se_2.loc[condition]
     scenario.add_par('input', h_plant_in_se_2)
         
-for h_plant, val in se_sphs_in_2.items():
+for h_plant, val in dados['sphs']['Southeast']['in'].items():
     h_plant_in_se_3 = make_df(input_se, technology= h_plant, commodity= 'electricity', 
                       level='secondary', value= val, unit="GWa")
 
@@ -1775,7 +1775,7 @@ for h_plant, val in se_sphs_in_2.items():
     scenario.add_par('input', h_plant_in_se_3)
 
 # SPSH South ==================================================================
-for h_plant, val in s_sphs_out.items():
+for h_plant, val in dados['sphs']['South']['out'].items():
     h_plant_out_s_3 = make_df(output_s, technology= h_plant, commodity= 'electricity', 
                    level='secondary', value= val, unit="GWa")
 
@@ -1785,7 +1785,7 @@ for h_plant, val in s_sphs_out.items():
 
     scenario.add_par('output', h_plant_out_s_3)
     
-for h_plant, val in s_sphs_out_2.items():
+for h_plant, val in dados['sphs']['South']['out_water'].items():
     wat = 'water_' + h_plant.split('sphs_')[1]  
     h_plant_out_s_4 = make_df(output_s, technology= h_plant, commodity= wat, 
                    level='secondary', value=val, unit="m^3/s")
@@ -1796,7 +1796,7 @@ for h_plant, val in s_sphs_out_2.items():
     
     scenario.add_par('output', h_plant_out_s_4)
     
-for h_plant, val in s_sphs_in.items():
+for h_plant, val in dados['sphs']['South']['in_water'].items():
     wat = 'water_' + h_plant.split('sphs_')[1]  
     h_plant_in_s_2 = make_df(input_s, technology= h_plant, commodity= wat, 
                    level='secondary', value= val, unit="m^3/s")
@@ -1807,7 +1807,7 @@ for h_plant, val in s_sphs_in.items():
     h_plant_in_s_2 = h_plant_in_s_2.loc[condition]
     scenario.add_par('input', h_plant_in_s_2)
         
-for h_plant, val in s_sphs_in_2.items():
+for h_plant, val in dados['sphs']['South']['in'].items():
     h_plant_in_s_3 = make_df(input_s, technology= h_plant, commodity= 'electricity', 
                       level='secondary', value= val, unit="GWa")
 
@@ -1821,39 +1821,39 @@ for h_plant, val in s_sphs_in_2.items():
 # %% Add Technology Water Supply    (input and output) 
 
 # Water supply North ==================================================================
-for w_supply, val in n_water_out.items():
+for w_supply, val in dados['water_supply']['North']['out'].items():
     wat = 'water_' + w_supply.split('water_supply_')[1] 
     w_supply_out_n = make_df(output_n, technology= w_supply, commodity= wat, 
                    level='final', value= val, unit="m^3/s")
     scenario.add_par('output', w_supply_out_n)
     
-for w_supply, val in n_water_in.items():
+for w_supply, val in dados['water_supply']['North']['in'].items():
     wat = 'water_' + w_supply.split('water_supply_')[1]  
     w_supply_in_n = make_df(input_n, technology= w_supply, commodity= wat, 
                    level='secondary', value= val, unit="m^3/s")
     scenario.add_par('input', w_supply_in_n)
 
 # Water supply Northeast ===============================================================
-for w_supply, val in ne_water_out.items():
+for w_supply, val in dados['water_supply']['Northeast']['out'].items():
     wat = 'water_' + w_supply.split('water_supply_')[1] 
     w_supply_out_ne = make_df(output_ne, technology= w_supply, commodity= wat, 
                    level='final', value= val, unit="m^3/s")
     scenario.add_par('output', w_supply_out_ne)
 
-for w_supply, val in ne_water_in.items():
+for w_supply, val in dados['water_supply']['Northeast']['in'].items():
     wat = 'water_' + w_supply.split('water_supply_')[1]  
     w_supply_in_ne = make_df(input_ne, technology= w_supply, commodity= wat, 
                    level='secondary', value= val, unit="m^3/s")
     scenario.add_par('input', w_supply_in_ne)
 
     # Water supply Southeast ===============================================================
-for w_supply, val in se_water_out.items():
+for w_supply, val in dados['water_supply']['Southeast']['out'].items():
     wat = 'water_' + w_supply.split('water_supply_')[1] 
     w_supply_out_se = make_df(output_se, technology= w_supply, commodity= wat, 
                    level='final', value= val, unit="m^3/s") 
     scenario.add_par('output', w_supply_out_se)
     
-for w_supply, val in se_water_in.items():
+for w_supply, val in dados['water_supply']['Southeast']['in'].items():
     wat = 'water_' + w_supply.split('water_supply_')[1]  
     w_supply_in_se = make_df(input_se, technology= w_supply, commodity= wat, 
                    level='secondary', value= val, unit="m^3/s")
@@ -1861,13 +1861,13 @@ for w_supply, val in se_water_in.items():
 
 # Water supply South ==================================================================
 
-for w_supply, val in s_water_out.items():
+for w_supply, val in dados['water_supply']['South']['out'].items():
     wat = 'water_' + w_supply.split('water_supply_')[1] 
     w_supply_out_s = make_df(output_s, technology= w_supply, commodity= wat, 
                    level='final', value= val, unit="m^3/s")
     scenario.add_par('output', w_supply_out_s)
     
-for w_supply, val in se_water_in.items():
+for w_supply, val in dados['water_supply']['South']['in'].items():
     wat = 'water_' + w_supply.split('water_supply_')[1]  
     w_supply_in_s = make_df(input_s, technology= w_supply, commodity= wat, 
                    level='secondary', value= val, unit="m^3/s")
