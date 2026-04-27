@@ -620,15 +620,15 @@ with open ("baseline_inputs.yaml", "r") as f:
 
 # %% Hydro
 # Hydro North
-n_hydro_out      = {"hydro_4": 1,       # GWa generated
-                    "hydro_8": 1,
-                    "hydro_9": 1}
-n_hydro_out_2    = {"hydro_4": 1558.6,  # m^3/s of water outflow to generate 1 GWa
-                    "hydro_8": 1317.0,
-                    "hydro_9": 4898.5}
-n_hydro_in       = {"hydro_4": 1558.6,  # m^3/s of water inflow to generate 1 GWa
-                    "hydro_8": 1317.0,
-                    "hydro_9": 4898.5}
+# n_hydro_out      = {"hydro_4": 1,       # GWa generated
+#                     "hydro_8": 1,
+#                     "hydro_9": 1}
+# n_hydro_out_2    = {"hydro_4": 1558.6,  # m^3/s of water outflow to generate 1 GWa
+#                     "hydro_8": 1317.0,
+#                     "hydro_9": 4898.5}
+# n_hydro_in       = {"hydro_4": 1558.6,  # m^3/s of water inflow to generate 1 GWa
+#                     "hydro_8": 1317.0,
+#                     "hydro_9": 4898.5}
 
 # Hydro Northeast
 ne_hydro_out     = {"hydro_3": 1.}      # GWa generated
@@ -767,7 +767,7 @@ s_water_in = {"water_supply_2": 431.4,
               }
 
 
-# %% Technology costs
+# %% Technology costs :check 
 '''
 - inv cost in $ / kW (specific investment cost) dollar price in 2015 R$ 3,87 source: https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-227/topico-456/NT%20PR%20007-2018%20Premissas%20e%20Custos%20Oferta%20de%20Energia%20El%C3%A9trica.pdf
 - fix cost in $ / kW / year (every year a fixed quantity is destinated to cover part of the O&M costs based on the size of the plant, e.g. lightening, labor, scheduled maintenance, etc.)
@@ -1497,7 +1497,7 @@ scenario.add_par('input', grid_in_s)
 # %% Add Technology hydro_ppl       (input and output)
 
 # North hydro ==================================================================
-for h_plant, val in n_hydro_out.items():
+for h_plant, val in dados['hydro']['North']['out'].items():
     h_plant_out_n = make_df(output_n, technology= h_plant, commodity= 'electricity', 
                    level='secondary', value= val, unit="GWa")
 
@@ -1507,7 +1507,7 @@ for h_plant, val in n_hydro_out.items():
 
     scenario.add_par('output', h_plant_out_n)
     
-for h_plant, val in n_hydro_out_2.items():
+for h_plant, val in dados['hydro']['North']['out_water'].items():
     wat = 'water_' + h_plant.split('hydro_')[1]  
     h_plant_out_n_2 = make_df(output_n, technology= h_plant, commodity= wat, 
                    level='secondary', value=val, unit="m^3/s")
@@ -1518,7 +1518,7 @@ for h_plant, val in n_hydro_out_2.items():
     
     scenario.add_par('output', h_plant_out_n_2)
     
-for h_plant, val in n_hydro_in.items():
+for h_plant, val in dados['hydro']['North']['in_water'].items():
     wat = 'water_' + h_plant.split('hydro_')[1]  
     h_plant_in_n = make_df(input_n, technology= h_plant, commodity= wat, 
                    level='primary', value= val, unit="m^3/s")
@@ -1537,7 +1537,7 @@ for river in dados['technology']['north_res']:
 
 # REE 3 Northeast ========================================================
 
-for h_plant, val in ne_hydro_out.items():
+for h_plant, val in dados['hydro']['Northeast']['out'].items():
     h_plant_out_ne = make_df(output_ne, technology= h_plant, commodity= 'electricity', 
                    level='secondary', value=val, unit="GWa")
     
@@ -1546,7 +1546,7 @@ for h_plant, val in ne_hydro_out.items():
     h_plant_out_ne = h_plant_out_ne.loc[condition] 
     scenario.add_par('output', h_plant_out_ne)
     
-for h_plant, val in ne_hydro_out_2.items():
+for h_plant, val in dados['hydro']['Northeast']['out_water'].items():
     wat = 'water_' + h_plant.split('hydro_')[1]  
     h_plant_out_ne_2 = make_df(output_ne, technology= h_plant, commodity= wat, 
                    level='secondary', value=val, unit="m^3/s")
@@ -1557,7 +1557,7 @@ for h_plant, val in ne_hydro_out_2.items():
     
     scenario.add_par('output', h_plant_out_ne_2)
 
-for h_plant, val in ne_hydro_in.items():
+for h_plant, val in dados['hydro']['Northeast']['in_water'].items():
     wat = 'water_' + h_plant.split('hydro_')[1]  
     h_plant_in_ne = make_df(input_ne, technology= h_plant, commodity= wat, 
                    level='primary', value= val, unit="m^3/s")
@@ -1571,7 +1571,7 @@ for river in dados['technology']['northeast_res']:
 
 # Hydro Southeast ========================================================
 
-for h_plant, val in se_hydro_out.items():
+for h_plant, val in dados['hydro']['Southeast']['out'].items():
     h_plant_out_se = make_df(output_se, technology= h_plant, commodity= 'electricity', 
                    level='secondary', value=val, unit="GWa")
     
@@ -1580,7 +1580,7 @@ for h_plant, val in se_hydro_out.items():
     h_plant_out_se = h_plant_out_se.loc[condition]
     scenario.add_par('output', h_plant_out_se)
     
-for h_plant, val in se_hydro_out_2.items():
+for h_plant, val in dados['hydro']['Southeast']['out_water'].items():
     wat = 'water_' + h_plant.split('hydro_')[1]  
     h_plant_out_se_2 = make_df(output_se, technology= h_plant, commodity= wat, 
                    level='secondary', value=val, unit="m^3/s")
@@ -1590,7 +1590,7 @@ for h_plant, val in se_hydro_out_2.items():
     h_plant_out_se_2 = h_plant_out_se_2.loc[condition]
     scenario.add_par('output', h_plant_out_se_2)
 
-for h_plant, val in se_hydro_in.items():
+for h_plant, val in dados['hydro']['Southeast']['in_water'].items():
     wat = 'water_' + h_plant.split('hydro_')[1]  
     h_plant_in_se = make_df(input_se, technology= h_plant, commodity= wat, 
                    level='primary', value= val, unit="m^3/s")
@@ -1608,7 +1608,7 @@ for river in dados['technology']['southeast_res']:
 
 # South hydro ==================================================================
 
-for h_plant, val in s_hydro_out.items():
+for h_plant, val in dados['hydro']['South']['out'].items():
     h_plant_out_s = make_df(output_s, technology= h_plant, commodity= 'electricity', 
                    level='secondary', value=val, unit="GWa")
     
@@ -1617,7 +1617,7 @@ for h_plant, val in s_hydro_out.items():
     h_plant_out_s = h_plant_out_s.loc[condition]
     scenario.add_par('output', h_plant_out_s)
     
-for h_plant, val in s_hydro_out_2.items():
+for h_plant, val in dados['hydro']['South']['out_water'].items():
     wat = 'water_' + h_plant.split('hydro_')[1]  
     h_plant_out_s_2 = make_df(output_s, technology= h_plant, commodity= wat, 
                    level='secondary', value=val, unit="m^3/s")
@@ -1627,7 +1627,7 @@ for h_plant, val in s_hydro_out_2.items():
     h_plant_out_s_2 = h_plant_out_s_2.loc[condition]
     scenario.add_par('output', h_plant_out_s_2)
 
-for h_plant, val in s_hydro_in.items():
+for h_plant, val in dados['hydro']['South']['in_water'].items():
     wat = 'water_' + h_plant.split('hydro_')[1]  
     h_plant_in_s = make_df(input_s, technology= h_plant, commodity= wat, 
                    level='primary', value= val, unit="m^3/s")

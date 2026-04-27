@@ -584,8 +584,8 @@ historical_activity:
 hydro:
   North:
     out: {hydro_4: 1, hydro_8: 1, hydro_9: 1}
-    out_water: {hydro_4: 1558.6, hydro_8: 1317.0, hydro_9: 4898.5}
-    in_water: {hydro_4: 1558.6, hydro_8: 1317.0, hydro_9: 4898.5}
+    out_water: {hydro_4: 1558.6, hydro_8: 1317.0, hydro_9: 4898.5}    # m^3/s of water outflow to generate 1 GWa
+    in_water: {hydro_4: 1558.6, hydro_8: 1317.0, hydro_9: 4898.5}     # m^3/s of water inflow to generate 1 GWa
   Northeast:
     out: {hydro_3: 1.0}
     out_water: {hydro_3: 595.1}
