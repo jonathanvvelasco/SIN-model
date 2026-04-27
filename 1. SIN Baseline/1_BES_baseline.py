@@ -775,233 +775,233 @@ s_water_in = {"water_supply_2": 431.4,
 '''
 
 # Costs for North
-inv_cost_n = {
-    "hydro_4": 1352, #EPE mean value for UHE
-    "hydro_8": 1352, #EPE mean value for UHE
-    "hydro_9": 1352,#EPE mean value for UHE
-    "sphs_4": 1500,#EPE
-    "sphs_8": 1500,#EPE
-    "sphs_9": 1500,#EPE
-    "bio_ppl": 1200,#EPE 
-    "gas_ppl": 900, #EPE mean value
-    "gas_ppl_1": 1000, #EPE mean value
-    "gas_ppl_2": 1000, #EPE mean value
-    "gas_ppl_ccs": 1.8*900, #PNE value
-    "gas_ppl_ccs_1": 1.8*1000, #PNE value
-    "gas_ppl_ccs_2": 1.8*1000, #PNE value
-    "wind_ppl": 1200,#EPE mean value
-    "coal_ppl": 2500, #EPE
-    "nuc_ppl": 5000,#EPE
-    "solar_pv_ppl":1100, #min value in EPE, max value is 1350
-    "oil_ppl": 1100,
-    'grid1': 359,
-    "batt_n": 1271,#NREL study
-    'grid_n': 205,
-}
-fix_cost_n = {
-    "hydro_4": 12.8, #EPE
-    "hydro_8": 12.8, #EPE 
-    "hydro_9": 12.8,#EPE 
-    "sphs_4": 20.5, #EPE
-    "sphs_8": 20.5, #EPE 
-    "sphs_9": 20.5,#EPE 
-    "bio_ppl": 30.8, #EPE
-    "gas_ppl": 43.6,#EPE
-    "gas_ppl_1": 43.6,#EPE
-    "gas_ppl_2": 43.6,#EPE
-    "gas_ppl_ccs": 43.6,#PNE
-    "gas_ppl_ccs_1": 43.6,#PNE
-    "gas_ppl_ccs_2": 43.6,#PNE
-    "wind_ppl": 25.6,#EPE
-    "coal_ppl": 89.7,#EPE
-    "nuc_ppl": 83.3, #EPE
-    "solar_pv_ppl":16.7, #EPE
-    "oil_ppl": 56.4,
-    "batt_n": 31.8, #NREL
-}
-var_cost_n = {
-    "gas_ppl": 219.8, #Considering Gas cost of 4 US$/MMBtu
-    "gas_ppl_1": 329.8, #Considering Gas cost of 6 US$/MMBtu
-    "gas_ppl_2": 439.7, #Considering Gas cost of 8 US$/MMBtu
-    "gas_ppl_ccs": 219.8, #Considering Gas cost of 4 US$/MMBtu
-    "gas_ppl_ccs_1": 329.8, #Considering Gas cost of 6 US$/MMBtu
-    "gas_ppl_ccs_2": 439.7, #Considering Gas cost of 8 US$/MMBtu
-    "coal_ppl": 298.7, #EPE
-    "oil_ppl": 898,
-    "bio_ppl":0.000001,#Considering an irrelevant cost to guarantee that the generation can be different from capacity factor
-}
+# dados['cost']['inv_cost']['North'] = {
+#     "hydro_4": 1352, #EPE mean value for UHE
+#     "hydro_8": 1352, #EPE mean value for UHE
+#     "hydro_9": 1352,#EPE mean value for UHE
+#     "sphs_4": 1500,#EPE
+#     "sphs_8": 1500,#EPE
+#     "sphs_9": 1500,#EPE
+#     "bio_ppl": 1200,#EPE 
+#     "gas_ppl": 900, #EPE mean value
+#     "gas_ppl_1": 1000, #EPE mean value
+#     "gas_ppl_2": 1000, #EPE mean value
+#     "gas_ppl_ccs": 1.8*900, #PNE value
+#     "gas_ppl_ccs_1": 1.8*1000, #PNE value
+#     "gas_ppl_ccs_2": 1.8*1000, #PNE value
+#     "wind_ppl": 1200,#EPE mean value
+#     "coal_ppl": 2500, #EPE
+#     "nuc_ppl": 5000,#EPE
+#     "solar_pv_ppl":1100, #min value in EPE, max value is 1350
+#     "oil_ppl": 1100,
+#     'grid1': 359,
+#     "batt_n": 1271,#NREL study
+#     'grid_n': 205,
+# }
+# fix_cost_n = {
+#     "hydro_4": 12.8, #EPE
+#     "hydro_8": 12.8, #EPE 
+#     "hydro_9": 12.8,#EPE 
+#     "sphs_4": 20.5, #EPE
+#     "sphs_8": 20.5, #EPE 
+#     "sphs_9": 20.5,#EPE 
+#     "bio_ppl": 30.8, #EPE
+#     "gas_ppl": 43.6,#EPE
+#     "gas_ppl_1": 43.6,#EPE
+#     "gas_ppl_2": 43.6,#EPE
+#     "gas_ppl_ccs": 43.6,#PNE
+#     "gas_ppl_ccs_1": 43.6,#PNE
+#     "gas_ppl_ccs_2": 43.6,#PNE
+#     "wind_ppl": 25.6,#EPE
+#     "coal_ppl": 89.7,#EPE
+#     "nuc_ppl": 83.3, #EPE
+#     "solar_pv_ppl":16.7, #EPE
+#     "oil_ppl": 56.4,
+#     "batt_n": 31.8, #NREL
+# }
+# var_cost_n = {
+#     "gas_ppl": 219.8, #Considering Gas cost of 4 US$/MMBtu
+#     "gas_ppl_1": 329.8, #Considering Gas cost of 6 US$/MMBtu
+#     "gas_ppl_2": 439.7, #Considering Gas cost of 8 US$/MMBtu
+#     "gas_ppl_ccs": 219.8, #Considering Gas cost of 4 US$/MMBtu
+#     "gas_ppl_ccs_1": 329.8, #Considering Gas cost of 6 US$/MMBtu
+#     "gas_ppl_ccs_2": 439.7, #Considering Gas cost of 8 US$/MMBtu
+#     "coal_ppl": 298.7, #EPE
+#     "oil_ppl": 898,
+#     "bio_ppl":0.000001,#Considering an irrelevant cost to guarantee that the generation can be different from capacity factor
+# }
 
-# Costs for Northeast
-inv_cost_ne = {
-    "hydro_3": 1352,#EPE mean value for UHE
-    "sphs_3": 1500,#EPE
-    "bio_ppl": 1200,#EPE 
-    "gas_ppl": 900, #EPE mean value
-    "gas_ppl_1": 1000, #EPE mean value
-    "gas_ppl_2": 1000, #EPE mean value
-    "gas_ppl_ccs": 1.8*900, #PNE
-    "gas_ppl_ccs_1": 1.8*1000, #PNE
-    "gas_ppl_ccs_2": 1.8*1000, #PNE
-    "wind_ppl_cos": 1200,#It will be considered same values. The only difference will be capacity factor
-    "wind_ppl_int": 1200,#It will be considered same values. The only difference will be capacity factor
-    "coal_ppl": 2500, #EPE
-    "nuc_ppl": 5000,#EPE
-    "solar_pv_ppl":1100, #min value in EPE, max value is 1350
-    "oil_ppl": 1100,
-    'grid2': 359,
-    "batt_ne": 1271, #NREL study
-    'grid_ne': 205,
-}
-fix_cost_ne = {
-    "hydro_3": 12.8,#EPE
-    "sphs_3": 20.5,#EPE
-    "bio_ppl": 30.8, #EPE
-    "gas_ppl": 43.6,#EPE
-    "gas_ppl_1": 43.6,#EPE
-    "gas_ppl_2": 43.6,#EPE
-    "gas_ppl_ccs": 43.6,#EPE
-    "gas_ppl_ccs_1": 43.6,#EPE
-    "gas_ppl_ccs_2": 43.6,#EPE
-    "wind_ppl_cos": 25.6,#EPE
-    "wind_ppl_int": 25.6,#EPE
-    "coal_ppl": 89.7,#EPE
-    "nuc_ppl": 83.3, #EPE
-    "solar_pv_ppl":16.7, #EPE
-    "oil_ppl": 56.4,
-    "batt_ne": 31.8,#NREL
-}
-var_cost_ne = {
-    "gas_ppl": 219.8, #EPE mean value
-    "gas_ppl_1": 329.8, #EPE mean value
-    "gas_ppl_2": 439.7, #EPE mean value
-    "gas_ppl_ccs": 219.8, #EPE mean value
-    "gas_ppl_ccs_1": 329.8, #EPE mean value
-    "gas_ppl_ccs_2": 439.7, #EPE mean value
-    "coal_ppl": 298.7, #EPE
-    "oil_ppl": 898,
-    "bio_ppl":0.000001,#Considering an irrelevant cost to guarantee that the generation can be different from capacity factor
-}
+# # Costs for Northeast
+# inv_cost_ne = {
+#     "hydro_3": 1352,#EPE mean value for UHE
+#     "sphs_3": 1500,#EPE
+#     "bio_ppl": 1200,#EPE 
+#     "gas_ppl": 900, #EPE mean value
+#     "gas_ppl_1": 1000, #EPE mean value
+#     "gas_ppl_2": 1000, #EPE mean value
+#     "gas_ppl_ccs": 1.8*900, #PNE
+#     "gas_ppl_ccs_1": 1.8*1000, #PNE
+#     "gas_ppl_ccs_2": 1.8*1000, #PNE
+#     "wind_ppl_cos": 1200,#It will be considered same values. The only difference will be capacity factor
+#     "wind_ppl_int": 1200,#It will be considered same values. The only difference will be capacity factor
+#     "coal_ppl": 2500, #EPE
+#     "nuc_ppl": 5000,#EPE
+#     "solar_pv_ppl":1100, #min value in EPE, max value is 1350
+#     "oil_ppl": 1100,
+#     'grid2': 359,
+#     "batt_ne": 1271, #NREL study
+#     'grid_ne': 205,
+# }
+# fix_cost_ne = {
+#     "hydro_3": 12.8,#EPE
+#     "sphs_3": 20.5,#EPE
+#     "bio_ppl": 30.8, #EPE
+#     "gas_ppl": 43.6,#EPE
+#     "gas_ppl_1": 43.6,#EPE
+#     "gas_ppl_2": 43.6,#EPE
+#     "gas_ppl_ccs": 43.6,#EPE
+#     "gas_ppl_ccs_1": 43.6,#EPE
+#     "gas_ppl_ccs_2": 43.6,#EPE
+#     "wind_ppl_cos": 25.6,#EPE
+#     "wind_ppl_int": 25.6,#EPE
+#     "coal_ppl": 89.7,#EPE
+#     "nuc_ppl": 83.3, #EPE
+#     "solar_pv_ppl":16.7, #EPE
+#     "oil_ppl": 56.4,
+#     "batt_ne": 31.8,#NREL
+# }
+# var_cost_ne = {
+#     "gas_ppl": 219.8, #EPE mean value
+#     "gas_ppl_1": 329.8, #EPE mean value
+#     "gas_ppl_2": 439.7, #EPE mean value
+#     "gas_ppl_ccs": 219.8, #EPE mean value
+#     "gas_ppl_ccs_1": 329.8, #EPE mean value
+#     "gas_ppl_ccs_2": 439.7, #EPE mean value
+#     "coal_ppl": 298.7, #EPE
+#     "oil_ppl": 898,
+#     "bio_ppl":0.000001,#Considering an irrelevant cost to guarantee that the generation can be different from capacity factor
+# }
 
-# Costs for Southeast
-fix_cost_se = {
-    "hydro_1": 1352,#EPE mean value for UHE
-    "hydro_5": 1352,#EPE mean value for UHE
-    "hydro_6": 1352,#EPE mean value for UHE
-    "hydro_7": 1352,#EPE mean value for UHE
-    "hydro_10": 1352,#EPE mean value for UHE
-    "hydro_12": 1352,#EPE mean value for UHE
-    "sphs_1": 1500,#EPE
-    "sphs_6": 1500,#EPE
-    "sphs_7": 1500,#EPE
-    "sphs_10": 1500,#EPE
-    "sphs_12": 1500,#EPE
-    "bio_ppl": 1200,#EPE 
-    "gas_ppl": 900, #EPE mean value
-    "gas_ppl_1": 1000, #EPE mean value
-    "gas_ppl_2": 1000, #EPE mean value
-    "gas_ppl_ccs": 1.8*900, #EPE mean value
-    "gas_ppl_ccs_1": 1.8*1000, #EPE mean value
-    "gas_ppl_ccs_2": 1.8*1000, #EPE mean value
-    "wind_ppl": 1200,#EPE mean value
-    "coal_ppl": 2500, #EPE
-    "nuc_ppl": 5000,#EPE
-    "solar_pv_ppl":1100, #min value in EPE, max value is 1350
-    "oil_ppl": 1100,
-    'grid3': 462,
-    "batt_se": 1271, #NREL study
-    'grid_se': 205,
-}
-fix_cost_se = {
-    "hydro_1": 12.8,
-    "hydro_5": 12.8,
-    "hydro_6": 12.8,
-    "hydro_7": 12.8,
-    "hydro_10": 12.8,
-    "hydro_12": 12.8,
-    "sphs_1": 20.5,#EPE
-    "sphs_6": 20.5,#EPE
-    "sphs_7": 20.5,#EPE
-    "sphs_10": 20.5,#EPE
-    "sphs_12": 20.5,#EPE   
-    "bio_ppl": 30.8, #EPE
-    "gas_ppl": 43.6,#EPE
-    "gas_ppl_1": 43.6,#EPE
-    "gas_ppl_2": 43.6,#EPE
-    "gas_ppl_ccs": 43.6,#EPE
-    "gas_ppl_ccs_1": 43.6,#EPE
-    "gas_ppl_ccs_2": 43.6,#EPE
-    "wind_ppl": 25.6,#EPE
-    "coal_ppl": 89.7,#EPE
-    "nuc_ppl": 83.3, #EPE
-    "solar_pv_ppl":16.7, #EPE
-    "oil_ppl": 56.4,
-    "batt_se": 31.8, #NREL
-}
-var_cost_se = {
-    "gas_ppl": 219.8, #EPE mean value
-    "gas_ppl_1": 329.8, #EPE mean value
-    "gas_ppl_2": 439.7, #EPE mean value
-    "gas_ppl_ccs": 219.8, #EPE mean value
-    "gas_ppl_ccs_1": 329.8, #EPE mean value
-    "gas_ppl_ccs_2": 439.7, #EPE mean value
-    "coal_ppl": 298.7, #EPE
-    "oil_ppl": 898,
-    "nuc_ppl": 53.3,
-    "bio_ppl":0.000001, #Considering an irrelevant cost to guarantee that the generation can be different from capacity factor
-}
+# # Costs for Southeast
+# inv_cost_se = {
+#     "hydro_1": 1352,#EPE mean value for UHE
+#     "hydro_5": 1352,#EPE mean value for UHE
+#     "hydro_6": 1352,#EPE mean value for UHE
+#     "hydro_7": 1352,#EPE mean value for UHE
+#     "hydro_10": 1352,#EPE mean value for UHE
+#     "hydro_12": 1352,#EPE mean value for UHE
+#     "sphs_1": 1500,#EPE
+#     "sphs_6": 1500,#EPE
+#     "sphs_7": 1500,#EPE
+#     "sphs_10": 1500,#EPE
+#     "sphs_12": 1500,#EPE
+#     "bio_ppl": 1200,#EPE 
+#     "gas_ppl": 900, #EPE mean value
+#     "gas_ppl_1": 1000, #EPE mean value
+#     "gas_ppl_2": 1000, #EPE mean value
+#     "gas_ppl_ccs": 1.8*900, #EPE mean value
+#     "gas_ppl_ccs_1": 1.8*1000, #EPE mean value
+#     "gas_ppl_ccs_2": 1.8*1000, #EPE mean value
+#     "wind_ppl": 1200,#EPE mean value
+#     "coal_ppl": 2500, #EPE
+#     "nuc_ppl": 5000,#EPE
+#     "solar_pv_ppl":1100, #min value in EPE, max value is 1350
+#     "oil_ppl": 1100,
+#     'grid3': 462,
+#     "batt_se": 1271, #NREL study
+#     'grid_se': 205,
+# }
+# fix_cost_se = {
+#     "hydro_1": 12.8,
+#     "hydro_5": 12.8,
+#     "hydro_6": 12.8,
+#     "hydro_7": 12.8,
+#     "hydro_10": 12.8,
+#     "hydro_12": 12.8,
+#     "sphs_1": 20.5,#EPE
+#     "sphs_6": 20.5,#EPE
+#     "sphs_7": 20.5,#EPE
+#     "sphs_10": 20.5,#EPE
+#     "sphs_12": 20.5,#EPE   
+#     "bio_ppl": 30.8, #EPE
+#     "gas_ppl": 43.6,#EPE
+#     "gas_ppl_1": 43.6,#EPE
+#     "gas_ppl_2": 43.6,#EPE
+#     "gas_ppl_ccs": 43.6,#EPE
+#     "gas_ppl_ccs_1": 43.6,#EPE
+#     "gas_ppl_ccs_2": 43.6,#EPE
+#     "wind_ppl": 25.6,#EPE
+#     "coal_ppl": 89.7,#EPE
+#     "nuc_ppl": 83.3, #EPE
+#     "solar_pv_ppl":16.7, #EPE
+#     "oil_ppl": 56.4,
+#     "batt_se": 31.8, #NREL
+# }
+# var_cost_se = {
+#     "gas_ppl": 219.8, #EPE mean value
+#     "gas_ppl_1": 329.8, #EPE mean value
+#     "gas_ppl_2": 439.7, #EPE mean value
+#     "gas_ppl_ccs": 219.8, #EPE mean value
+#     "gas_ppl_ccs_1": 329.8, #EPE mean value
+#     "gas_ppl_ccs_2": 439.7, #EPE mean value
+#     "coal_ppl": 298.7, #EPE
+#     "oil_ppl": 898,
+#     "nuc_ppl": 53.3,
+#     "bio_ppl":0.000001, #Considering an irrelevant cost to guarantee that the generation can be different from capacity factor
+# }
 
-# Costs for South
-inv_cost_s = {
-    "hydro_2": 1352,#EPE mean value for UHE
-    "hydro_11": 1352,
-    "sphs_2": 1500,#EPE mean value for UHE
-    "sphs_11": 1500,
-    "bio_ppl": 1200,#EPE 
-    "gas_ppl": 900, #EPE mean value
-    "gas_ppl_1": 1000, #EPE mean value
-    "gas_ppl_2": 1000, #EPE mean value
-    "gas_ppl_ccs": 1.8*900, #PNE
-    "gas_ppl_ccs_1": 1.8*1000, #PNE
-    "gas_ppl_ccs_2": 1.8*1000, #PNE
-    "wind_ppl_rs": 1200,#EPE mean value
-    "coal_ppl": 2100, #EPE
-    "nuc_ppl": 5000,#EPE
-    "solar_pv_ppl":1100, #min value in EPE, max value is 1350
-    "oil_ppl": 1100,
-    'grid4': 205,#EPE NT pr 007/2018
-    "batt_s": 1271,#NREL study
-    'grid_s': 205,
-  }
-fix_cost_s = {
-    "hydro_2": 12.8,#EPE
-    "hydro_11": 12.8,#EPE
-    "sphs_2": 20.5,#EPE
-    "sphs_11": 20.5,#EPE
-    "bio_ppl": 30.8, #EPE
-    "gas_ppl": 43.6,#EPE
-    "gas_ppl_1": 43.6,#EPE
-    "gas_ppl_2": 43.6,#EPE
-    "gas_ppl_ccs": 43.6,#EPE
-    "gas_ppl_ccs_1": 43.6,#EPE
-    "gas_ppl_ccs_2": 43.6,#EPE
-    "wind_ppl_rs": 25.6,#EPE
-    "coal_ppl": 89.7,#EPE
-    "nuc_ppl": 83.3, #EPE
-    "solar_pv_ppl":16.7, #EPE
-    "oil_ppl": 56.4,
-    "batt_s": 31.8, #NREL
-}
-var_cost_s = {
-    "gas_ppl": 219.8, #EPE mean value
-    "gas_ppl_1": 329.8, #EPE mean value
-    "gas_ppl_2": 439.7, #EPE mean value
-    "gas_ppl_ccs": 219.8, #EPE mean value
-    "gas_ppl_ccs_1": 329.8, #EPE mean value
-    "gas_ppl_ccs_2": 439.7, #EPE mean value
-    "coal_ppl": 136.6, #EPE national coal
-    "oil_ppl": 898,
-    "bio_ppl":0.000001,#Considering an irrelevant cost to guarantee that the generation can be different from capacity factor
-}
+# # Costs for South
+# inv_cost_s = {
+#     "hydro_2": 1352,#EPE mean value for UHE
+#     "hydro_11": 1352,
+#     "sphs_2": 1500,#EPE mean value for UHE
+#     "sphs_11": 1500,
+#     "bio_ppl": 1200,#EPE 
+#     "gas_ppl": 900, #EPE mean value
+#     "gas_ppl_1": 1000, #EPE mean value
+#     "gas_ppl_2": 1000, #EPE mean value
+#     "gas_ppl_ccs": 1.8*900, #PNE
+#     "gas_ppl_ccs_1": 1.8*1000, #PNE
+#     "gas_ppl_ccs_2": 1.8*1000, #PNE
+#     "wind_ppl_rs": 1200,#EPE mean value
+#     "coal_ppl": 2100, #EPE
+#     "nuc_ppl": 5000,#EPE
+#     "solar_pv_ppl":1100, #min value in EPE, max value is 1350
+#     "oil_ppl": 1100,
+#     'grid4': 205,#EPE NT pr 007/2018
+#     "batt_s": 1271,#NREL study
+#     'grid_s': 205,
+#   }
+# fix_cost_s = {
+#     "hydro_2": 12.8,#EPE
+#     "hydro_11": 12.8,#EPE
+#     "sphs_2": 20.5,#EPE
+#     "sphs_11": 20.5,#EPE
+#     "bio_ppl": 30.8, #EPE
+#     "gas_ppl": 43.6,#EPE
+#     "gas_ppl_1": 43.6,#EPE
+#     "gas_ppl_2": 43.6,#EPE
+#     "gas_ppl_ccs": 43.6,#EPE
+#     "gas_ppl_ccs_1": 43.6,#EPE
+#     "gas_ppl_ccs_2": 43.6,#EPE
+#     "wind_ppl_rs": 25.6,#EPE
+#     "coal_ppl": 89.7,#EPE
+#     "nuc_ppl": 83.3, #EPE
+#     "solar_pv_ppl":16.7, #EPE
+#     "oil_ppl": 56.4,
+#     "batt_s": 31.8, #NREL
+# }
+# var_cost_s = {
+#     "gas_ppl": 219.8, #EPE mean value
+#     "gas_ppl_1": 329.8, #EPE mean value
+#     "gas_ppl_2": 439.7, #EPE mean value
+#     "gas_ppl_ccs": 219.8, #EPE mean value
+#     "gas_ppl_ccs_1": 329.8, #EPE mean value
+#     "gas_ppl_ccs_2": 439.7, #EPE mean value
+#     "coal_ppl": 136.6, #EPE national coal
+#     "oil_ppl": 898,
+#     "bio_ppl":0.000001,#Considering an irrelevant cost to guarantee that the generation can be different from capacity factor
+# }
 
 
 # %% =============================== Start Model ===============================
@@ -2107,54 +2107,54 @@ var_cost = {
 }
 
 # of North
-for tec, val in inv_cost_n.items():
+for tec, val in dados['costs']['inv_cost']['North'].items():
     df = make_df(base_inv_cost, node_loc='North', technology=tec, value=val)
     scenario.add_par('inv_cost', df)
 
-for tec, val in fix_cost_n.items():
+for tec, val in dados['costs']['fix_cost']['North'].items():
     df = make_df(base_fix_cost, node_loc='North', technology=tec, value=val)
     scenario.add_par('fix_cost', df)
 
-for tec, val in var_cost_n.items():                                     # Adding variable cost = fuel cost to thermal power dados['technology']['plants']
+for tec, val in dados['costs']['var_cost']['North'].items():                                     # Adding variable cost = fuel cost to thermal power dados['technology']['plants']
     df = make_df(var_cost, node_loc='North', technology=tec, value=val)
     scenario.add_par('var_cost', df)
 
 # of Northeast
-for tec, val in inv_cost_ne.items():
+for tec, val in dados['costs']['inv_cost']['Northeast'].items():
     df = make_df(base_inv_cost, node_loc='Northeast', technology=tec, value=val)
     scenario.add_par('inv_cost', df)
 
-for tec, val in fix_cost_ne.items():
+for tec, val in dados['costs']['fix_cost']['Northeast'].items():
     df = make_df(base_fix_cost, node_loc='Northeast', technology=tec, value=val)
     scenario.add_par('fix_cost', df)
 
-for tec, val in var_cost_ne.items():
+for tec, val in dados['costs']['var_cost']['Northeast'].items():
     df = make_df(var_cost, node_loc='Northeast', technology=tec, value=val)
     scenario.add_par('var_cost', df)
 
 # of Southeast
-for tec, val in fix_cost_se.items():
+for tec, val in dados['costs']['inv_cost']['Southeast'].items():
     df = make_df(base_inv_cost, node_loc='Southeast', technology=tec, value=val)
     scenario.add_par('inv_cost', df)
 
-for tec, val in fix_cost_se.items():
+for tec, val in dados['costs']['fix_cost']['Southeast'].items():
     df = make_df(base_fix_cost, node_loc='Southeast', technology=tec, value=val)
     scenario.add_par('fix_cost', df)
 
-for tec, val in var_cost_se.items():
+for tec, val in dados['costs']['var_cost']['Southeast'].items():
     df = make_df(var_cost, node_loc='Southeast', technology=tec, value=val)
     scenario.add_par('var_cost', df)
 
 # of South
-for tec, val in inv_cost_s.items():
+for tec, val in dados['costs']['inv_cost']['South'].items():
     df = make_df(base_inv_cost, node_loc='South', technology=tec, value=val)
     scenario.add_par('inv_cost', df)
 
-for tec, val in fix_cost_s.items():
+for tec, val in dados['costs']['fix_cost']['South'].items():
     df = make_df(base_fix_cost, node_loc='South', technology=tec, value=val)
     scenario.add_par('fix_cost', df)
 
-for tec, val in var_cost_s.items():
+for tec, val in dados['costs']['var_cost']['South'].items():
     df = make_df(var_cost, node_loc='South', technology=tec, value=val)
     scenario.add_par('var_cost', df)
 

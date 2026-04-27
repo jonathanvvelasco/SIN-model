@@ -636,8 +636,11 @@ water_supply:
     in: {water_supply_2: 431.4, water_supply_11: 457.4}
 
 costs:
-  north:
-    inv_cost:
+  # - inv cost in $ / kW (specific investment cost) dollar price in 2015 R$ 3,87 source: https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-227/topico-456/NT%20PR%20007-2018%20Premissas%20e%20Custos%20Oferta%20de%20Energia%20El%C3%A9trica.pdf
+  # - fix cost in $ / kW / year (every year a fixed quantity is destinated to cover part of the O&M costs based on the size of the plant, e.g. lightening, labor, scheduled maintenance, etc.)
+  # - var cost in $ / MWh (variable cost of generation, considering fuel costs, variable O&M costs, etc.)
+  inv_cost:
+    North:    
       hydro_4: 1352
       hydro_8: 1352
       hydro_9: 1352
@@ -659,39 +662,7 @@ costs:
       grid1: 359
       batt_n: 1271
       grid_n: 205
-    fix_cost:
-      hydro_4: 12.8
-      hydro_8: 12.8
-      hydro_9: 12.8
-      sphs_4: 20.5
-      sphs_8: 20.5
-      sphs_9: 20.5
-      bio_ppl: 30.8
-      gas_ppl: 43.6
-      gas_ppl_1: 43.6
-      gas_ppl_2: 43.6
-      gas_ppl_ccs: 43.6
-      gas_ppl_ccs_1: 43.6
-      gas_ppl_ccs_2: 43.6
-      wind_ppl: 25.6
-      coal_ppl: 89.7
-      nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
-      oil_ppl: 56.4
-      batt_n: 31.8
-    var_cost:
-      gas_ppl: 219.8
-      gas_ppl_1: 329.8
-      gas_ppl_2: 439.7
-      gas_ppl_ccs: 219.8
-      gas_ppl_ccs_1: 329.8
-      gas_ppl_ccs_2: 439.7
-      coal_ppl: 298.7
-      oil_ppl: 898
-      bio_ppl: 0.000001
-
-  northeast:
-    inv_cost:
+    Northeast:  
       hydro_3: 1352
       sphs_3: 1500
       bio_ppl: 1200
@@ -710,36 +681,7 @@ costs:
       grid2: 359
       batt_ne: 1271
       grid_ne: 205
-    fix_cost:
-      hydro_3: 12.8
-      sphs_3: 20.5
-      bio_ppl: 30.8
-      gas_ppl: 43.6
-      gas_ppl_1: 43.6
-      gas_ppl_2: 43.6
-      gas_ppl_ccs: 43.6
-      gas_ppl_ccs_1: 43.6
-      gas_ppl_ccs_2: 43.6
-      wind_ppl_cos: 25.6
-      wind_ppl_int: 25.6
-      coal_ppl: 89.7
-      nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
-      oil_ppl: 56.4
-      batt_ne: 31.8
-    var_cost:
-      gas_ppl: 219.8
-      gas_ppl_1: 329.8
-      gas_ppl_2: 439.7
-      gas_ppl_ccs: 219.8
-      gas_ppl_ccs_1: 329.8
-      gas_ppl_ccs_2: 439.7
-      coal_ppl: 298.7
-      oil_ppl: 898
-      bio_ppl: 0.000001
-
-  southeast:
-    inv_cost:
+    Southeast:
       hydro_1: 1352
       hydro_5: 1352
       hydro_6: 1352
@@ -766,7 +708,65 @@ costs:
       grid3: 462
       batt_se: 1271
       grid_se: 205
-    fix_cost:
+    South:
+      hydro_2: 1352
+      hydro_11: 1352
+      sphs_2: 1500
+      sphs_11: 1500
+      bio_ppl: 1200
+      gas_ppl: 900
+      gas_ppl_1: 1000
+      gas_ppl_2: 1000
+      gas_ppl_ccs: 1620
+      gas_ppl_ccs_1: 1800
+      gas_ppl_ccs_2: 1800
+      wind_ppl_rs: 1200
+      coal_ppl: 2100
+      nuc_ppl: 5000
+      solar_pv_ppl: 1100
+      oil_ppl: 1100
+      grid4: 205
+      batt_s: 1271
+      grid_s: 205
+  fix_cost:
+    North:
+      hydro_4: 12.8
+      hydro_8: 12.8
+      hydro_9: 12.8
+      sphs_4: 20.5
+      sphs_8: 20.5
+      sphs_9: 20.5
+      bio_ppl: 30.8
+      gas_ppl: 43.6
+      gas_ppl_1: 43.6
+      gas_ppl_2: 43.6
+      gas_ppl_ccs: 43.6
+      gas_ppl_ccs_1: 43.6
+      gas_ppl_ccs_2: 43.6
+      wind_ppl: 25.6
+      coal_ppl: 89.7
+      nuc_ppl: 83.3
+      solar_pv_ppl: 16.7
+      oil_ppl: 56.4
+      batt_n: 31.8
+    Northeast:
+      hydro_3: 12.8
+      sphs_3: 20.5
+      bio_ppl: 30.8
+      gas_ppl: 43.6
+      gas_ppl_1: 43.6
+      gas_ppl_2: 43.6
+      gas_ppl_ccs: 43.6
+      gas_ppl_ccs_1: 43.6
+      gas_ppl_ccs_2: 43.6
+      wind_ppl_cos: 25.6
+      wind_ppl_int: 25.6
+      coal_ppl: 89.7
+      nuc_ppl: 83.3
+      solar_pv_ppl: 16.7
+      oil_ppl: 56.4
+      batt_ne: 31.8
+    Southeast:
       hydro_1: 12.8
       hydro_5: 12.8
       hydro_6: 12.8
@@ -791,40 +791,7 @@ costs:
       solar_pv_ppl: 16.7
       oil_ppl: 56.4
       batt_se: 31.8
-    var_cost:
-      gas_ppl: 219.8
-      gas_ppl_1: 329.8
-      gas_ppl_2: 439.7
-      gas_ppl_ccs: 219.8
-      gas_ppl_ccs_1: 329.8
-      gas_ppl_ccs_2: 439.7
-      coal_ppl: 298.7
-      oil_ppl: 898
-      nuc_ppl: 53.3
-      bio_ppl: 0.000001
-
-  south:
-    inv_cost:
-      hydro_2: 1352
-      hydro_11: 1352
-      sphs_2: 1500
-      sphs_11: 1500
-      bio_ppl: 1200
-      gas_ppl: 900
-      gas_ppl_1: 1000
-      gas_ppl_2: 1000
-      gas_ppl_ccs: 1620
-      gas_ppl_ccs_1: 1800
-      gas_ppl_ccs_2: 1800
-      wind_ppl_rs: 1200
-      coal_ppl: 2100
-      nuc_ppl: 5000
-      solar_pv_ppl: 1100
-      oil_ppl: 1100
-      grid4: 205
-      batt_s: 1271
-      grid_s: 205
-    fix_cost:
+    South:
       hydro_2: 12.8
       hydro_11: 12.8
       sphs_2: 20.5
@@ -842,7 +809,39 @@ costs:
       solar_pv_ppl: 16.7
       oil_ppl: 56.4
       batt_s: 31.8
-    var_cost:
+  var_cost:
+    North:
+      gas_ppl: 219.8
+      gas_ppl_1: 329.8
+      gas_ppl_2: 439.7
+      gas_ppl_ccs: 219.8
+      gas_ppl_ccs_1: 329.8
+      gas_ppl_ccs_2: 439.7
+      coal_ppl: 298.7
+      oil_ppl: 898
+      bio_ppl: 0.000001
+    Northeast:
+      gas_ppl: 219.8
+      gas_ppl_1: 329.8
+      gas_ppl_2: 439.7
+      gas_ppl_ccs: 219.8
+      gas_ppl_ccs_1: 329.8
+      gas_ppl_ccs_2: 439.7
+      coal_ppl: 298.7
+      oil_ppl: 898
+      bio_ppl: 0.000001
+    Southeast:
+      gas_ppl: 219.8
+      gas_ppl_1: 329.8
+      gas_ppl_2: 439.7
+      gas_ppl_ccs: 219.8
+      gas_ppl_ccs_1: 329.8
+      gas_ppl_ccs_2: 439.7
+      coal_ppl: 298.7
+      oil_ppl: 898
+      nuc_ppl: 53.3
+      bio_ppl: 0.000001
+    South:
       gas_ppl: 219.8
       gas_ppl_1: 329.8
       gas_ppl_2: 439.7
