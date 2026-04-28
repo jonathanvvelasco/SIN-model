@@ -21,8 +21,8 @@ def start_model(scenario, dados):
         input("The scenario name does not match the one in the input data. Press Enter to continue or Ctrl+C to stop:")
 
     # Adding units to the library
-    mp.add_unit('m^3/s')  
-    mp.add_unit('MMUSD/GW')
+    # mp.add_unit('m^3/s')  
+    # mp.add_unit('MMUSD/GW')
 
     scenario.add_horizon(
         year= dados['general']['history'] + dados['general']['horizon'],

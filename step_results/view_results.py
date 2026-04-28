@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def gen_plot(model, scenario):
+def gen_plot(mp, model, scenario):
     base = message_ix.Scenario(mp, model, scenario= scenario)
     
     
@@ -217,7 +217,7 @@ if __name__ == "__main__":
     # scenario = 'PDE2034'
     # scenario = 'seasonal'
     scenario = 'base'
-    gen_plot(model, scenario)    
+    gen_plot(mp, model, scenario)    
     
     # Close DB
     mp.close_db()# -*- coding: utf-8 -*-
