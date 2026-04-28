@@ -14,8 +14,11 @@ import message_ix
 from message_ix.utils import make_df
 
 
-def start_model(dados):
+def start_model(scenario, dados):
     # Set model attributes
+    # Check scenario metadata and input data
+    if dados['general']['model'] != scenario.model or dados['general']['scen'] != scenario.scenario:
+        input("The scenario name does not match the one in the input data. Press Enter to continue or Ctrl+C to stop:")
 
     # Adding units to the library
     mp.add_unit('m^3/s')  
@@ -1316,7 +1319,7 @@ def bound_growth_capacity_up(scenario, dados, growth_cap=0.1):
     '''Add Bound Growth Capacity up'''
 
     for node in dados['general']['nodes']:
-        for tec in scenario.add_set("technology"):
+        for tec in scenario.set("technology"):
             try:
                 df = make_df(
                 "growth_activity_up",
@@ -1345,7 +1348,7 @@ if __name__ == "__main__":
     scenario = message_ix.Scenario(mp, model, scen, version = 'new')
 
     # Add data to the model
-    scenario = start_model(dados)   # Creates a new scenario
+    scenario = start_model(scenario, dados)   # Creates a new scenario
     scenario = technical_lifetime(scenario, dados)
     scenario = technologies(scenario, dados)
     scenario = capacity_factors_and_historical_capacity(scenario, dados)
