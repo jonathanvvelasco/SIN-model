@@ -3,13 +3,14 @@ import ixmp
 import message_ix
 
 import step1_SIN_Baseline
+import step2_SIN_Seasonality
 import step_results
 
 
 # %% Inputs
 input_file = "baseline_inputs.yaml"
 model = "SIN Brasil expandido"
-scen = "base"
+scen = "reference"
 
 
 # %% Model 
@@ -36,6 +37,9 @@ scenario = step1_SIN_Baseline.historical_activity(scenario, dados)
 scenario = step1_SIN_Baseline.bound_activity_up(scenario, dados)
 scenario = step1_SIN_Baseline.bound_total_capacity_up(scenario, dados)
 # scenario = step1_SIN_Baseline.bound_growth_capacity_up(scenario, dados, growth_cap=0.3) # Growth capacity bound to 30%
+
+# Add seasonality to the model
+scenario = step2_SIN_Seasonality.seasonality(scenario)
 
 # solving the model
 scenario.commit(comment='Brazilian_base')       ## Commit the datastructure and solve the model
