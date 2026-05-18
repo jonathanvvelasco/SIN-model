@@ -41,6 +41,12 @@ scenario = step1_SIN_Baseline.bound_total_capacity_up(scenario, dados)
 # Add seasonality to the model
 scenario = step2_SIN_Seasonality.seasonality(scenario)
 
+# Add water technologies
+# step3_SIN seems not important
+
+# Add storage technologies
+
+
 # solving the model
 scenario.commit(comment='Brazilian_base')       ## Commit the datastructure and solve the model
 scenario.solve()

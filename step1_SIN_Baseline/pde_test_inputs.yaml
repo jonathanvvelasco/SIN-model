@@ -2,7 +2,7 @@
 general:
   # Model and scenario names
   model: "SIN Brasil expandido"
-  scen: "base"
+  scen: "dados_pde"
 
   # Include sets
   history: [2020]
