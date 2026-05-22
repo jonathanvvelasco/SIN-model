@@ -59,4 +59,5 @@ mp.close_db()
 # Generate plots
 mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
 step_results.gen_plot(mp, model, scen)
+step_results.sankey(mp, model, scenario)
 mp.close_db() 
