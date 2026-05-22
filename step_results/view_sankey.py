@@ -1,4 +1,4 @@
-import pandas as pd
+# import pandas as pd
 import ixmp as ix # type: ignore
 from message_ix import Scenario # type: ignore
 from message_ix.report import Reporter # type: ignore
@@ -6,7 +6,7 @@ from genno.operator import concat # type: ignore
 from message_ix.tools.sankey import map_for_sankey # type: ignore
 from pyam.figures import sankey # type: ignore
 import webbrowser
-import re
+# import re
 from pathlib import Path
 
 def water_m3_to_Gwa(scenario, df, mapping, subsystem, annum):
@@ -138,51 +138,62 @@ def fig_to_html(fig, subsystem, annum):
         except Exception as e:
             print(f"Failed to write sankey object: {e}")
 
-def apply_sankey_node_positions(fig, node_positions=None, arrangement="snap"):
-    if not node_positions:
-        return fig
+def color_sankey_by_commodity(fig):
+    water_color = "rgb(0, 51, 102)"
+    electricity_color = "rgb(102, 179, 255)"
+    neutral_color = "rgba(180, 180, 180, 0.55)"
+    water_link_color = "rgba(0, 51, 102, 0.45)"
+    electricity_link_color = "rgba(102, 179, 255, 0.45)"
+    neutral_link_color = "rgba(180, 180, 180, 0.30)"
 
     for trace in getattr(fig, "data", []):
         if getattr(trace, "type", None) != "sankey":
             continue
 
         node = getattr(trace, "node", None)
+        link = getattr(trace, "link", None)
+        if node is None or link is None:
+            continue
+
         node_labels = getattr(node, "label", None)
         labels = list(node_labels) if node_labels is not None else []
 
-        node_x = getattr(node, "x", None)
-        node_y = getattr(node, "y", None)
-        x_positions = list(node_x) if node_x is not None else [None] * len(labels)
-        y_positions = list(node_y) if node_y is not None else [None] * len(labels)
-
-        for key, position in node_positions.items():
-            if isinstance(key, int):
-                node_index = key
+        node_colors = []
+        for label in labels:
+            label_lower = str(label).lower()
+            water_label = ("water" in label_lower) or ("hydro" in label_lower) or ("river" in label_lower)
+            electricity_label = ("electricity" in label_lower) or ("grid" in label_lower)
+            if water_label:
+                node_colors.append(water_color)
+            elif electricity_label:
+                node_colors.append(electricity_color)
             else:
-                try:
-                    node_index = labels.index(key)
-                except ValueError:
-                    continue
+                node_colors.append(neutral_color)
 
-            if node_index < 0 or node_index >= len(labels):
-                continue
+        link_colors = []
+        link_sources = getattr(link, "source", None)
+        link_targets = getattr(link, "target", None)
+        sources = list(link_sources) if link_sources is not None else []
+        targets = list(link_targets) if link_targets is not None else []
+        for source_index, target_index in zip(sources, targets):
+            source_label = str(labels[source_index]).lower() if source_index < len(labels) else ""
+            target_label = str(labels[target_index]).lower() if target_index < len(labels) else ""
 
-            if isinstance(position, dict):
-                if "x" in position:
-                    x_positions[node_index] = position["x"]
-                if "y" in position:
-                    y_positions[node_index] = position["y"]
-            elif isinstance(position, (tuple, list)) and len(position) >= 2:
-                x_positions[node_index], y_positions[node_index] = position[0], position[1]
+            if "water" in source_label or "water" in target_label:
+                link_colors.append(water_link_color)
+            elif "electricity" in source_label or "electricity" in target_label:
+                link_colors.append(electricity_link_color)
+            else:
+                link_colors.append(neutral_link_color)
 
-        trace.node.x = x_positions
-        trace.node.y = y_positions
-        trace.arrangement = arrangement
+        trace.update(
+            node=dict(color=node_colors),
+            # link=dict(color=link_colors),
+        )
 
-    fig.update_layout(uirevision="sankey-default-node-positions")
     return fig
 
-def view_sankey(mp, model, scenario, subsystems, annums, node_positions=None):
+def view_sankey(mp, model, scenario, subsystems, annums):
     
     scenario = Scenario(mp, model, scenario)
     
@@ -200,8 +211,8 @@ def view_sankey(mp, model, scenario, subsystems, annums, node_positions=None):
             df_for_plot = water_m3_to_Gwa(scenario, df, mapping, subsystem, annum)
 
             fig = sankey(df=df_for_plot, mapping=mapping)                                 # Create the Sankey diagram
-            fig = apply_sankey_node_positions(fig, node_positions=node_positions)
-
+            fig = color_sankey_by_commodity(fig)
+            
             fig.show()
     
             fig_to_html(fig, subsystem, annum)
@@ -215,56 +226,10 @@ if __name__ == "__main__":
     # Specifying model/scenario to be loaded from the database
     model = "SIN Brasil expandido"
     scenario = 'reference'
-    subsystems = ['North']
+    subsystems = ['North', 'Northeast', 'Southeast', 'South']
     annums = [2030] # [2025, 2030, 2035]
-    node_positions = {
-        "river9|M1": (0.02, 0.20),
-        "river4|M1": (0.02, 0.50),
-        "river8|M1": (0.02, 0.80),
-        "primary|water_4": (0.02, 0.35),
-        "primary|water_8": (0.02, 0.65),
-        "primary|water_9": (0.02, 0.90),
 
-        "water_supply_9|M1": (0.12, 0.10),
-        "water_supply_4|M1": (0.12, 0.25),
-        "water_supply_8|M1": (0.12, 0.40),
-
-        "hydro_4|M1": (0.28, 0.20),
-        "hydro_8|M1": (0.28, 0.35),
-        "hydro_9|M1": (0.28, 0.50),
-
-        "wind_ppl|M1": (0.42, 0.08),
-        "solar_pv_ppl|M1": (0.42, 0.18),
-        "nuc_ppl|M1": (0.42, 0.28),
-        "bio_ppl|M1": (0.42, 0.38),
-        "oil_ppl|M1": (0.42, 0.48),
-        "gas_ppl|M1": (0.42, 0.58),
-        "gas_ppl_1|M1": (0.42, 0.68),
-        "gas_ppl_2|M1": (0.42, 0.78),
-        "gas_ppl_ccs|M1": (0.42, 0.88),
-        "gas_ppl_ccs_1|M1": (0.42, 0.95),
-        "gas_ppl_ccs_2|M1": (0.42, 1.00),
-        "coal_ppl|M1": (0.42, 0.98),
-
-        "batt_n|M1": (0.58, 0.18),
-        "sphs_4|M1": (0.58, 0.32),
-        "sphs_8|M1": (0.58, 0.46),
-        "sphs_9|M1": (0.58, 0.60),
-
-        "secondary|water_4": (0.76, 0.20),
-        "secondary|water_8": (0.76, 0.35),
-        "secondary|water_9": (0.76, 0.50),
-        "secondary|electricity": (0.76, 0.68),
-
-        "grid1|n-to-ne": (0.88, 0.55),
-        "grid1|ne-to-n": (0.88, 0.72),
-
-        "final|water_4": (0.98, 0.20),
-        "final|water_8": (0.98, 0.35),
-        "final|water_9": (0.98, 0.50),
-        "final|electricity": (0.98, 0.68),
-    }
-    fig = view_sankey(mp, model, scenario, subsystems, annums, node_positions=node_positions)  
+    fig = view_sankey(mp, model, scenario, subsystems, annums)  
     
     # Close DB
     mp.close_db()
