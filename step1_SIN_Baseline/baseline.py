@@ -18,7 +18,7 @@ def start_model(scenario, dados):
     # Set model attributes
     # Check scenario metadata and input data
     if dados['general']['model'] != scenario.model or dados['general']['scen'] != scenario.scenario:
-        input("The scenario name does not match the one in the input data. Press Enter to continue or Ctrl+C to stop:")
+        input("The scenario name does not match the input data. Press Enter to continue or Ctrl+C to stop:")
 
     # Adding units to the library
     # mp.add_unit('m^3/s')  
