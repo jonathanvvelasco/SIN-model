@@ -34,6 +34,37 @@ def _clean_value(value: Any) -> Any:
 	return value
 
 
+def _normalize_demanda_sheet(demanda: pd.DataFrame) -> pd.DataFrame:
+	"""Propagate the subsystem number through valid rows in the demand sheet."""
+	if demanda.empty or demanda.shape[1] < 2:
+		return demanda
+
+	primeira_coluna = demanda.columns[0]
+	segunda_coluna = demanda.columns[1]
+	rows: list[pd.Series] = []
+	subsistema_atual: Any = 1
+	aguarda_numero_subsistema = False
+
+	for _, row in demanda.iterrows():
+		valor_segunda_coluna = row[segunda_coluna]
+
+		if isinstance(valor_segunda_coluna, str) and valor_segunda_coluna.strip().upper() == "POS":
+			aguarda_numero_subsistema = True
+			continue
+
+		if aguarda_numero_subsistema:
+			if pd.notna(valor_segunda_coluna):
+				subsistema_atual = _clean_value(valor_segunda_coluna)
+			aguarda_numero_subsistema = False
+			continue
+
+		linha = row.copy()
+		linha[primeira_coluna] = subsistema_atual
+		rows.append(linha)
+
+	return pd.DataFrame(rows, columns=demanda.columns).reset_index(drop=True)
+
+
 def workbook_to_dict(xlsm_path: Path, sheets: list[str] | None = None) -> dict[str, Any]:
     """Read specified sheets (or all if None) from workbook and return dict.
 
@@ -58,9 +89,12 @@ def workbook_to_dict(xlsm_path: Path, sheets: list[str] | None = None) -> dict[s
 
     # Aba Demanda
     demanda = pd.read_excel(xlsm_path, sheet_name="Demanda NW", skiprows=2, usecols="A:N", engine='calamine')
-    primeira_coluna = demanda.columns[0]
-    demanda[primeira_coluna] = demanda[primeira_coluna].ffill()
-    result["sheets"]["Demanda NW"] = {"demanda": demanda.to_dict(orient="list")}
+    demanda = _normalize_demanda_sheet(demanda)
+    result["sheets"]["Demanda NW"] = demanda.to_dict(orient="list")
+
+    # Aba Renov Ind.
+    renov_ind = pd.read_excel(xlsm_path, sheet_name="Renov Ind.", skiprows=1, usecols="A:R", engine='calamine')
+    result["sheets"]["Renov Ind."] = renov_ind.to_dict(orient="list")
 
     return result
 
