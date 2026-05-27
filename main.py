@@ -8,9 +8,9 @@ import step_results
 
 
 # %% Inputs
-input_file = "baseline_inputs.yaml"
+input_file = "pde_test_inputs.yaml"
 model = "SIN Brasil expandido"
-scen = "reference"
+scen = "dados_pde"
 
 
 # %% Model 

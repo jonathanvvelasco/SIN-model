@@ -225,9 +225,9 @@ if __name__ == "__main__":
     
     # Specifying model/scenario to be loaded from the database
     model = "SIN Brasil expandido"
-    scenario = 'reference'
+    scenario = 'dados_pde'
     subsystems = ['North', 'Northeast', 'Southeast', 'South']
-    annums = [2030] # [2025, 2030, 2035]
+    annums = [2060] # [2025, 2030, 2035]
 
     fig = view_sankey(mp, model, scenario, subsystems, annums)  
     
