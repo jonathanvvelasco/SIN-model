@@ -831,7 +831,7 @@ costs:
       wind_ppl: 1200
       coal_ppl: 2500
       nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid1: 359
       batt_n: 1271
@@ -850,7 +850,7 @@ costs:
       wind_ppl_int: 1200
       coal_ppl: 2500
       nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid2: 359
       batt_ne: 1271
@@ -877,7 +877,7 @@ costs:
       wind_ppl: 1200
       coal_ppl: 2500
       nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid3: 462
       batt_se: 1271
@@ -897,7 +897,7 @@ costs:
       wind_ppl_rs: 1200
       coal_ppl: 2100
       nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid4: 205
       batt_s: 1271
@@ -917,10 +917,10 @@ costs:
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl: 25.6
+      wind_ppl: 52
       coal_ppl: 89.7
       nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      solar_pv_ppl: 36
       oil_ppl: 56.4
       batt_n: 31.8
     Northeast:
@@ -933,11 +933,11 @@ costs:
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl_cos: 25.6
-      wind_ppl_int: 25.6
+      wind_ppl_cos: 52
+      wind_ppl_int: 52
       coal_ppl: 89.7
       nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      solar_pv_ppl: 36
       oil_ppl: 56.4
       batt_ne: 31.8
     Southeast:
@@ -959,10 +959,10 @@ costs:
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl: 25.6
+      wind_ppl: 52
       coal_ppl: 89.7
       nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      solar_pv_ppl: 36
       oil_ppl: 56.4
       batt_se: 31.8
     South:
@@ -977,10 +977,10 @@ costs:
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl_rs: 25.6
+      wind_ppl_rs: 52
       coal_ppl: 89.7
       nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      solar_pv_ppl: 36
       oil_ppl: 56.4
       batt_s: 31.8
   var_cost:

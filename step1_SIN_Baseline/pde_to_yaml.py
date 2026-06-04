@@ -104,6 +104,7 @@ def workbook_to_dict(xlsm_path: Path, sheets: list[str] | None = None) -> dict[s
 
 	# Aba geral
 	pde_input       	= pd.read_excel(xlsm_path, sheet_name="GERAL", skiprows=14, usecols="B:P", engine='calamine').squeeze()
+	pde_input.columns 	= ["technology", "lifetime", "inv_cost_brl", "ess_fix_brl", "inv_month", "O&M_fix_brl", "fix_month", "month_brl", "cvu_brl", "inflex_pdis", "inflex_ptot", "year_exp", "jdc", "teif", "ip"]
 	pde_par         	= pd.read_excel(xlsm_path, sheet_name="GERAL", skiprows=3, usecols="B:C", engine='calamine').iloc[0:6].T.set_index(0)
 	pde_par.columns 	= pde_par.iloc[0]
 	pde_par         	= pde_par[1:].reset_index(drop=True)
@@ -128,25 +129,36 @@ def workbook_to_dict(xlsm_path: Path, sheets: list[str] | None = None) -> dict[s
 
 	return result
 
-def dados_pde_para_yaml(base_data, sheets_data: dict[str, Any]) -> dict[str, Any]:
-	'''Atualiza o dicionário base_data com os dados das planilhas, mantendo a estrutura do YAML.'''
-
-	# Horizonte de estudo
+def _update_study_horizon(base_data, sheets_data):
+	'''Atualiza o horizonte de estudo no dicionário base_data com base na aba GERAL do sheets_data.'''
 	config = sheets_data['sheets']["GERAL"]["config"]
 	base_data['general']['horizon'] = [i for i in range(config["Inicio da Simulação"][0].year, config["Final da Simulação"][0].year + 1)]
 
-	# Demanda por subsistema
+	return base_data
+
+def _update_demand(base_data, sheets_data, time_frame="yearly"):
+	'''Atualiza a demanda por ano e subsistema no dicionário base_data com base na aba Demanda NW do sheets_data.'''
 	demanda = pd.DataFrame(sheets_data['sheets']["Demanda NW"])
 
-	# Fazendo demanda anual
-	colunas_mensais = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
-	demanda["val"] = demanda[colunas_mensais].sum(axis=1)/(730.5*len(colunas_mensais))  # From GWh to GWa
-	demanda = demanda.drop(columns=colunas_mensais)
-	demanda = demanda.groupby(["sistema", "ano"], as_index=False)["val"].sum()
+	if time_frame == "yearly":
+		# Fazendo demanda anual
+		colunas_mensais = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
+		demanda["val"] = demanda[colunas_mensais].sum(axis=1)/(730.5*len(colunas_mensais))  # From GWh to GWa
+		demanda = demanda.drop(columns=colunas_mensais)
+		demanda = demanda.groupby(["sistema", "ano"], as_index=False)["val"].sum()
+
 	for node in base_data['general']['nodes']:
 		demanda_node = demanda.loc[demanda["sistema"] == node]
 		demanda_por_ano = demanda_node.groupby("ano")["val"].sum()
 		base_data['general']['demand_per_year'][node] = [float(demanda_por_ano.get(ano, 0)) for ano in base_data['general']['horizon']]
+	
+	return base_data
+
+def dados_pde_para_yaml(base_data, sheets_data: dict[str, Any]) -> dict[str, Any]:
+	'''Atualiza o dicionário base_data com os dados das planilhas, mantendo a estrutura do YAML.'''
+
+	base_data = _update_study_horizon(base_data, sheets_data)
+	base_data = _update_demand(base_data, sheets_data)
 	
 	return base_data
 

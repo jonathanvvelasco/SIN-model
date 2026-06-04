@@ -640,7 +640,7 @@ costs:
   # - fix cost in $ / kW / year (every year a fixed quantity is destinated to cover part of the O&M costs based on the size of the plant, e.g. lightening, labor, scheduled maintenance, etc.)
   # - var cost in $ / MWh (variable cost of generation, considering fuel costs, variable O&M costs, etc.)
   inv_cost:
-    North:    
+    North:
       hydro_4: 1352
       hydro_8: 1352
       hydro_9: 1352
@@ -657,12 +657,12 @@ costs:
       wind_ppl: 1200
       coal_ppl: 2500
       nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid1: 359
       batt_n: 1271
       grid_n: 205
-    Northeast:  
+    Northeast:
       hydro_3: 1352
       sphs_3: 1500
       bio_ppl: 1200
@@ -676,7 +676,7 @@ costs:
       wind_ppl_int: 1200
       coal_ppl: 2500
       nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid2: 359
       batt_ne: 1271
@@ -703,7 +703,7 @@ costs:
       wind_ppl: 1200
       coal_ppl: 2500
       nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid3: 462
       batt_se: 1271
@@ -723,7 +723,7 @@ costs:
       wind_ppl_rs: 1200
       coal_ppl: 2100
       nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid4: 205
       batt_s: 1271
@@ -743,10 +743,10 @@ costs:
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl: 25.6
+      wind_ppl: 52
       coal_ppl: 89.7
       nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      solar_pv_ppl: 36
       oil_ppl: 56.4
       batt_n: 31.8
     Northeast:
@@ -759,11 +759,11 @@ costs:
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl_cos: 25.6
-      wind_ppl_int: 25.6
+      wind_ppl_cos: 52
+      wind_ppl_int: 52
       coal_ppl: 89.7
       nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      solar_pv_ppl: 36
       oil_ppl: 56.4
       batt_ne: 31.8
     Southeast:
@@ -785,10 +785,10 @@ costs:
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl: 25.6
+      wind_ppl: 52
       coal_ppl: 89.7
       nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      solar_pv_ppl: 36
       oil_ppl: 56.4
       batt_se: 31.8
     South:
@@ -803,10 +803,10 @@ costs:
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl_rs: 25.6
+      wind_ppl_rs: 52
       coal_ppl: 89.7
       nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      solar_pv_ppl: 36
       oil_ppl: 56.4
       batt_s: 31.8
   var_cost:
@@ -819,7 +819,7 @@ costs:
       gas_ppl_ccs_2: 439.7
       coal_ppl: 298.7
       oil_ppl: 898
-      bio_ppl: 0.000001
+      bio_ppl: 1.0e-06
     Northeast:
       gas_ppl: 219.8
       gas_ppl_1: 329.8
@@ -829,7 +829,7 @@ costs:
       gas_ppl_ccs_2: 439.7
       coal_ppl: 298.7
       oil_ppl: 898
-      bio_ppl: 0.000001
+      bio_ppl: 1.0e-06
     Southeast:
       gas_ppl: 219.8
       gas_ppl_1: 329.8
@@ -840,7 +840,7 @@ costs:
       coal_ppl: 298.7
       oil_ppl: 898
       nuc_ppl: 53.3
-      bio_ppl: 0.000001
+      bio_ppl: 1.0e-06
     South:
       gas_ppl: 219.8
       gas_ppl_1: 329.8
@@ -850,8 +850,7 @@ costs:
       gas_ppl_ccs_2: 439.7
       coal_ppl: 136.6
       oil_ppl: 898
-      bio_ppl: 0.000001
-
+      bio_ppl: 1.0e-06
 bound:
   activity_up:
     # Bound activities of hydros based on this source peak generation between 2018-2020 for the subsistem in order to keep the historical production from this source
