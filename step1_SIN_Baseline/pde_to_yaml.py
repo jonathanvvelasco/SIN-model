@@ -4,8 +4,6 @@ O arquivo gerado segue uma estrutura simples por abas, semelhante a um dump
 de planilha para consumo posterior.
 """
 
-from __future__ import annotations
-
 from pathlib import Path
 from typing import Any
 
@@ -32,7 +30,6 @@ def _clean_value(value: Any) -> Any:
 		except Exception:
 			return value
 	return value
-
 
 def _normalize_demanda_sheet(demanda: pd.DataFrame) -> pd.DataFrame:
 	"""Propagate the subsystem number through valid rows in the demand sheet."""
@@ -64,40 +61,94 @@ def _normalize_demanda_sheet(demanda: pd.DataFrame) -> pd.DataFrame:
 
 	return pd.DataFrame(rows, columns=demanda.columns).reset_index(drop=True)
 
-
 def workbook_to_dict(xlsm_path: Path, sheets: list[str] | None = None) -> dict[str, Any]:
-    """Read specified sheets (or all if None) from workbook and return dict.
+	"""Read specified sheets (or all if None) from workbook and return dict.
 
-    Only the requested sheets in `sheets` will be read. Missing sheets are
-    ignored.
-    """
-    result: dict[str, Any] = {"source_file": str(xlsm_path), "sheets": {}}
-    xls = pd.ExcelFile(xlsm_path, engine="openpyxl")
+	Only the requested sheets in `sheets` will be read. Missing sheets are
+	ignored.
+	"""
+	result: dict[str, Any] = {"source_file": str(xlsm_path), "sheets": {}}
+	xls = pd.ExcelFile(xlsm_path, engine="openpyxl")
 
-    if sheets is None:
-        sheet_names = xls.sheet_names
-    else:
-        # keep only sheets that actually exist in the workbook
-        sheet_names = [s for s in sheets if s in xls.sheet_names]
+	if sheets is None:
+		sheet_names = xls.sheet_names
+	else:
+		# keep only sheets that actually exist in the workbook
+		sheet_names = [s for s in sheets if s in xls.sheet_names]
 
-    # Aba geral
-    pde_input       = pd.read_excel(xlsm_path, sheet_name="GERAL", skiprows=14, usecols="B:P", engine='calamine').squeeze()
-    pde_par         = pd.read_excel(xlsm_path, sheet_name="GERAL", skiprows=3, usecols="B:C", engine='calamine').iloc[0:6].T.set_index(0)
-    pde_par.columns = pde_par.iloc[0]
-    pde_par         = pde_par[1:].reset_index(drop=True)
-    result["sheets"]["GERAL"] = {"tecnologias": pde_input.to_dict(), "param": pde_par.to_dict(orient="list")}
+	# Aba inicial
+	subsistemas_14_orig = pd.read_excel(xlsm_path, sheet_name="Inicial", skiprows=17, usecols="A:N", engine='calamine').head(1)
+	subsistemas_dic = {
+		# Relaciona os 14 subsistemas do PDE com os 4 subsistemas do modelo de forma agregada
+		'NORDESTE': 	'Northeast',
+		'IMPERATRIZ': 	'Northeast',
+		'NORTE': 		'North', 
+		'MAN AP BV': 'North',
+		'B. MONTE': 'North',
+		'XINGU': 'North',
+		'SUDESTE': 'Southeast',
+		'ITAIPU': 'Southeast', 
+		'AC RO': 'Southeast',
+		'T. PIRES': 'Southeast',
+		'PARANA': 'Southeast',
+		'TAPAJOS': 'Southeast',
+		'SUL': 'South',
+		'IVAIPORA': 'South',
+	}
+	subsistemas_14 = subsistemas_14_orig.replace(subsistemas_dic)
+	subsistemas_por_codigo = {
+		indice + 1: valor
+		for indice, valor in enumerate(subsistemas_14.iloc[0].tolist())
+	}
+	result["sheets"]["Inicial"] = subsistemas_por_codigo
 
-    # Aba Demanda
-    demanda = pd.read_excel(xlsm_path, sheet_name="Demanda NW", skiprows=2, usecols="A:N", engine='calamine')
-    demanda = _normalize_demanda_sheet(demanda)
-    result["sheets"]["Demanda NW"] = demanda.to_dict(orient="list")
+	# Aba geral
+	pde_input       	= pd.read_excel(xlsm_path, sheet_name="GERAL", skiprows=14, usecols="B:P", engine='calamine').squeeze()
+	pde_par         	= pd.read_excel(xlsm_path, sheet_name="GERAL", skiprows=3, usecols="B:C", engine='calamine').iloc[0:6].T.set_index(0)
+	pde_par.columns 	= pde_par.iloc[0]
+	pde_par         	= pde_par[1:].reset_index(drop=True)
+	pde_config      	= pd.read_excel(xlsm_path, sheet_name="GERAL", skiprows=0, usecols="F:G", engine='calamine').iloc[0:6].T.set_index(0)
+	pde_config.columns 	= pde_config.iloc[0]
+	pde_config      	= pde_config[1:].reset_index(drop=True)
+	result["sheets"]["GERAL"] = {"tecnologias": pde_input.to_dict(), 
+								"param": pde_par.to_dict(orient="list"), 
+								"config": pde_config.to_dict(orient="list")}
 
-    # Aba Renov Ind.
-    renov_ind = pd.read_excel(xlsm_path, sheet_name="Renov Ind.", skiprows=1, usecols="A:R", engine='calamine')
-    result["sheets"]["Renov Ind."] = renov_ind.to_dict(orient="list")
+	# Aba Demanda
+	demanda = pd.read_excel(xlsm_path, sheet_name="Demanda NW", skiprows=2, usecols="A:N", engine='calamine')
+	demanda.columns = ["sistema", "ano", "jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
+	demanda = _differentiate_and_clean_demanda(demanda) if False else demanda
+	demanda = _normalize_demanda_sheet(demanda)
+	demanda['sistema'] = demanda['sistema'].map(subsistemas_por_codigo)
+	result["sheets"]["Demanda NW"] = demanda.to_dict(orient="list")
 
-    return result
+	# Aba Renov Ind.
+	renov_ind = pd.read_excel(xlsm_path, sheet_name="Renov Ind.", skiprows=1, usecols="A:R", engine='calamine')
+	result["sheets"]["Renov Ind."] = renov_ind.to_dict(orient="list")
 
+	return result
+
+def dados_pde_para_yaml(base_data, sheets_data: dict[str, Any]) -> dict[str, Any]:
+	'''Atualiza o dicionário base_data com os dados das planilhas, mantendo a estrutura do YAML.'''
+
+	# Horizonte de estudo
+	config = sheets_data['sheets']["GERAL"]["config"]
+	base_data['general']['horizon'] = [i for i in range(config["Inicio da Simulação"][0].year, config["Final da Simulação"][0].year + 1)]
+
+	# Demanda por subsistema
+	demanda = pd.DataFrame(sheets_data['sheets']["Demanda NW"])
+
+	# Fazendo demanda anual
+	colunas_mensais = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
+	demanda["val"] = demanda[colunas_mensais].sum(axis=1)/(730.5*len(colunas_mensais))  # From GWh to GWa
+	demanda = demanda.drop(columns=colunas_mensais)
+	demanda = demanda.groupby(["sistema", "ano"], as_index=False)["val"].sum()
+	for node in base_data['general']['nodes']:
+		demanda_node = demanda.loc[demanda["sistema"] == node]
+		demanda_por_ano = demanda_node.groupby("ano")["val"].sum()
+		base_data['general']['demand_per_year'][node] = [float(demanda_por_ano.get(ano, 0)) for ano in base_data['general']['horizon']]
+	
+	return base_data
 
 def main() -> None:
 	if not INPUT_XLSM.exists():
@@ -114,18 +165,14 @@ def main() -> None:
 	# read only requested sheets from xlsm
 	sheets_data = workbook_to_dict(INPUT_XLSM, sheets=SHEETS_TO_READ)
 
-	# attach sheets under a dedicated key so base structure is preserved
-	base_data.setdefault("pde_sheets", {})
-	base_data["pde_sheets"].update(sheets_data.get("sheets", {}))
-
-	with OUTPUT_YAML.open("w", encoding="utf-8") as f:
-		yaml.safe_dump(
-			base_data,
-			f,
-			allow_unicode=True,
-			sort_keys=False,
-			default_flow_style=False,
-		)
+	yaml_content = yaml.dump(
+		dados_pde_para_yaml(base_data, sheets_data),
+		allow_unicode=True,
+		sort_keys=False,
+		default_flow_style=False,
+	)
+	
+	OUTPUT_YAML.write_text(yaml_content, encoding="utf-8")
 
 	print(f"YAML gerado em: {OUTPUT_YAML}")
 

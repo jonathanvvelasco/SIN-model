@@ -8,7 +8,7 @@ import step_results
 
 
 # %% Inputs
-input_file = "pde_test_inputs.yaml"
+input_file = "pde_generated_input.yaml"
 model = "SIN Brasil expandido"
 scen = "dados_pde"
 
@@ -34,7 +34,7 @@ scenario = step1_SIN_Baseline.technologies(scenario, dados)
 scenario = step1_SIN_Baseline.capacity_factors_and_historical_capacity(scenario, dados)
 scenario = step1_SIN_Baseline.costs(scenario, dados)
 scenario = step1_SIN_Baseline.historical_activity(scenario, dados)
-scenario = step1_SIN_Baseline.bound_activity_up(scenario, dados)
+# scenario = step1_SIN_Baseline.bound_activity_up(scenario, dados)
 scenario = step1_SIN_Baseline.bound_total_capacity_up(scenario, dados)
 # scenario = step1_SIN_Baseline.bound_growth_capacity_up(scenario, dados, growth_cap=0.3) # Growth capacity bound to 30%
 
@@ -60,7 +60,7 @@ mp.close_db()
 mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
 step_results.gen_plot(mp, model, scen)
 
-subsystems = dados["general"]["nodes"]
-annums = [2030] # dados["general"]["horizon"][-1]
-fig = step_results.view_sankey(mp, model, scenario, subsystems, annums)  
+# subsystems = dados["general"]["nodes"]
+# annums = [2030] # dados["general"]["horizon"][-1]
+# fig = step_results.view_sankey(mp, model, scenario, subsystems, annums)  
 mp.close_db() 

@@ -71,19 +71,34 @@ def start_model(scenario, dados):
 
     scenario.add_par("interestrate", dados['general']['horizon'], value=dados['general']['int_rate'], unit='-') #EPE
 
-    # Adding electricity demand
-    elec_growth = pd.Series(dados['general']['dem_growth'], index=pd.Index(dados['general']['horizon'], name='Time'))   # centralized demand
-    for node, dem in dados['general']['demand_per_year'].items():
-        demand_data = pd.DataFrame({
-                'node': node,
-                'commodity': 'electricity',
-                'level': 'final',
-                'year': dados['general']['horizon'],
-                'time': 'year',
-                'value': dem * elec_growth, #retirada a multiplicação por demanda regional por esta ser incluída posteriormente. Caso se deseje voltar para o estágio anterior, é só colocar dem * na parte do value.
-                'unit': 'GWa',
-            })
-        scenario.add_par("demand", demand_data)
+    # Demand of Electricity
+    if len(dados['general']['demand_per_year']) > 1:
+        # Demand input is explicit per year
+        for node, dem in dados['general']['demand_per_year'].items():
+            demand_data = pd.DataFrame({
+                    'node': node,
+                    'commodity': 'electricity',
+                    'level': 'final',
+                    'year': dados['general']['horizon'],
+                    'time': 'year',
+                    'value': dem,
+                    'unit': 'GWa',
+                })
+            scenario.add_par("demand", demand_data)
+    else:
+        # Demand input as a growth rate
+        elec_growth = pd.Series(dados['general']['dem_growth'], index=pd.Index(dados['general']['horizon'], name='Time'))   # centralized demand
+        for node, dem in dados['general']['demand_per_year'].items():
+            demand_data = pd.DataFrame({
+                    'node': node,
+                    'commodity': 'electricity',
+                    'level': 'final',
+                    'year': dados['general']['horizon'],
+                    'time': 'year',
+                    'value': dem * elec_growth, #retirada a multiplicação por demanda regional por esta ser incluída posteriormente. Caso se deseje voltar para o estágio anterior, é só colocar dem * na parte do value.
+                    'unit': 'GWa',
+                })
+            scenario.add_par("demand", demand_data)
 
     # [x for x in scenario.par_list() if 'mode' in scenario.idx_sets(x)]
     return scenario

@@ -154,7 +154,7 @@ def gen_plot(mp, model, scenario):
         plt.legend()
         plt.title('Comparison: Activity vs Demand')
         plt.tight_layout()
-        plt.rcParams['font.size'] = 18
+        # plt.rcParams['font.size'] = 18
         plt.grid(axis='y')
         plt.show()
     
@@ -189,7 +189,7 @@ def gen_plot(mp, model, scenario):
     ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.xticks(rotation=0)
     plt.tight_layout()
-    plt.rcParams['font.size'] = 18
+    # plt.rcParams['font.size'] = 18
     plt.grid(axis='y')
     plt.show()
     
