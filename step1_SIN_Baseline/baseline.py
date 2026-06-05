@@ -1330,6 +1330,47 @@ def bound_total_capacity_up(scenario, dados):
 
     return scenario
 
+def bound_new_capacity_up(scenario, dados):
+    '''Add Bound New Capacity up'''
+
+    base_new_cap = {
+        'year_vtg': dados['general']['horizon'],
+        'unit': 'GW',
+    }
+    try:
+        for tec, val in dados['bound']['new_capacity_up']['North'].items():
+            df = make_df(base_new_cap, node_loc='North', technology=tec, value=val)
+            scenario.add_par('bound_new_capacity_up', df)
+    except:
+        print("Warning: No new capacity bound for North")
+        pass
+
+    # try:
+    for tec, val in dados['bound']['new_capacity_up']['Northeast'].items():
+        df = make_df(base_new_cap, node_loc='Northeast', technology=tec, value=val)
+        scenario.add_par('bound_new_capacity_up', df)
+    # except:
+    #     print("Warning: No new capacity bound for Northeast")
+    #     pass
+
+    try:
+        for tec, val in dados['bound']['new_capacity_up']['Southeast'].items():
+            df = make_df(base_new_cap, node_loc='Southeast', technology=tec, value=val)
+            scenario.add_par('bound_new_capacity_up', df)
+    except:
+        print("Warning: No new capacity bound for Southeast")
+        pass
+
+    try:
+        for tec, val in dados['bound']['new_capacity_up']['South'].items():
+            df = make_df(base_new_cap, node_loc='South', technology=tec, value=val)
+            scenario.add_par('bound_new_capacity_up', df)
+    except:
+        print("Warning: No new capacity bound for South")
+        pass
+
+    return scenario
+
 def bound_growth_capacity_up(scenario, dados, growth_cap=0.1):
     '''Add Bound Growth Capacity up'''
 
@@ -1371,6 +1412,7 @@ if __name__ == "__main__":
     scenario = historical_activity(scenario, dados)
     scenario = bound_activity_up(scenario, dados)
     scenario = bound_total_capacity_up(scenario, dados)
+    scenario = bound_new_capacity_up(scenario, dados)
     # scenario = bound_growth_capacity_up(scenario, dados, growth_cap=0.3) # Growth capacity bound to 30%
 
     # solving the model

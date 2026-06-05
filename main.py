@@ -10,7 +10,7 @@ import step_results
 # %% Inputs
 input_file = "pde_generated_input.yaml"
 model = "SIN Brasil expandido"
-scen = "dados_pde_hidro"
+scen = "dados_pde-rest_new_cap"
 
 
 # %% Model 
@@ -34,8 +34,9 @@ scenario = step1_SIN_Baseline.technologies(scenario, dados)
 scenario = step1_SIN_Baseline.capacity_factors_and_historical_capacity(scenario, dados)
 scenario = step1_SIN_Baseline.costs(scenario, dados)
 scenario = step1_SIN_Baseline.historical_activity(scenario, dados)
-# scenario = step1_SIN_Baseline.bound_activity_up(scenario, dados)
-scenario = step1_SIN_Baseline.bound_total_capacity_up(scenario, dados)
+scenario = step1_SIN_Baseline.bound_activity_up(scenario, dados)
+# scenario = step1_SIN_Baseline.bound_total_capacity_up(scenario, dados)
+scenario = step1_SIN_Baseline.bound_new_capacity_up(scenario, dados)
 # scenario = step1_SIN_Baseline.bound_growth_capacity_up(scenario, dados, growth_cap=0.3) # Growth capacity bound to 30%
 
 # Add seasonality to the model

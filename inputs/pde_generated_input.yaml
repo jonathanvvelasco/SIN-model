@@ -226,8 +226,8 @@ technology:
   - grid_se
   - grid_s
 efficiency:
-  transmission: 0.95
-  distribution: 0.95
+  transmission: 0.9993742
+  distribution: 0.9993742
   battery: 1.2
 lifetimes:
   North:
@@ -1115,3 +1115,13 @@ bound:
       bio_ppl: 5.0
       wind_ppl_rs: 70.0
       solar_pv_ppl: 10.0
+  new_capacity_up:
+    North:
+      wind_ppl: 0
+    Northeast:
+      wind_ppl_cos: 1.5
+      wind_ppl_int: 2
+    Southeast:
+      wind_ppl: 0
+    South:
+      wind_ppl_rs: 3.5

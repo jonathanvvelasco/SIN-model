@@ -217,7 +217,7 @@ if __name__ == "__main__":
     # scenario = 'emissions_test'
     # scenario = 'PDE2034'
     # scenario = 'seasonal'
-    scenario = 'dados_pde_hidro'
+    scenario = 'dados_pde'
     gen_plot(mp, model, scenario)    
     
     # Close DB
