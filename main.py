@@ -10,7 +10,7 @@ import step_results
 # %% Inputs
 input_file = "pde_generated_input.yaml"
 model = "SIN Brasil expandido"
-scen = "dados_pde"
+scen = "dados_pde_hidro"
 
 
 # %% Model 

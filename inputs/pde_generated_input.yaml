@@ -815,216 +815,230 @@ water_supply:
 costs:
   inv_cost:
     North:
-      hydro_4: 1352
-      hydro_8: 1352
-      hydro_9: 1352
-      sphs_4: 1500
-      sphs_8: 1500
-      sphs_9: 1500
-      bio_ppl: 1200
-      gas_ppl: 900
-      gas_ppl_1: 1000
+      hydro_4: 2374
+      hydro_8: 2374
+      hydro_9: 2374
+      sphs_4: 3000
+      sphs_8: 3000
+      sphs_9: 3000
+      bio_ppl: 1149
+      gas_ppl: 977
+      gas_ppl_1: 862
       gas_ppl_2: 1000
       gas_ppl_ccs: 1620
       gas_ppl_ccs_1: 1800
       gas_ppl_ccs_2: 1800
-      wind_ppl: 1200
-      coal_ppl: 2500
+      wind_ppl: 1187
+      coal_ppl: 2490
       nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid1: 359
-      batt_n: 1271
+      batt_n: 1283
       grid_n: 205
     Northeast:
-      hydro_3: 1352
-      sphs_3: 1500
-      bio_ppl: 1200
-      gas_ppl: 900
-      gas_ppl_1: 1000
+      hydro_3: 2374
+      sphs_3: 3000
+      bio_ppl: 1149
+      gas_ppl: 977
+      gas_ppl_1: 862
       gas_ppl_2: 1000
       gas_ppl_ccs: 1620
       gas_ppl_ccs_1: 1800
       gas_ppl_ccs_2: 1800
-      wind_ppl_cos: 1200
-      wind_ppl_int: 1200
-      coal_ppl: 2500
-      nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      wind_ppl_cos: 823
+      wind_ppl_int: 957
+      coal_ppl: 2490
+      nuc_ppl: 5747
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid2: 359
-      batt_ne: 1271
+      batt_ne: 1283
       grid_ne: 205
     Southeast:
-      hydro_1: 1352
-      hydro_5: 1352
-      hydro_6: 1352
-      hydro_7: 1352
-      hydro_10: 1352
-      hydro_12: 1352
-      sphs_1: 1500
-      sphs_6: 1500
-      sphs_7: 1500
-      sphs_10: 1500
-      sphs_12: 1500
-      bio_ppl: 1200
-      gas_ppl: 900
-      gas_ppl_1: 1000
+      hydro_1: 2374
+      hydro_5: 2374
+      hydro_6: 2374
+      hydro_7: 2374
+      hydro_10: 2374
+      hydro_12: 2374
+      sphs_1: 3000
+      sphs_6: 3000
+      sphs_7: 3000
+      sphs_10: 3000
+      sphs_12: 3000
+      bio_ppl: 670
+      gas_ppl: 977
+      gas_ppl_1: 862
       gas_ppl_2: 1000
       gas_ppl_ccs: 1620
       gas_ppl_ccs_1: 1800
       gas_ppl_ccs_2: 1800
-      wind_ppl: 1200
-      coal_ppl: 2500
-      nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      wind_ppl: 1072
+      coal_ppl: 9999
+      nuc_ppl: 5747
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid3: 462
-      batt_se: 1271
+      batt_se: 1283
       grid_se: 205
     South:
-      hydro_2: 1352
-      hydro_11: 1352
-      sphs_2: 1500
-      sphs_11: 1500
-      bio_ppl: 1200
-      gas_ppl: 900
-      gas_ppl_1: 1000
+      hydro_2: 2374
+      hydro_11: 2374
+      sphs_2: 3000
+      sphs_11: 3000
+      bio_ppl: 1149
+      gas_ppl: 977
+      gas_ppl_1: 862
       gas_ppl_2: 1000
       gas_ppl_ccs: 1620
       gas_ppl_ccs_1: 1800
       gas_ppl_ccs_2: 1800
-      wind_ppl_rs: 1200
-      coal_ppl: 2100
+      wind_ppl_rs: 823
+      coal_ppl: 2490
       nuc_ppl: 5000
-      solar_pv_ppl: 1100
+      solar_pv_ppl: 632
       oil_ppl: 1100
       grid4: 205
-      batt_s: 1271
+      batt_s: 1283
       grid_s: 205
   fix_cost:
     North:
-      hydro_4: 12.8
-      hydro_8: 12.8
-      hydro_9: 12.8
+      hydro_4: 132
+      hydro_8: 132
+      hydro_9: 132
       sphs_4: 20.5
       sphs_8: 20.5
       sphs_9: 20.5
-      bio_ppl: 30.8
-      gas_ppl: 43.6
-      gas_ppl_1: 43.6
+      bio_ppl: 49
+      gas_ppl: 91
+      gas_ppl_1: 86
       gas_ppl_2: 43.6
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl: 25.6
-      coal_ppl: 89.7
+      wind_ppl: 53
+      coal_ppl: 201
       nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      solar_pv_ppl: 36
       oil_ppl: 56.4
-      batt_n: 31.8
+      batt_n: 80
     Northeast:
-      hydro_3: 12.8
+      hydro_3: 132
       sphs_3: 20.5
-      bio_ppl: 30.8
-      gas_ppl: 43.6
-      gas_ppl_1: 43.6
+      bio_ppl: 49
+      gas_ppl: 91
+      gas_ppl_1: 86
       gas_ppl_2: 43.6
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl_cos: 25.6
-      wind_ppl_int: 25.6
-      coal_ppl: 89.7
-      nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      wind_ppl_cos: 49
+      wind_ppl_int: 51
+      coal_ppl: 201
+      nuc_ppl: 264
+      solar_pv_ppl: 36
       oil_ppl: 56.4
-      batt_ne: 31.8
+      batt_ne: 80
     Southeast:
-      hydro_1: 12.8
-      hydro_5: 12.8
-      hydro_6: 12.8
-      hydro_7: 12.8
-      hydro_10: 12.8
-      hydro_12: 12.8
+      hydro_1: 132
+      hydro_5: 132
+      hydro_6: 132
+      hydro_7: 132
+      hydro_10: 132
+      hydro_12: 132
       sphs_1: 20.5
       sphs_6: 20.5
       sphs_7: 20.5
       sphs_10: 20.5
       sphs_12: 20.5
-      bio_ppl: 30.8
-      gas_ppl: 43.6
-      gas_ppl_1: 43.6
+      bio_ppl: 45
+      gas_ppl: 91
+      gas_ppl_1: 86
       gas_ppl_2: 43.6
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl: 25.6
+      wind_ppl: 51
       coal_ppl: 89.7
-      nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      nuc_ppl: 264
+      solar_pv_ppl: 36
       oil_ppl: 56.4
-      batt_se: 31.8
+      batt_se: 80
     South:
-      hydro_2: 12.8
-      hydro_11: 12.8
+      hydro_2: 132
+      hydro_11: 132
       sphs_2: 20.5
       sphs_11: 20.5
-      bio_ppl: 30.8
-      gas_ppl: 43.6
-      gas_ppl_1: 43.6
+      bio_ppl: 49
+      gas_ppl: 91
+      gas_ppl_1: 86
       gas_ppl_2: 43.6
       gas_ppl_ccs: 43.6
       gas_ppl_ccs_1: 43.6
       gas_ppl_ccs_2: 43.6
-      wind_ppl_rs: 25.6
-      coal_ppl: 89.7
+      wind_ppl_rs: 49
+      coal_ppl: 201
       nuc_ppl: 83.3
-      solar_pv_ppl: 16.7
+      solar_pv_ppl: 36
       oil_ppl: 56.4
-      batt_s: 31.8
+      batt_s: 80
   var_cost:
     North:
-      gas_ppl: 219.8
-      gas_ppl_1: 329.8
+      gas_ppl: 78
+      gas_ppl_1: 102
       gas_ppl_2: 439.7
       gas_ppl_ccs: 219.8
       gas_ppl_ccs_1: 329.8
       gas_ppl_ccs_2: 439.7
-      coal_ppl: 298.7
+      coal_ppl: 25
       oil_ppl: 898
-      bio_ppl: 1.0e-06
+      bio_ppl: 0
+      wind_ppl: 0
+      solar_pv_ppl: 0
+      batt_n: 0
     Northeast:
-      gas_ppl: 219.8
-      gas_ppl_1: 329.8
+      gas_ppl: 78
+      gas_ppl_1: 102
       gas_ppl_2: 439.7
       gas_ppl_ccs: 219.8
       gas_ppl_ccs_1: 329.8
       gas_ppl_ccs_2: 439.7
-      coal_ppl: 298.7
+      coal_ppl: 25
       oil_ppl: 898
-      bio_ppl: 1.0e-06
+      bio_ppl: 0
+      wind_ppl_cos: 0
+      wind_ppl_int: 0
+      nuc_ppl: 6
+      solar_pv_ppl: 0
+      batt_ne: 0
     Southeast:
-      gas_ppl: 219.8
-      gas_ppl_1: 329.8
+      gas_ppl: 78
+      gas_ppl_1: 102
       gas_ppl_2: 439.7
       gas_ppl_ccs: 219.8
       gas_ppl_ccs_1: 329.8
       gas_ppl_ccs_2: 439.7
       coal_ppl: 298.7
       oil_ppl: 898
-      nuc_ppl: 53.3
-      bio_ppl: 1.0e-06
+      nuc_ppl: 6
+      bio_ppl: 0
+      wind_ppl: 0
+      solar_pv_ppl: 0
+      batt_se: 0
     South:
-      gas_ppl: 219.8
-      gas_ppl_1: 329.8
+      gas_ppl: 78
+      gas_ppl_1: 102
       gas_ppl_2: 439.7
       gas_ppl_ccs: 219.8
       gas_ppl_ccs_1: 329.8
       gas_ppl_ccs_2: 439.7
-      coal_ppl: 136.6
+      coal_ppl: 25
       oil_ppl: 898
-      bio_ppl: 1.0e-06
+      bio_ppl: 0
+      wind_ppl_rs: 0
+      solar_pv_ppl: 0
+      batt_s: 0
 bound:
   activity_up:
     North:

@@ -183,13 +183,14 @@ def gen_plot(mp, model, scenario):
         for i, tech in enumerate(act_br_plot.columns)
     ]
     ax = act_br_plot.plot(kind="bar", stacked=True, figsize=(12, 6), color=plot_colors)
+    # ax = act_br_plot.plot(kind="area", stacked=True, figsize=(12, 6), color=plot_colors)
     ax.set_xlabel('Year')
     ax.set_ylabel('GWa')
-    ax.set_title(f"Geração anual por tecnologia no cenário {scenario}")
+    ax.set_title(f"Geração anual no cenário {scenario}")
     ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.xticks(rotation=0)
     plt.tight_layout()
-    # plt.rcParams['font.size'] = 18
+    plt.rcParams['font.size'] = 8
     plt.grid(axis='y')
     plt.show()
     
@@ -216,7 +217,7 @@ if __name__ == "__main__":
     # scenario = 'emissions_test'
     # scenario = 'PDE2034'
     # scenario = 'seasonal'
-    scenario = 'base'
+    scenario = 'dados_pde_hidro'
     gen_plot(mp, model, scenario)    
     
     # Close DB
