@@ -432,7 +432,7 @@ capacity_factor:
     batt_s: 0.85
     grid_s: 0.8
 historical_new_capacity:
-  times: 10
+  times: 1
   historical_data:
     North:
       thermal_capacity: 3.87
@@ -477,7 +477,7 @@ historical_new_capacity:
     batt_n: 0.0
     grid_n: 0.659
   Northeast:
-    hydro_3: 8.3
+    hydro_3: 11.036
     sphs_3: 0.0
     bio_ppl: 1.3776
     gas_ppl: 3.0156
@@ -486,11 +486,11 @@ historical_new_capacity:
     gas_ppl_ccs: 0.0
     gas_ppl_ccs_1: 0.0
     gas_ppl_ccs_2: 0.0
-    wind_ppl_cos: 6.2
-    wind_ppl_int: 5.94
+    wind_ppl_cos: 12.848
+    wind_ppl_int: 13.119
     coal_ppl: 1.0836
     nuc_ppl: 0.0
-    solar_pv_ppl: 1.4
+    solar_pv_ppl: 6.608
     oil_ppl: 2.9232
     grid2: 2.51
     batt_ne: 0.0
@@ -517,14 +517,14 @@ historical_new_capacity:
     wind_ppl: 0.03
     coal_ppl: 0.0
     nuc_ppl: 2.0
-    solar_pv_ppl: 0.74
+    solar_pv_ppl: 4.658
     oil_ppl: 1.56996
     grid3: 9.46
     batt_se: 0.0
     grid_se: 51.2
   South:
-    hydro_2: 6.9
-    hydro_11: 7.3
+    hydro_2: 8.562
+    hydro_11: 9.058
     sphs_2: 0.0
     sphs_11: 0.0
     bio_ppl: 1.25552
@@ -534,10 +534,10 @@ historical_new_capacity:
     gas_ppl_ccs: 0.0
     gas_ppl_ccs_1: 0.0
     gas_ppl_ccs_2: 0.0
-    wind_ppl_rs: 2.07
+    wind_ppl_rs: 2.03
     coal_ppl: 2.06736
     nuc_ppl: 0.0
-    solar_pv_ppl: 0.004
+    solar_pv_ppl: 0.02
     oil_ppl: 0.0236
     grid4: 11.22
     batt_s: 0.0
@@ -1118,10 +1118,46 @@ bound:
   new_capacity_up:
     North:
       wind_ppl: 0
+      solar_pv_ppl: 0
+      bio_ppl: 0
+      batt_n: 0.1
+      gas_ppl: 0.125
+      gas_ppl_1: 0.5
+      gas_ppl_2: 0
+      gas_ppl_ccs: 0
+      gas_ppl_ccs_1: 0
+      gas_ppl_ccs_2: 0
     Northeast:
-      wind_ppl_cos: 1.5
-      wind_ppl_int: 2
+      wind_ppl_cos: 1
+      wind_ppl_int: 1
+      solar_pv_ppl: 1.5
+      bio_ppl: 0
+      batt_ne: 0.1
+      gas_ppl: 0.125
+      gas_ppl_1: 0.5
+      gas_ppl_2: 0
+      gas_ppl_ccs: 0
+      gas_ppl_ccs_1: 0
+      gas_ppl_ccs_2: 0
     Southeast:
       wind_ppl: 0
+      solar_pv_ppl: 1.5
+      bio_ppl: 0.6
+      batt_se: 0.1
+      gas_ppl: 0.125
+      gas_ppl_1: 0.5
+      gas_ppl_2: 0
+      gas_ppl_ccs: 0
+      gas_ppl_ccs_1: 0
+      gas_ppl_ccs_2: 0
     South:
-      wind_ppl_rs: 3.5
+      wind_ppl_rs: 1.0
+      solar_pv_ppl: 0
+      bio_ppl: 0
+      batt_s: 0.1
+      gas_ppl: 0.125
+      gas_ppl_1: 0.5
+      gas_ppl_2: 0
+      gas_ppl_ccs: 0
+      gas_ppl_ccs_1: 0
+      gas_ppl_ccs_2: 0
