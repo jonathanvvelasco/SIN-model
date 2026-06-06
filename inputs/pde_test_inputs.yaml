@@ -5,7 +5,7 @@ general:
   scen: "dados_pde"
 
   # Include sets
-  history: [2020]
+  history: [2023]
   horizon: [2030, 2040, 2050, 2060]
   country: "Brazil"
   nodes: 
@@ -501,53 +501,53 @@ historical_activity:
       transmission_internal_act: 7.56
   North:
     old_activity:
-      hydro_4: 3.36
-      hydro_8: 3.8605
-      hydro_9: 0.42
-      bio_ppl: 0.1638
-      gas_ppl: 1.4742
+      hydro_4: 3.520
+      hydro_8: 4.044
+      hydro_9: 0.44
+      bio_ppl: 0.218
+      gas_ppl: 1.187
       gas_ppl_1: 0.0
       gas_ppl_2: 0.0
       gas_ppl_ccs: 0.0
       gas_ppl_ccs_1: 0.0
       gas_ppl_ccs_2: 0.0
-      wind_ppl: 0.13
-      coal_ppl: 0.1638
+      wind_ppl: 0.208
+      coal_ppl: 0.005
       nuc_ppl: 0.0
-      solar_pv_ppl: 0.001
-      oil_ppl: 0.0182
+      solar_pv_ppl: 0.00
+      oil_ppl: 0.003
       grid_n: 2.7019
     old_activity_1: {grid1: 2.1586}
     old_activity_2: {grid1: 2.008}
   Northeast:
     old_activity:
-      hydro_3: 2.49
-      bio_ppl: 0.20196
-      gas_ppl: 0.97614
+      hydro_3: 3.995
+      bio_ppl: 0.275
+      gas_ppl: 0.254
       gas_ppl_1: 0.0
       gas_ppl_2: 0.0
       gas_ppl_ccs: 0.0
       gas_ppl_ccs_1: 0.0
       gas_ppl_ccs_2: 0.0
-      wind_ppl_cos: 2.86
-      wind_ppl_int: 2.68
-      coal_ppl: 0.6633
+      wind_ppl_cos: 5.025
+      wind_ppl_int: 5.025
+      coal_ppl: 0.019
       nuc_ppl: 0.0
-      solar_pv_ppl: 0.37
-      oil_ppl: 0.14058
+      solar_pv_ppl: 1.846
+      oil_ppl: 0.067
       grid_ne: 5.5566
     old_activity_1: {grid2: 1.2299}
     old_activity_2: {grid2: 0.6024}
   Southeast:
     old_activity:
-      hydro_1: 3.072
-      hydro_5: 6.72
-      hydro_6: 3.504
-      hydro_7: 1.536
-      hydro_10: 13.248
-      hydro_12: 1.152
-      bio_ppl: 2.27395
-      gas_ppl: 2.66742
+      hydro_1: 3.091
+      hydro_5: 6.761
+      hydro_6: 3.525
+      hydro_7: 1.545
+      hydro_10: 13.229
+      hydro_12: 1.159
+      bio_ppl: 3.136
+      gas_ppl: 0.808
       gas_ppl_1: 0.0
       gas_ppl_2: 0.0
       gas_ppl_ccs: 0.0
@@ -555,28 +555,28 @@ historical_activity:
       gas_ppl_ccs_2: 0.0
       wind_ppl: 0.007
       coal_ppl: 0.0
-      nuc_ppl: 1.841
-      solar_pv_ppl: 0.19
-      oil_ppl: 0.16863
+      nuc_ppl: 1.657
+      solar_pv_ppl: 2.344
+      oil_ppl: 0.003
       grid_se: 24.576
     old_activity_1: {grid3: 4.5408}
     old_activity_2: {grid3: 0.473}
   South:
     old_activity:
-      hydro_2: 3.588
-      hydro_11: 3.796
-      bio_ppl: 0.252
-      gas_ppl: 0.02415
+      hydro_2: 4.584
+      hydro_11: 4.850
+      bio_ppl: 0.161
+      gas_ppl: 0.003
       gas_ppl_1: 0.0
       gas_ppl_2: 0.0
       gas_ppl_ccs: 0.0
       gas_ppl_ccs_1: 0.0
       gas_ppl_ccs_2: 0.0
-      wind_ppl_rs: 0.7
-      coal_ppl: 0.75285
+      wind_ppl_rs: 0.656
+      coal_ppl: 0.850
       nuc_ppl: 0.0
-      solar_pv_ppl: 0.01
-      oil_ppl: 0.01995
+      solar_pv_ppl: 0.624
+      oil_ppl: 0.005
       grid_s: 7.56
     old_activity_1: {grid4: 5.2734}
     old_activity_2: {grid4: 1.2342}
