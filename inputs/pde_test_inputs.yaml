@@ -174,7 +174,7 @@ lifetimes:
     gas_ppl_ccs_1: 20
     gas_ppl_ccs_2: 20
     nuc_ppl: 60
-    solar_pv_ppl: 20
+    solar_pv_ppl: 25
     oil_ppl: 20
     grid1: 25
     grid_n: 25
@@ -198,7 +198,7 @@ lifetimes:
     wind_ppl_cos: 20
     coal_ppl: 25
     nuc_ppl: 60
-    solar_pv_ppl: 20
+    solar_pv_ppl: 25
     oil_ppl: 20
     batt_ne: 15
     grid2: 25
@@ -228,7 +228,7 @@ lifetimes:
     coal_ppl: 25
     batt_se: 15
     nuc_ppl: 60
-    solar_pv_ppl: 20
+    solar_pv_ppl: 25
     oil_ppl: 20
     grid3: 25
     grid_se: 25
@@ -259,7 +259,7 @@ lifetimes:
     wind_ppl_rs: 20
     coal_ppl: 25
     nuc_ppl: 60
-    solar_pv_ppl: 20
+    solar_pv_ppl: 25
     oil_ppl: 20
     batt_s: 15
     grid4: 25
@@ -271,13 +271,13 @@ lifetimes:
 
 capacity_factor:
   North:
-    hydro_4: 0.9
-    hydro_8: 0.9
-    hydro_9: 0.9
+    hydro_4: 0.372
+    hydro_8: 0.372
+    hydro_9: 0.372
     sphs_4: 0.7
     sphs_8: 0.7
     sphs_9: 0.7
-    bio_ppl: 0.33
+    bio_ppl: 0.27
     gas_ppl: 0.75
     gas_ppl_1: 0.75
     gas_ppl_2: 0.75
@@ -293,9 +293,9 @@ capacity_factor:
     batt_n: 0.85
     grid_n: 0.8
   Northeast:
-    hydro_3: 0.9
+    hydro_3: 0.353
     sphs_3: 0.7
-    bio_ppl: 0.33
+    bio_ppl: 0.27
     gas_ppl: 0.75
     gas_ppl_1: 0.75
     gas_ppl_2: 0.75
@@ -312,18 +312,18 @@ capacity_factor:
     batt_ne: 0.85
     grid_ne: 0.8
   Southeast:
-    hydro_1: 0.9
-    hydro_5: 0.9
-    hydro_6: 0.9
-    hydro_7: 0.9
-    hydro_10: 0.9
-    hydro_12: 0.9
+    hydro_1: 0.505
+    hydro_5: 0.505
+    hydro_6: 0.505
+    hydro_7: 0.505
+    hydro_10: 0.505
+    hydro_12: 0.505
     sphs_1: 0.7
     sphs_6: 0.7
     sphs_7: 0.7
     sphs_10: 0.7
     sphs_12: 0.7
-    bio_ppl: 0.33
+    bio_ppl: 0.27
     gas_ppl: 0.75
     gas_ppl_1: 0.75
     gas_ppl_2: 0.75
@@ -339,11 +339,11 @@ capacity_factor:
     batt_se: 0.85
     grid_se: 0.8
   South:
-    hydro_2: 0.9
-    hydro_11: 0.9
+    hydro_2: 0.505
+    hydro_11: 0.505
     sphs_2: 0.7
     sphs_11: 0.7
-    bio_ppl: 0.33
+    bio_ppl: 0.27
     gas_ppl: 0.75
     gas_ppl_1: 0.75
     gas_ppl_2: 0.75
