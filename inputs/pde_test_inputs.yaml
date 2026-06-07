@@ -278,17 +278,17 @@ capacity_factor:
     sphs_8: 0.7
     sphs_9: 0.7
     bio_ppl: 0.27
-    gas_ppl: 0.75
-    gas_ppl_1: 0.75
-    gas_ppl_2: 0.75
-    gas_ppl_ccs: 0.75
-    gas_ppl_ccs_1: 0.75
-    gas_ppl_ccs_2: 0.75
+    gas_ppl: 0.22
+    gas_ppl_1: 0.22
+    gas_ppl_2: 0.22
+    gas_ppl_ccs: 0.22
+    gas_ppl_ccs_1: 0.22
+    gas_ppl_ccs_2: 0.22
     wind_ppl: 0.435
-    coal_ppl: 0.69
+    coal_ppl: 0.22
     nuc_ppl: 0.85
     solar_pv_ppl: 0.3
-    oil_ppl: 0.75
+    oil_ppl: 0.06
     grid1: 0.8
     batt_n: 0.85
     grid_n: 0.8
@@ -296,18 +296,18 @@ capacity_factor:
     hydro_3: 0.353
     sphs_3: 0.7
     bio_ppl: 0.27
-    gas_ppl: 0.75
-    gas_ppl_1: 0.75
-    gas_ppl_2: 0.75
-    gas_ppl_ccs: 0.75
-    gas_ppl_ccs_1: 0.75
-    gas_ppl_ccs_2: 0.75
+    gas_ppl: 0.22
+    gas_ppl_1: 0.22
+    gas_ppl_2: 0.22
+    gas_ppl_ccs: 0.22
+    gas_ppl_ccs_1: 0.22
+    gas_ppl_ccs_2: 0.22
     wind_ppl_cos: 0.47
     wind_ppl_int: 0.47
-    coal_ppl: 0.69
+    coal_ppl: 0.22
     nuc_ppl: 0.85
     solar_pv_ppl: 0.3
-    oil_ppl: 0.75
+    oil_ppl: 0.06
     grid2: 0.8
     batt_ne: 0.85
     grid_ne: 0.8
@@ -324,17 +324,17 @@ capacity_factor:
     sphs_10: 0.7
     sphs_12: 0.7
     bio_ppl: 0.27
-    gas_ppl: 0.75
-    gas_ppl_1: 0.75
-    gas_ppl_2: 0.75
-    gas_ppl_ccs: 0.75
-    gas_ppl_ccs_1: 0.75
-    gas_ppl_ccs_2: 0.75
+    gas_ppl: 0.22
+    gas_ppl_1: 0.22
+    gas_ppl_2: 0.22
+    gas_ppl_ccs: 0.22
+    gas_ppl_ccs_1: 0.22
+    gas_ppl_ccs_2: 0.22
     wind_ppl: 0.435
-    coal_ppl: 0.69
+    coal_ppl: 0.22
     nuc_ppl: 0.85
     solar_pv_ppl: 0.29
-    oil_ppl: 0.75
+    oil_ppl: 0.06
     grid3: 0.8
     batt_se: 0.85
     grid_se: 0.8
@@ -344,17 +344,17 @@ capacity_factor:
     sphs_2: 0.7
     sphs_11: 0.7
     bio_ppl: 0.27
-    gas_ppl: 0.75
-    gas_ppl_1: 0.75
-    gas_ppl_2: 0.75
-    gas_ppl_ccs: 0.75
-    gas_ppl_ccs_1: 0.75
-    gas_ppl_ccs_2: 0.75
+    gas_ppl: 0.22
+    gas_ppl_1: 0.22
+    gas_ppl_2: 0.22
+    gas_ppl_ccs: 0.22
+    gas_ppl_ccs_1: 0.22
+    gas_ppl_ccs_2: 0.22
     wind_ppl_rs: 0.4
-    coal_ppl: 0.69
+    coal_ppl: 0.22
     nuc_ppl: 0.85
     solar_pv_ppl: 0.29
-    oil_ppl: 0.75
+    oil_ppl: 0.06
     grid4: 0.8
     batt_s: 0.85
     grid_s: 0.8
@@ -362,7 +362,7 @@ capacity_factor:
 historical_new_capacity:
   #base capacity [GW] in 07/2019 according to CCEE historical operation for each subsystem [North, Northeast, SE/MW, South]
   #base capacity [GW] of the BES in 2019 according to ONS historical operation for each subsystem [North, Northeast, SE/MW, South]
-  times: 1               # Assumption Built in last 10 years
+  times: 1               # Assumption Built in last 1 years
   historical_data:
     North:
       thermal_capacity: 3.87
