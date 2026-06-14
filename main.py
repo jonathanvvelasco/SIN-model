@@ -2,7 +2,7 @@ import yaml
 import ixmp
 import message_ix
 
-import step1_SIN_Baseline
+import step1_SIN_Baseline 
 # import step2_SIN_Seasonality
 import step_results
 
