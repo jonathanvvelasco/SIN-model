@@ -227,7 +227,7 @@ if __name__ == "__main__":
     model = "SIN Brasil expandido"
     scenario = 'dados_pde'
     subsystems = ['North', 'Northeast', 'Southeast', 'South']
-    annums = [2060] # [2025, 2030, 2035]
+    annums = [2034]
 
     fig = view_sankey(mp, model, scenario, subsystems, annums)  
     

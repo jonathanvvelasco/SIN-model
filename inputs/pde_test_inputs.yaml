@@ -271,21 +271,23 @@ lifetimes:
 
 capacity_factor:
   North:
+  # fio dagua e com reservatorio (hidros e UHR)
+  # pchs
     hydro_4: 0.372
     hydro_8: 0.372
     hydro_9: 0.372
     sphs_4: 0.7
     sphs_8: 0.7
     sphs_9: 0.7
-    bio_ppl: 0.27
-    gas_ppl: 0.22
-    gas_ppl_1: 0.22
-    gas_ppl_2: 0.22
-    gas_ppl_ccs: 0.22
-    gas_ppl_ccs_1: 0.22
-    gas_ppl_ccs_2: 0.22
+    bio_ppl: 0.67
+    # ciclo simples e ciclo combinado
+    gas_cs_ppl: 0.22
+    gas_cc_ppl: 0.22
     wind_ppl: 0.435
-    coal_ppl: 0.22
+    coal_bra_ppl: 0.22
+      # so no sistema sul
+    coal_imp_ppl: 0.22
+      # so no sistema nordeste
     nuc_ppl: 0.85
     solar_pv_ppl: 0.3
     oil_ppl: 0.06

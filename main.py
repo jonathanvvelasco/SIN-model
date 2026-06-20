@@ -61,7 +61,7 @@ mp.close_db()
 mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
 step_results.gen_plot(mp, model, scen)
 
-# subsystems = dados["general"]["nodes"]
-# annums = [2030] # dados["general"]["horizon"][-1]
-# fig = step_results.view_sankey(mp, model, scenario, subsystems, annums)  
+subsystems = dados["general"]["nodes"]
+annums = [2034] # dados["general"]["horizon"][-1]
+fig = step_results.view_sankey(mp, model, scen, subsystems, annums)  
 mp.close_db() 
