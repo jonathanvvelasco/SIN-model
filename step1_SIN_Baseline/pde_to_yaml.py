@@ -284,14 +284,14 @@ def _update_capacity_factor(base_data, sheets_data):
 	tecnologias = sheets_data['sheets']["Renov Ind."]
 
 	dic_force = {
-		"gas_ppl": 0.75,
-		"gas_ppl_1": 0.75,
-		"gas_ppl_2": 0.75,
-		"gas_ppl_ccs": 0.75,
-		"gas_ppl_ccs_1": 0.75,
-		"gas_ppl_ccs_2": 0.75,
+		"gas_ppl": 0.22,
+		"gas_ppl_1": 0.22,
+		"gas_ppl_2": 0.22,
+		"gas_ppl_ccs": 0.22,
+		"gas_ppl_ccs_1": 0.22,
+		"gas_ppl_ccs_2": 0.22,
 		"coal_ppl": 0.69,
-		"oil_ppl": 0.75,
+		"oil_ppl": 0.06,
 	}
 
 	for node in base_data['general']['nodes']:
