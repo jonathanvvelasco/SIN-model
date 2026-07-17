@@ -23,68 +23,6 @@ def gen_plot(mp, model, scenario):
     prepare_plots(rep)
     
     fig_dem_ger = False
-    
-    filter="filter_all_tecs"
-    # filter="filter_emission_tecs"
-    # %% Define Filters
-    
-    if filter=="filter_all_tecs":
-        rep.set_filters(t=["batt_4_n",
-            "batt_4_ne",
-            "batt_4_s",
-            "batt_4_se",
-            "bio_ppl",
-            "gas_ppl",
-             "gas_ppl_1",
-             "gas_ppl_2",
-             "gas_ppl_ccs",
-             "gas_ppl_ccs_1",
-             "gas_ppl_ccs_2",
-             "coal_ppl",
-             "nuc_ppl",
-             "oil_ppl",
-             "solar_pv_ppl",
-             "hydro_4",
-             "hydro_8",
-             "hydro_9",
-             "hydro_3",
-             "hydro_1",
-             "hydro_5",
-             "hydro_6",
-             "hydro_7",
-             "hydro_10",
-             "hydro_12",
-             "hydro_2",
-             "hydro_11",
-             "pump_sphs_4",
-             "pump_sphs_8",
-             "pump_sphs_9",
-             "pump_sphs_3",
-             "pump_sphs_1",
-             "pump_sphs_6",
-             "pump_sphs_7",
-             "pump_sphs_10",
-             "pump_sphs_12",
-             "pump_sphs_2",
-             "pump_sphs_11",
-             "wind_ppl",
-             "wind_ppl_cos",
-             "wind_ppl_int",
-             "wind_ppl_rs",
-             ])
-    elif filter=="filter_emission_tecs":
-        rep.set_filters(t=["bio_ppl",
-            "gas_ppl",
-            "gas_ppl_1",
-            "gas_ppl_2",
-            "gas_ppl_ccs",
-            "gas_ppl_ccs_1",
-            "gas_ppl_ccs_2",
-            "coal_ppl",
-            "nuc_ppl",
-            "oil_ppl",
-            ])
-    else: pass
         
     # %% Report Activity and Capacity
     # rep.get("plot activity")
@@ -93,6 +31,25 @@ def gen_plot(mp, model, scenario):
     rep.set_filters(c=["electricity"]) # Somente commodity eletricidade
     # rep.get("plot prices")
     # rep.get("plot demand")
+    allowed_t = [t for t in rep.get("t") if not t.startswith("grid")]
+    rep.set_filters(t=allowed_t)
+    
+    # %% Capacity
+    cap = rep.full_key("CAP")
+    cap_tot = cap.drop("nl", "yv")
+    cap_tot = rep.get(cap_tot)
+    cap_tot=cap_tot.rename("value").reset_index()
+    
+    # Aggregate technology variants into their base technology names
+    cap_tot["t"] = cap_tot["t"].replace({
+        r"^gas_ppl_\d+$": "gas_ppl",
+        r"^gas_ppl_ccs_\d+$": "gas_ppl_ccs",
+        r"^hydro_.+$": "hydro",
+        r"^pump_sphs_\d+$": "pump_sphs",
+        r"^wind_ppl_.+$": "wind_ppl",
+        r"^battery.+$": "battery",
+    }, regex=True)
+    cap_tot = cap_tot.groupby([col for col in cap_tot.columns if col != "value"])["value"].sum()
     
     # %% Compares production and demand
     out = rep.full_key("out")
@@ -123,7 +80,8 @@ def gen_plot(mp, model, scenario):
     act_br["t"] = act_br["t"].replace({
         r"^gas_ppl_\d+$": "gas_ppl",
         r"^gas_ppl_ccs_\d+$": "gas_ppl_ccs",
-        r"^hydro_\d+$": "hydro",
+        # r"^hydro_\d+$": "hydro",
+        r"^hydro_.+$": "hydro",
         r"^pump_sphs_\d+$": "pump_sphs",
         r"^wind_ppl_.+$": "wind_ppl",
         r"^battery.+$": "battery",
@@ -193,6 +151,42 @@ def gen_plot(mp, model, scenario):
     plt.rcParams['font.size'] = 8
     plt.grid(axis='y')
     plt.show()
+
+    # Capacity Total on country level
+    cap_plot = cap_tot.unstack("t").fillna(0)
+    cap_plot = cap_plot[cap_plot.sum().sort_values(ascending=False).index]
+    tech_colors = {
+        "hydro": "#1f77b4",
+        "wind_ppl": "#17becf",
+        "solar_pv_ppl": "#f1c40f",
+        "gas_ppl": "#ff7f0e",
+        "gas_ppl_ccs": "#8c564b",
+        "bio_ppl": "#2ca02c",
+        "coal_ppl": "#4d4d4d",
+        "oil_ppl": "#d62728",
+        "nuc_ppl": "#9467bd",
+        "pump_sphs": "#cb20ae",
+        "batt_4_n": "#e377c2",
+        "batt_4_ne": "#e377c2",
+        "batt_4_s": "#e377c2",
+        "batt_4_se": "#e377c2",
+    }
+    fallback_colors = plt.cm.tab20.colors
+    plot_colors = [
+        tech_colors.get(tech, fallback_colors[i % len(fallback_colors)])
+        for i, tech in enumerate(cap_plot.columns)
+    ]
+    ax = cap_plot.plot(kind="bar", stacked=True, figsize=(12, 6), color=plot_colors)
+    # ax = cap_plot.plot(kind="area", stacked=True, figsize=(12, 6), color=plot_colors)
+    ax.set_xlabel('Year')
+    ax.set_ylabel('GW')
+    ax.set_title(f"Capacidade total no cenário {scenario}")
+    ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.xticks(rotation=0)
+    plt.tight_layout()
+    plt.rcParams['font.size'] = 8
+    plt.grid(axis='y')
+    plt.show()
     
     # %% Plot historical emissions
     # ha1 = rep.full_key("historical_activity")
@@ -217,7 +211,7 @@ if __name__ == "__main__":
     # scenario = 'emissions_test'
     # scenario = 'PDE2034'
     # scenario = 'seasonal'
-    scenario = 'dados_pde_hidro'
+    scenario = 'dados_pde'
     gen_plot(mp, model, scenario)    
     
     # Close DB

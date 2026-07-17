@@ -18,9 +18,9 @@ def seasonality(scen):
     # Adding sub-annual time steps
     time_steps_sea = ['winter','summer']
 
-    time_steps_win = ['winter_1','winter_2','winter_3','winter_4','winter_5','winter_6']
+    time_steps_win = ['jan','feb','mar','apr','may','jun']
 
-    time_steps_sum = ['summer_1','summer_2','summer_3','summer_4','summer_5','summer_6']
+    time_steps_sum = ['jul','aug','sep','oct','nov','dec']
 
     time_steps = time_steps_win + time_steps_sum
 
@@ -99,14 +99,14 @@ def seasonality(scen):
     scen.par('demand')
 
     # Modifying demand for each season
-    demand_data = {'winter_1':1/12,'winter_2':1/12,'winter_3':1/12,'winter_4':1/12,'winter_5':1/12,'winter_6':1/12,
-                'summer_1':1/12,'summer_2':1/12,'summer_3':1/12,'summer_4':1/12,'summer_5':1/12,'summer_6':1/12}
+    demand_data = {'jan':1/12,'feb':1/12,'mar':1/12,'apr':1/12,'may':1/12,'jun':1/12,
+                'jul':1/12,'aug':1/12,'sep':1/12,'oct':1/12,'nov':1/12,'dec':1/12}
     yearly_to_season(scen, 'demand', demand_data)
 
     # Modifying input and output parameters for each season
     # output
-    fixed_data = {'winter_1':1,'winter_2':1,'winter_3':1,'winter_4':1,'winter_5':1,'winter_6':1,
-                'summer_1':1,'summer_2':1,'summer_3':1,'summer_4':1,'summer_5':1,'summer_6':1}
+    fixed_data = {'jan':1,'feb':1,'mar':1,'apr':1,'may':1,'jun':1,
+                'jul':1,'aug':1,'sep':1,'oct':1,'nov':1,'dec':1}
     yearly_to_season(scen, 'output', fixed_data)
 
     # input
@@ -156,7 +156,7 @@ if __name__ == "__main__":
     scen.set_as_default()
 
     scen.var('OBJ')['lvl']
-    scen.to_excel('SIN expandido season.xlsx')
+    # scen.to_excel('SIN expandido season.xlsx')
     scen.version
 
     mp.close_db()

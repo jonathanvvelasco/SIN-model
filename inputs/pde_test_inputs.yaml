@@ -5,7 +5,7 @@ general:
   scen: "dados_pde"
 
   # Include sets
-  history: [2020]
+  history: [2023]
   horizon: [2030, 2040, 2050, 2060]
   country: "Brazil"
   nodes: 
@@ -150,8 +150,8 @@ technology:
     - "grid_s"
 
 efficiency:
-  transmission: 0.95
-  distribution: 0.95
+  transmission: 0.9993742
+  distribution: 0.9993742
   battery: 1.2          # losses to store 1 GWa of energy. eg.: 20%
 
 lifetimes:
@@ -174,7 +174,7 @@ lifetimes:
     gas_ppl_ccs_1: 20
     gas_ppl_ccs_2: 20
     nuc_ppl: 60
-    solar_pv_ppl: 20
+    solar_pv_ppl: 25
     oil_ppl: 20
     grid1: 25
     grid_n: 25
@@ -198,7 +198,7 @@ lifetimes:
     wind_ppl_cos: 20
     coal_ppl: 25
     nuc_ppl: 60
-    solar_pv_ppl: 20
+    solar_pv_ppl: 25
     oil_ppl: 20
     batt_ne: 15
     grid2: 25
@@ -228,7 +228,7 @@ lifetimes:
     coal_ppl: 25
     batt_se: 15
     nuc_ppl: 60
-    solar_pv_ppl: 20
+    solar_pv_ppl: 25
     oil_ppl: 20
     grid3: 25
     grid_se: 25
@@ -259,7 +259,7 @@ lifetimes:
     wind_ppl_rs: 20
     coal_ppl: 25
     nuc_ppl: 60
-    solar_pv_ppl: 20
+    solar_pv_ppl: 25
     oil_ppl: 20
     batt_s: 15
     grid4: 25
@@ -271,90 +271,92 @@ lifetimes:
 
 capacity_factor:
   North:
-    hydro_4: 0.9
-    hydro_8: 0.9
-    hydro_9: 0.9
+  # fio dagua e com reservatorio (hidros e UHR)
+  # pchs
+    hydro_4: 0.372
+    hydro_8: 0.372
+    hydro_9: 0.372
     sphs_4: 0.7
     sphs_8: 0.7
     sphs_9: 0.7
-    bio_ppl: 0.33
-    gas_ppl: 0.75
-    gas_ppl_1: 0.75
-    gas_ppl_2: 0.75
-    gas_ppl_ccs: 0.75
-    gas_ppl_ccs_1: 0.75
-    gas_ppl_ccs_2: 0.75
+    bio_ppl: 0.67
+    # ciclo simples e ciclo combinado
+    gas_cs_ppl: 0.22
+    gas_cc_ppl: 0.22
     wind_ppl: 0.435
-    coal_ppl: 0.69
+    coal_bra_ppl: 0.22
+      # so no sistema sul
+    coal_imp_ppl: 0.22
+      # so no sistema nordeste
     nuc_ppl: 0.85
     solar_pv_ppl: 0.3
-    oil_ppl: 0.75
+    oil_ppl: 0.06
     grid1: 0.8
     batt_n: 0.85
     grid_n: 0.8
   Northeast:
-    hydro_3: 0.9
+    hydro_3: 0.353
     sphs_3: 0.7
-    bio_ppl: 0.33
-    gas_ppl: 0.75
-    gas_ppl_1: 0.75
-    gas_ppl_2: 0.75
-    gas_ppl_ccs: 0.75
-    gas_ppl_ccs_1: 0.75
-    gas_ppl_ccs_2: 0.75
+    bio_ppl: 0.27
+    gas_ppl: 0.22
+    gas_ppl_1: 0.22
+    gas_ppl_2: 0.22
+    gas_ppl_ccs: 0.22
+    gas_ppl_ccs_1: 0.22
+    gas_ppl_ccs_2: 0.22
     wind_ppl_cos: 0.47
     wind_ppl_int: 0.47
-    coal_ppl: 0.69
+    coal_ppl: 0.22
     nuc_ppl: 0.85
     solar_pv_ppl: 0.3
-    oil_ppl: 0.75
+    oil_ppl: 0.06
     grid2: 0.8
     batt_ne: 0.85
     grid_ne: 0.8
   Southeast:
-    hydro_1: 0.9
-    hydro_5: 0.9
-    hydro_6: 0.9
-    hydro_7: 0.9
-    hydro_10: 0.9
-    hydro_12: 0.9
+    hydro_1: 0.505
+    hydro_5: 0.505
+    hydro_6: 0.505
+    hydro_7: 0.505
+    hydro_10: 0.505
+    hydro_12: 0.505
     sphs_1: 0.7
     sphs_6: 0.7
     sphs_7: 0.7
     sphs_10: 0.7
     sphs_12: 0.7
-    bio_ppl: 0.33
-    gas_ppl: 0.75
-    gas_ppl_1: 0.75
-    gas_ppl_2: 0.75
-    gas_ppl_ccs: 0.75
-    gas_ppl_ccs_1: 0.75
-    gas_ppl_ccs_2: 0.75
+    bio_ppl: 0.27
+    gas_ppl: 0.22
+    gas_ppl_1: 0.22
+    gas_ppl_2: 0.22
+    gas_ppl_ccs: 0.22
+    gas_ppl_ccs_1: 0.22
+    gas_ppl_ccs_2: 0.22
     wind_ppl: 0.435
-    coal_ppl: 0.69
+    coal_ppl: 0.22
     nuc_ppl: 0.85
     solar_pv_ppl: 0.29
-    oil_ppl: 0.75
+    oil_ppl: 0.06
     grid3: 0.8
     batt_se: 0.85
     grid_se: 0.8
   South:
-    hydro_2: 0.9
-    hydro_11: 0.9
+    hydro_2: 0.505
+    hydro_11: 0.505
     sphs_2: 0.7
     sphs_11: 0.7
-    bio_ppl: 0.33
-    gas_ppl: 0.75
-    gas_ppl_1: 0.75
-    gas_ppl_2: 0.75
-    gas_ppl_ccs: 0.75
-    gas_ppl_ccs_1: 0.75
-    gas_ppl_ccs_2: 0.75
+    bio_ppl: 0.27
+    gas_ppl: 0.22
+    gas_ppl_1: 0.22
+    gas_ppl_2: 0.22
+    gas_ppl_ccs: 0.22
+    gas_ppl_ccs_1: 0.22
+    gas_ppl_ccs_2: 0.22
     wind_ppl_rs: 0.4
-    coal_ppl: 0.69
+    coal_ppl: 0.22
     nuc_ppl: 0.85
     solar_pv_ppl: 0.29
-    oil_ppl: 0.75
+    oil_ppl: 0.06
     grid4: 0.8
     batt_s: 0.85
     grid_s: 0.8
@@ -362,7 +364,7 @@ capacity_factor:
 historical_new_capacity:
   #base capacity [GW] in 07/2019 according to CCEE historical operation for each subsystem [North, Northeast, SE/MW, South]
   #base capacity [GW] of the BES in 2019 according to ONS historical operation for each subsystem [North, Northeast, SE/MW, South]
-  times: 10               # Assumption Built in last 10 years
+  times: 1               # Assumption Built in last 1 years
   historical_data:
     North:
       thermal_capacity: 3.87
@@ -407,7 +409,7 @@ historical_new_capacity:
     batt_n: 0.0
     grid_n: 0.659
   Northeast:
-    hydro_3: 8.3
+    hydro_3: 11.036
     sphs_3: 0.0
     bio_ppl: 1.3776     # 16.4% of thermal capacity
     gas_ppl: 3.0156     # 35.9% of thermal capacity
@@ -416,11 +418,11 @@ historical_new_capacity:
     gas_ppl_ccs: 0.0
     gas_ppl_ccs_1: 0.0
     gas_ppl_ccs_2: 0.0
-    wind_ppl_cos: 6.2
-    wind_ppl_int: 5.94
+    wind_ppl_cos: 12.848
+    wind_ppl_int: 13.119
     coal_ppl: 1.0836    # 12.9% of thermal capacity
     nuc_ppl: 0.0
-    solar_pv_ppl: 1.4
+    solar_pv_ppl: 6.608
     oil_ppl: 2.9232     # 34.8% of thermal capacity
     grid2: 2.51
     batt_ne: 0.0
@@ -447,14 +449,14 @@ historical_new_capacity:
     wind_ppl: 0.03
     coal_ppl: 0.0
     nuc_ppl: 2.0
-    solar_pv_ppl: 0.74
+    solar_pv_ppl: 4.658
     oil_ppl: 1.56996      # 8.4% of thermal capacity
     grid3: 9.46
     batt_se: 0.0
     grid_se: 51.2
   South:
-    hydro_2: 6.9
-    hydro_11: 7.3
+    hydro_2: 8.562
+    hydro_11: 9.058
     sphs_2: 0.0
     sphs_11: 0.0
     bio_ppl: 1.25552      # 26.6% of thermal capacity
@@ -464,10 +466,10 @@ historical_new_capacity:
     gas_ppl_ccs: 0.0
     gas_ppl_ccs_1: 0.0
     gas_ppl_ccs_2: 0.0
-    wind_ppl_rs: 2.07
+    wind_ppl_rs: 2.03
     coal_ppl: 2.06736     # 43.8% of thermal capacity
     nuc_ppl: 0.0
-    solar_pv_ppl: 0.004
+    solar_pv_ppl: 0.02
     oil_ppl: 0.0236       # 0.5% of thermal capacity
     grid4: 11.22
     batt_s: 0.0
@@ -501,53 +503,53 @@ historical_activity:
       transmission_internal_act: 7.56
   North:
     old_activity:
-      hydro_4: 3.36
-      hydro_8: 3.8605
-      hydro_9: 0.42
-      bio_ppl: 0.1638
-      gas_ppl: 1.4742
+      hydro_4: 3.520
+      hydro_8: 4.044
+      hydro_9: 0.44
+      bio_ppl: 0.218
+      gas_ppl: 1.187
       gas_ppl_1: 0.0
       gas_ppl_2: 0.0
       gas_ppl_ccs: 0.0
       gas_ppl_ccs_1: 0.0
       gas_ppl_ccs_2: 0.0
-      wind_ppl: 0.13
-      coal_ppl: 0.1638
+      wind_ppl: 0.208
+      coal_ppl: 0.005
       nuc_ppl: 0.0
-      solar_pv_ppl: 0.001
-      oil_ppl: 0.0182
+      solar_pv_ppl: 0.00
+      oil_ppl: 0.003
       grid_n: 2.7019
     old_activity_1: {grid1: 2.1586}
     old_activity_2: {grid1: 2.008}
   Northeast:
     old_activity:
-      hydro_3: 2.49
-      bio_ppl: 0.20196
-      gas_ppl: 0.97614
+      hydro_3: 3.995
+      bio_ppl: 0.275
+      gas_ppl: 0.254
       gas_ppl_1: 0.0
       gas_ppl_2: 0.0
       gas_ppl_ccs: 0.0
       gas_ppl_ccs_1: 0.0
       gas_ppl_ccs_2: 0.0
-      wind_ppl_cos: 2.86
-      wind_ppl_int: 2.68
-      coal_ppl: 0.6633
+      wind_ppl_cos: 5.025
+      wind_ppl_int: 5.025
+      coal_ppl: 0.019
       nuc_ppl: 0.0
-      solar_pv_ppl: 0.37
-      oil_ppl: 0.14058
+      solar_pv_ppl: 1.846
+      oil_ppl: 0.067
       grid_ne: 5.5566
     old_activity_1: {grid2: 1.2299}
     old_activity_2: {grid2: 0.6024}
   Southeast:
     old_activity:
-      hydro_1: 3.072
-      hydro_5: 6.72
-      hydro_6: 3.504
-      hydro_7: 1.536
-      hydro_10: 13.248
-      hydro_12: 1.152
-      bio_ppl: 2.27395
-      gas_ppl: 2.66742
+      hydro_1: 3.091
+      hydro_5: 6.761
+      hydro_6: 3.525
+      hydro_7: 1.545
+      hydro_10: 13.229
+      hydro_12: 1.159
+      bio_ppl: 3.136
+      gas_ppl: 0.808
       gas_ppl_1: 0.0
       gas_ppl_2: 0.0
       gas_ppl_ccs: 0.0
@@ -555,28 +557,28 @@ historical_activity:
       gas_ppl_ccs_2: 0.0
       wind_ppl: 0.007
       coal_ppl: 0.0
-      nuc_ppl: 1.841
-      solar_pv_ppl: 0.19
-      oil_ppl: 0.16863
+      nuc_ppl: 1.657
+      solar_pv_ppl: 2.344
+      oil_ppl: 0.003
       grid_se: 24.576
     old_activity_1: {grid3: 4.5408}
     old_activity_2: {grid3: 0.473}
   South:
     old_activity:
-      hydro_2: 3.588
-      hydro_11: 3.796
-      bio_ppl: 0.252
-      gas_ppl: 0.02415
+      hydro_2: 4.584
+      hydro_11: 4.850
+      bio_ppl: 0.161
+      gas_ppl: 0.003
       gas_ppl_1: 0.0
       gas_ppl_2: 0.0
       gas_ppl_ccs: 0.0
       gas_ppl_ccs_1: 0.0
       gas_ppl_ccs_2: 0.0
-      wind_ppl_rs: 0.7
-      coal_ppl: 0.75285
+      wind_ppl_rs: 0.656
+      coal_ppl: 0.850
       nuc_ppl: 0.0
-      solar_pv_ppl: 0.01
-      oil_ppl: 0.01995
+      solar_pv_ppl: 0.624
+      oil_ppl: 0.005
       grid_s: 7.56
     old_activity_1: {grid4: 5.2734}
     old_activity_2: {grid4: 1.2342}
@@ -929,3 +931,49 @@ bound:
       bio_ppl: 5.0
       wind_ppl_rs: 70.0
       solar_pv_ppl: 10.0
+  new_capacity_up:
+    North:
+      wind_ppl: 0
+      solar_pv_ppl: 0
+      bio_ppl: 0
+      batt_n: 0.1
+      gas_ppl: 0.125
+      gas_ppl_1: 0.5
+      gas_ppl_2: 0
+      gas_ppl_ccs: 0
+      gas_ppl_ccs_1: 0
+      gas_ppl_ccs_2: 0
+    Northeast:
+      wind_ppl_cos: 1
+      wind_ppl_int: 1
+      solar_pv_ppl: 1.5
+      bio_ppl: 0
+      batt_ne: 0.1
+      gas_ppl: 0.125
+      gas_ppl_1: 0.5
+      gas_ppl_2: 0
+      gas_ppl_ccs: 0
+      gas_ppl_ccs_1: 0
+      gas_ppl_ccs_2: 0
+    Southeast:
+      wind_ppl: 0
+      solar_pv_ppl: 1.5
+      bio_ppl: 0.6
+      batt_se: 0.1
+      gas_ppl: 0.125
+      gas_ppl_1: 0.5
+      gas_ppl_2: 0
+      gas_ppl_ccs: 0
+      gas_ppl_ccs_1: 0
+      gas_ppl_ccs_2: 0
+    South:
+      wind_ppl_rs: 1.0
+      solar_pv_ppl: 0
+      bio_ppl: 0
+      batt_s: 0.1
+      gas_ppl: 0.125
+      gas_ppl_1: 0.5
+      gas_ppl_2: 0
+      gas_ppl_ccs: 0
+      gas_ppl_ccs_1: 0
+      gas_ppl_ccs_2: 0

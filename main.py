@@ -2,15 +2,15 @@ import yaml
 import ixmp
 import message_ix
 
-import step1_SIN_Baseline
-import step2_SIN_Seasonality
+import step1_SIN_Baseline 
+# import step2_SIN_Seasonality
 import step_results
 
 
 # %% Inputs
 input_file = "pde_generated_input.yaml"
 model = "SIN Brasil expandido"
-scen = "dados_pde_hidro"
+scen = "dados_pde"
 
 
 # %% Model 
@@ -35,11 +35,12 @@ scenario = step1_SIN_Baseline.capacity_factors_and_historical_capacity(scenario,
 scenario = step1_SIN_Baseline.costs(scenario, dados)
 scenario = step1_SIN_Baseline.historical_activity(scenario, dados)
 # scenario = step1_SIN_Baseline.bound_activity_up(scenario, dados)
-scenario = step1_SIN_Baseline.bound_total_capacity_up(scenario, dados)
+# scenario = step1_SIN_Baseline.bound_total_capacity_up(scenario, dados)
+scenario = step1_SIN_Baseline.bound_new_capacity_up(scenario, dados)
 # scenario = step1_SIN_Baseline.bound_growth_capacity_up(scenario, dados, growth_cap=0.3) # Growth capacity bound to 30%
 
 # Add seasonality to the model
-scenario = step2_SIN_Seasonality.seasonality(scenario)
+# scenario = step2_SIN_Seasonality.seasonality(scenario)
 
 # Add water technologies
 # step3_SIN seems not important
@@ -60,7 +61,7 @@ mp.close_db()
 mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
 step_results.gen_plot(mp, model, scen)
 
-# subsystems = dados["general"]["nodes"]
-# annums = [2030] # dados["general"]["horizon"][-1]
-# fig = step_results.view_sankey(mp, model, scenario, subsystems, annums)  
+subsystems = dados["general"]["nodes"]
+annums = [2034] # dados["general"]["horizon"][-1]
+fig = step_results.view_sankey(mp, model, scen, subsystems, annums)  
 mp.close_db() 

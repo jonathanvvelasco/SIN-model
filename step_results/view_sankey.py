@@ -69,6 +69,7 @@ def water_m3_to_Gwa(scenario, df, mapping, subsystem, annum):
                     if "variable" not in keep or "value" not in keep:
                         raise ValueError("modified dataframe missing required columns for pyam")
                     pdf2 = pdf[keep].copy()
+                    pdf2["unit"] = "GWa"
                     new_df = pyam.IamDataFrame(pdf2)
                     df_for_plot = new_df
                 except Exception as e:
@@ -103,19 +104,6 @@ def fig_to_html(fig, subsystem, annum):
             written = True
         except Exception as e:
             print(f"plotly.write_html failed: {e}")
-
-    # 2) Try plotly.io.to_html (handles dicts or plotly-compatible objects)
-    if not written:
-        try:
-            import plotly.io as pio  # type: ignore
-
-            html = pio.to_html(fig, include_plotlyjs="cdn")
-            html_path.write_text(html, encoding="utf-8")
-            webbrowser.open(html_path.as_uri())
-            print(f"Sankey written to {html_path}")
-            written = True
-        except Exception as e:
-            print(f"plotly.io.to_html failed: {e}")
 
     # 3) If it's a Matplotlib figure, save as PNG
     if not written:
@@ -205,7 +193,7 @@ def view_sankey(mp, model, scenario, subsystems, annums):
             # Create Sankey diagram for each subsystem and year
             rep = Reporter.from_scenario(scenario, units={"replace": {"-": ""}}) # Remove "-" from units
             df_all = concat(rep.get("in::pyam"), rep.get("out::pyam"))           # Concatenate input and output dataframes
-            df = df_all.filter(year=annum, region=subsystem+'|'+subsystem)       # Filter for the year and subsystem
+            df = df_all.filter(year=annum, region=subsystem+'|'+subsystem)       # Filter for the year and subsystem #type: ignore  
             mapping = map_for_sankey(df, node=subsystem,)                        # Map the data for Sankey diagram
 
             df_for_plot = water_m3_to_Gwa(scenario, df, mapping, subsystem, annum)
@@ -227,7 +215,7 @@ if __name__ == "__main__":
     model = "SIN Brasil expandido"
     scenario = 'dados_pde'
     subsystems = ['North', 'Northeast', 'Southeast', 'South']
-    annums = [2060] # [2025, 2030, 2035]
+    annums = [2034]
 
     fig = view_sankey(mp, model, scenario, subsystems, annums)  
     

@@ -139,6 +139,7 @@ def _update_study_horizon(base_data, sheets_data):
 def _update_demand(base_data, sheets_data, time_frame="yearly"):
 	'''Atualiza a demanda por ano e subsistema no dicionário base_data com base na aba Demanda NW do sheets_data.'''
 	demanda = pd.DataFrame(sheets_data['sheets']["Demanda NW"])
+	ajuste = True
 
 	if time_frame == "yearly":
 		# Fazendo demanda anual
@@ -150,6 +151,8 @@ def _update_demand(base_data, sheets_data, time_frame="yearly"):
 	for node in base_data['general']['nodes']:
 		demanda_node = demanda.loc[demanda["sistema"] == node]
 		demanda_por_ano = demanda_node.groupby("ano")["val"].sum()
+		if ajuste:
+			demanda_por_ano = demanda_por_ano*0.821
 		base_data['general']['demand_per_year'][node] = [float(demanda_por_ano.get(ano, 0)) for ano in base_data['general']['horizon']]
 	
 	return base_data
@@ -276,10 +279,32 @@ def _update_costs(base_data, sheets_data):
 
 	return base_data
 
+def _update_capacity_factor(base_data, sheets_data):
+	'''Atualiza os fatores de capacidade no dicionário base_data com base em valores forcados.'''
+	tecnologias = sheets_data['sheets']["Renov Ind."]
+
+	dic_force = {
+		"gas_ppl": 0.22,
+		"gas_ppl_1": 0.22,
+		"gas_ppl_2": 0.22,
+		"gas_ppl_ccs": 0.22,
+		"gas_ppl_ccs_1": 0.22,
+		"gas_ppl_ccs_2": 0.22,
+		"coal_ppl": 0.69,
+		"oil_ppl": 0.06,
+	}
+
+	for node in base_data['general']['nodes']:
+		for tec, cap_factor in dic_force.items():
+			base_data['capacity_factor'][node][tec] = float(cap_factor)
+
+	return base_data
+
 def dados_pde_para_yaml(base_data, sheets_data: dict[str, Any]) -> dict[str, Any]:
 	'''Atualiza o dicionário base_data com os dados das planilhas, mantendo a estrutura do YAML.'''
 
 	base_data = _update_study_horizon(base_data, sheets_data)
+	base_data = _update_capacity_factor(base_data, sheets_data)
 	base_data = _update_demand(base_data, sheets_data)
 	base_data = _update_costs(base_data, sheets_data)
 	
