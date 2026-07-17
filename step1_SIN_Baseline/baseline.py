@@ -141,7 +141,7 @@ def technologies(scenario, dados):
         'year_act': act_years,
         'mode': 'M1',
         'time': 'year',
-        'time_dest': 'year',
+        'time_origin': 'year',
         'unit': '-',
     }
 
@@ -536,7 +536,7 @@ def technologies(scenario, dados):
                     level='secondary', value=1/dados['efficiency']['distribution'], unit="GWa")
     scenario.add_par('input', grid_in_s)
 
-    # %% Add Technology hydro_ppl       (input and output)
+    # %% Add Technologies               (input and output)
     
     for node in dados['general']['nodes']:
         try:
@@ -555,7 +555,7 @@ def technologies(scenario, dados):
 
             try:
                 tec_in = make_df(input_base, node_loc=node, node_origin=node, technology=tec, 
-                                 commodity=par['input_commodity'], level='secondary', value=par['input'], unit=par['input_unit'])
+                                 commodity=par['input_commodity'], level='primary', value=par['input'], unit=par['input_unit'])
                 scenario.add_par('input', tec_in)
             except KeyError:
                 pass
