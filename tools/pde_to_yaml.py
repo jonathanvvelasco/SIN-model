@@ -11,13 +11,11 @@ import pandas as pd
 import yaml
 
 
-INPUT_XLSM = Path(r"C:\GitHub\SIN-model\7. Brasil inputs\data EPE\Dados_MDI_PDE_2034_Referência.xlsm")
-OUTPUT_YAML = Path(r"C:\GitHub\SIN-model\inputs\pde_generated_input.yaml")
-# sheets explicitly requested by user
-SHEETS_TO_READ = ["GERAL", "Renov Ind.", "Demanda NW"]
-# base YAML to use as template
-BASE_YAML = Path(r"C:\GitHub\SIN-model\inputs\pde_test_inputs.yaml")
 
+INPUT_XLSM = path = Path(__file__).resolve().parent.parent / "7. Brasil inputs" / "data EPE" / "Dados_MDI_PDE_2034_Referência.xlsm"
+OUTPUT_YAML = Path(__file__).resolve().parent.parent / "inputs" / "pde_generated_input.yaml"
+BASE_YAML = Path(__file__).resolve().parent.parent / "inputs" / "pde_test_inputs.yaml"
+SHEETS_TO_READ = ["GERAL", "Renov Ind.", "Demanda NW"]
 
 def _clean_value(value: Any) -> Any:
 	if pd.isna(value):
@@ -285,12 +283,12 @@ def _update_capacity_factor(base_data, sheets_data):
 	tecnologias = sheets_data['sheets']["Renov Ind."]
 
 	dic_force = {
-		"gas_gnl_comb_ppl": 0.22,
-		"gas_gnl_open_ppl": 0.22,
-		"gas_nat_ppl": 0.22,
-		"gas_ppl_ccs": 0.22,
-		"gas_ppl_ccs_1": 0.22,
-		"gas_ppl_ccs_2": 0.22,
+		"gas_gnl_comb_ppl": 0.75,
+		"gas_gnl_open_ppl": 0.75,
+		"gas_gna_comb": 0.75,
+		"gas_gna_open": 0.75,
+		"gas_national_ppl": 0.75,
+		"gas_brabol_ppl": 0.75,
 		"coal_ppl": 0.69,
 		"oil_ppl": 0.06,
 	}

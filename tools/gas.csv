@@ -1,0 +1,25 @@
+technology,system,level,lifetime,CF,inv cost,fix cost,var cost
+gas_gnl_comb_ppl,North,secondary,20.0,0.75,977.0,91.0,78.0
+gas_gnl_open_ppl,North,secondary,20.0,0.75,862.0,86.0,102.0
+gas_national_ppl,North,secondary,20.0,0.75,1000.0,43.6,439.7
+gas_brabol_ppl,North,secondary,20.0,0.75,1620.0,43.6,219.8
+gas_gna_comb_ppl,North,secondary,20.0,0.22,1800.0,43.6,329.8
+gas_gna_open_ppl,North,secondary,20.0,0.22,1800.0,43.6,439.7
+gas_gnl_comb_ppl,Northeast,secondary,20.0,0.75,977.0,91.0,78.0
+gas_gnl_open_ppl,Northeast,secondary,20.0,0.75,862.0,86.0,102.0
+gas_national_ppl,Northeast,secondary,20.0,0.75,1000.0,43.6,439.7
+gas_brabol_ppl,Northeast,secondary,20.0,0.75,1620.0,43.6,219.8
+gas_gna_comb_ppl,Northeast,secondary,20.0,0.22,1800.0,43.6,329.8
+gas_gna_open_ppl,Northeast,secondary,20.0,0.22,1800.0,43.6,439.7
+gas_gnl_comb_ppl,Southeast,secondary,20.0,0.75,977.0,91.0,78.0
+gas_gnl_open_ppl,Southeast,secondary,20.0,0.75,862.0,86.0,102.0
+gas_national_ppl,Southeast,secondary,20.0,0.75,1000.0,43.6,439.7
+gas_brabol_ppl,Southeast,secondary,20.0,0.75,1620.0,43.6,219.8
+gas_gna_comb_ppl,Southeast,secondary,20.0,0.22,1800.0,43.6,329.8
+gas_gna_open_ppl,Southeast,secondary,20.0,0.22,1800.0,43.6,439.7
+gas_gnl_comb_ppl,South,secondary,20.0,0.75,977.0,91.0,78.0
+gas_gnl_open_ppl,South,secondary,20.0,0.75,862.0,86.0,102.0
+gas_national_ppl,South,secondary,20.0,0.75,1000.0,43.6,439.7
+gas_brabol_ppl,South,secondary,20.0,0.75,1620.0,43.6,219.8
+gas_gna_comb_ppl,South,secondary,20.0,,1800.0,43.6,329.8
+gas_gna_open_ppl,South,secondary,20.0,,1800.0,43.6,439.7
