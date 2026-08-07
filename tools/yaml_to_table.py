@@ -4,7 +4,7 @@ import yaml
 import pandas as pd
 
 # input_file = "pde_generated_input.yaml"
-input_file = "pde_test_inputs.yaml"
+input_file = "pde_generated_input.yaml"
 
 # Open input data relative to this script, not the current working directory.
 path = Path(__file__).resolve().parent.parent / "inputs" / input_file

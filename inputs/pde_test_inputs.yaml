@@ -450,6 +450,8 @@ lifetimes:
     gas_brabol_ppl: 20
     gas_gna_comb_ppl: 20
     gas_gna_open_ppl: 20
+    gas_argentina_ppl: 20
+    gas_biomethane_ppl: 20
     wind_ppl: 20
     coal_ppl: 25
   # batt_se: 15
@@ -515,6 +517,8 @@ capacity_factor:
     gas_brabol_ppl: 0.22
     gas_gna_comb_ppl: 0.22
     gas_gna_open_ppl: 0.22
+    gas_argentina_ppl: 0.22
+    gas_biomethane_ppl: 0.22
     coal_ppl: 0.69
   Northeast:
     hydro_ne: 0.353
@@ -570,8 +574,8 @@ capacity_factor:
     gas_gnl_open_ppl: 0.22
     gas_national_ppl: 0.22
     gas_brabol_ppl: 0.22
-    gas_gna_comb: 0.22
-    gas_gna_open: 0.22
+    gas_gna_comb_ppl: 0.22
+    gas_gna_open_ppl: 0.22
     gas_argentina_ppl: 0.22
     gas_biomethane_ppl: 0.22
     wind_ppl_rs: 0.4
