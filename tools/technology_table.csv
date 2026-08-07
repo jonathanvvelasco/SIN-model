@@ -62,13 +62,7 @@ hydro_su,South,secondary,60.0,0.505,2374.0,132.0,
 hydro_ig,South,secondary,60.0,0.505,2374.0,132.0,
 bio_ppl,South,secondary,20.0,0.27,1149.0,49.0,0.0
 gas_gnl_comb_ppl,South,secondary,20.0,0.75,977.0,91.0,78.0
-gas_gnl_open_ppl,South,secondary,20.0,0.75,862.0,86.0,102.0
-gas_national_ppl,South,secondary,20.0,0.75,919.0,199.0,41.0
-gas_brabol_ppl,South,secondary,20.0,0.75,1620.0,43.6,219.8
-gas_gna_comb_ppl,South,secondary,20.0,0.75,1800.0,43.6,329.8
-gas_gna_open_ppl,South,secondary,20.0,0.75,1800.0,43.6,439.7
 gas_argentina_ppl,South,secondary,20.0,0.75,1800.0,43.6,439.7
-gas_biomethane_ppl,South,secondary,20.0,0.75,1800.0,43.6,439.7
 coal_ppl,South,secondary,25.0,0.69,2490.0,201.0,25.0
 oil_ppl,South,secondary,20.0,0.06,1100.0,56.4,898.0
 solar_pv_ppl,South,secondary,25.0,0.29,632.0,36.0,0.0
