@@ -42,8 +42,7 @@ def gen_plot(mp, model, scenario):
     
     # Aggregate technology variants into their base technology names
     cap_tot["t"] = cap_tot["t"].replace({
-        r"^gas_ppl_\d+$": "gas_ppl",
-        r"^gas_ppl_ccs_\d+$": "gas_ppl_ccs",
+        r"^gas_.+$": "gas_ppl",
         r"^hydro_.+$": "hydro",
         r"^pump_sphs_\d+$": "pump_sphs",
         r"^wind_ppl_.+$": "wind_ppl",
@@ -78,8 +77,7 @@ def gen_plot(mp, model, scenario):
     
     # Aggregate technology variants into their base technology names
     act_br["t"] = act_br["t"].replace({
-        r"^gas_ppl_\d+$": "gas_ppl",
-        r"^gas_ppl_ccs_\d+$": "gas_ppl_ccs",
+        r"^gas_.+$": "gas_ppl",
         # r"^hydro_\d+$": "hydro",
         r"^hydro_.+$": "hydro",
         r"^pump_sphs_\d+$": "pump_sphs",
@@ -124,7 +122,6 @@ def gen_plot(mp, model, scenario):
         "wind_ppl": "#17becf",
         "solar_pv_ppl": "#f1c40f",
         "gas_ppl": "#ff7f0e",
-        "gas_ppl_ccs": "#8c564b",
         "bio_ppl": "#2ca02c",
         "coal_ppl": "#4d4d4d",
         "oil_ppl": "#d62728",
@@ -160,7 +157,6 @@ def gen_plot(mp, model, scenario):
         "wind_ppl": "#17becf",
         "solar_pv_ppl": "#f1c40f",
         "gas_ppl": "#ff7f0e",
-        "gas_ppl_ccs": "#8c564b",
         "bio_ppl": "#2ca02c",
         "coal_ppl": "#4d4d4d",
         "oil_ppl": "#d62728",

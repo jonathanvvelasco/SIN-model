@@ -169,7 +169,7 @@ def dic_technologies():
 			"bio_ppl": "Biomassa (Bagaço de Cana) 3",
 			"gas_gnl_comb_ppl": r"GNL 100% Flexível",
 			"gas_gnl_open_ppl": r"GNL Ciclo Simples - 100% Flexível",
-			"gas_nat_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
+			"gas_national_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
 			# "gas_ppl_ccs": 1620,
 			# "gas_ppl_ccs_1": 1800,
 			# "gas_ppl_ccs_2": 1800,
@@ -187,8 +187,8 @@ def dic_technologies():
 			# "sphs_3": 1500,
 			"bio_ppl": "Biomassa (Bagaço de Cana) 3",
 			"gas_gnl_comb_ppl": r"GNL 100% Flexível",
-			"gas_gnl_open_ppl": r"GNL Ciclo Simples - 100% Flexível",
-			"gas_nat_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
+			# "gas_gnl_open_ppl": r"GNL Ciclo Simples - 100% Flexível",
+			"gas_national_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
 			# "gas_ppl_ccs": 1620,
 			# "gas_ppl_ccs_1": 1800,
 			# "gas_ppl_ccs_2": 1800,
@@ -217,7 +217,7 @@ def dic_technologies():
 			"bio_ppl": "Biomassa (Bagaço de Cana) 1",
 			"gas_gnl_comb_ppl": r"GNL 100% Flexível",
 			"gas_gnl_open_ppl": r"GNL Ciclo Simples - 100% Flexível",
-			"gas_nat_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
+			"gas_national_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
 			# "gas_ppl_ccs": 1620,
 			# "gas_ppl_ccs_1": 1800,
 			# "gas_ppl_ccs_2": 1800,
@@ -238,8 +238,8 @@ def dic_technologies():
 			"bio_ppl": "Biomassa (Bagaço de Cana) 3",
 			"gas_gnl_comb_ppl": r"GNL 100% Flexível",
 			"gas_gnl_open_ppl": r"GNL Ciclo Simples - 100% Flexível",
-			"gas_nat_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
-			# "gas_nat_ppl": 1000,
+			"gas_national_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
+			# "gas_national_ppl": 1000,
 			# "gas_ppl_ccs": 1620,
 			# "gas_ppl_ccs_1": 1800,
 			# "gas_ppl_ccs_2": 1800,
@@ -285,8 +285,8 @@ def _update_capacity_factor(base_data, sheets_data):
 	dic_force = {
 		"gas_gnl_comb_ppl": 0.75,
 		"gas_gnl_open_ppl": 0.75,
-		"gas_gna_comb": 0.75,
-		"gas_gna_open": 0.75,
+		"gas_gna_comb_ppl": 0.75,
+		"gas_gna_open_ppl": 0.75,
 		"gas_national_ppl": 0.75,
 		"gas_brabol_ppl": 0.75,
 		"coal_ppl": 0.69,
@@ -303,7 +303,7 @@ def dados_pde_para_yaml(base_data, sheets_data: dict[str, Any]) -> dict[str, Any
 	'''Atualiza o dicionário base_data com os dados das planilhas, mantendo a estrutura do YAML.'''
 
 	base_data = _update_study_horizon(base_data, sheets_data)
-	base_data = _update_capacity_factor(base_data, sheets_data)
+	# base_data = _update_capacity_factor(base_data, sheets_data)
 	base_data = _update_demand(base_data, sheets_data)
 	base_data = _update_costs(base_data, sheets_data)
 	

@@ -91,7 +91,6 @@ def fig_to_html(fig, subsystem, annum):
     output_dir.mkdir(parents=True, exist_ok=True)
     html_path = output_dir / f"sankey_energy_messageix_{subsystem}_{annum}.html"
     png_path = output_dir / f"sankey_energy_messageix_{subsystem}_{annum}.png"
-    txt_path = output_dir / f"sankey_energy_messageix_{subsystem}_{annum}.txt"
 
     written = False
 
@@ -118,21 +117,14 @@ def fig_to_html(fig, subsystem, annum):
         except Exception as e:
             print(f"matplotlib save failed: {e}")
 
-    # 4) Fallback: dump repr() to a text file
-    if not written:
-        try:
-            txt_path.write_text(repr(fig), encoding="utf-8")
-            print(f"Sankey object dumped to {txt_path}; inspect contents manually.")
-        except Exception as e:
-            print(f"Failed to write sankey object: {e}")
-
 def color_sankey_by_commodity(fig):
     water_color = "rgb(0, 51, 102)"
     electricity_color = "rgb(102, 179, 255)"
     neutral_color = "rgba(180, 180, 180, 0.55)"
-    water_link_color = "rgba(0, 51, 102, 0.45)"
-    electricity_link_color = "rgba(102, 179, 255, 0.45)"
-    neutral_link_color = "rgba(180, 180, 180, 0.30)"
+    gas_color = "rgb(255, 165, 0)"
+    # water_link_color = "rgba(0, 51, 102, 0.45)"
+    # electricity_link_color = "rgba(102, 179, 255, 0.45)"
+    # neutral_link_color = "rgba(180, 180, 180, 0.30)"
 
     for trace in getattr(fig, "data", []):
         if getattr(trace, "type", None) != "sankey":
@@ -155,24 +147,26 @@ def color_sankey_by_commodity(fig):
                 node_colors.append(water_color)
             elif electricity_label:
                 node_colors.append(electricity_color)
+            elif "gas" in label_lower:
+                node_colors.append(gas_color)
             else:
                 node_colors.append(neutral_color)
 
-        link_colors = []
-        link_sources = getattr(link, "source", None)
-        link_targets = getattr(link, "target", None)
-        sources = list(link_sources) if link_sources is not None else []
-        targets = list(link_targets) if link_targets is not None else []
-        for source_index, target_index in zip(sources, targets):
-            source_label = str(labels[source_index]).lower() if source_index < len(labels) else ""
-            target_label = str(labels[target_index]).lower() if target_index < len(labels) else ""
+        # link_colors = []
+        # link_sources = getattr(link, "source", None)
+        # link_targets = getattr(link, "target", None)
+        # sources = list(link_sources) if link_sources is not None else []
+        # targets = list(link_targets) if link_targets is not None else []
+        # for source_index, target_index in zip(sources, targets):
+        #     source_label = str(labels[source_index]).lower() if source_index < len(labels) else ""
+        #     target_label = str(labels[target_index]).lower() if target_index < len(labels) else ""
 
-            if "water" in source_label or "water" in target_label:
-                link_colors.append(water_link_color)
-            elif "electricity" in source_label or "electricity" in target_label:
-                link_colors.append(electricity_link_color)
-            else:
-                link_colors.append(neutral_link_color)
+        #     if "water" in source_label or "water" in target_label:
+        #         link_colors.append(water_link_color)
+        #     elif "electricity" in source_label or "electricity" in target_label:
+        #         link_colors.append(electricity_link_color)
+        #     else:
+        #         link_colors.append(neutral_link_color)
 
         trace.update(
             node=dict(color=node_colors),
@@ -215,7 +209,7 @@ if __name__ == "__main__":
     model = "SIN Brasil expandido"
     scenario = 'dados_pde'
     subsystems = ['North', 'Northeast', 'Southeast', 'South']
-    annums = [2034]
+    annums = [2038]
 
     fig = view_sankey(mp, model, scenario, subsystems, annums)  
     
