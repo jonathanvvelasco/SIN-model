@@ -546,6 +546,88 @@ capacity_factor:
     grid4: 0.8
     # batt_s: 0.85
     grid_s: 0.8
+min_util_factor:
+  North:
+    hydro_no: 0.372
+    hydro_bm: 0.372
+    hydro_am: 0.372
+    # sphs_no: 0.7
+    # sphs_bm: 0.7
+    # sphs_am: 0.7
+    bio_ppl: 0.67
+    # gas_cs_ppl: 0.22
+    # gas_cc_ppl: 0.22
+    wind_ppl: 0.435
+    # coal_nat_ppl: 0.22
+    # coal_imp_ppl: 0.22
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.3
+    oil_ppl: 0.06
+    grid1: 0.8
+    # batt_n: 0.85
+    grid_n: 0.8
+    gas_national_ppl: 0.75
+    coal_ppl: 0.69
+  Northeast:
+    hydro_ne: 0.353
+    # sphs_3: 0.7
+    bio_ppl: 0.27
+    gas_gnl_comb_ppl: 0.75
+    gas_national_ppl: 0.7
+    wind_ppl_cos: 0.47
+    wind_ppl_int: 0.47
+    coal_ppl: 0.69
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.3
+    oil_ppl: 0.06
+    grid2: 0.8
+    # batt_ne: 0.85
+    grid_ne: 0.8
+  Southeast:
+    hydro_se: 0.505
+    hydro_it: 0.505
+    hydro_ma: 0.505
+    hydro_tp: 0.505
+    hydro_pa: 0.505
+    hydro_pp: 0.505
+    # sphs_1: 0.7
+    # sphs_6: 0.7
+    # sphs_7: 0.7
+    # sphs_10: 0.7
+    # sphs_12: 0.7
+    bio_ppl: 0.27
+    gas_gnl_comb_ppl: 0.75
+    gas_gnl_open_ppl: 0.75
+    gas_national_ppl: 0.75
+    gas_brabol_ppl: 0.75
+    gas_gna_comb_ppl: 0.75
+    gas_gna_open_ppl: 0.75
+    gas_argentina_ppl: 0.75
+    gas_biomethane_ppl: 0.75
+    wind_ppl: 0.435
+    coal_ppl: 0.69
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.29
+    oil_ppl: 0.06
+    grid3: 0.8
+    # batt_se: 0.85
+    grid_se: 0.8
+  South:
+    hydro_su: 0.505
+    hydro_ig: 0.505
+    # sphs_2: 0.7
+    # sphs_11: 0.7
+    bio_ppl: 0.27
+    gas_gnl_comb_ppl: 0.75
+    gas_argentina_ppl: 0.75 
+    wind_ppl_rs: 0.4
+    coal_ppl: 0.69
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.29
+    oil_ppl: 0.06
+    grid4: 0.8
+    # batt_s: 0.85
+    grid_s: 0.8
 historical_new_capacity:
   times: 1
   historical_data:

@@ -455,6 +455,81 @@ lifetimes:
     rivers_iguacu: 1000
 capacity_factor:
   North:
+    hydro_no: 0.4
+    hydro_bm: 0.372
+    hydro_am: 0.372
+    bio_ppl: 0.67
+    wind_ppl: 0.435
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.3
+    oil_ppl: 0.06
+    grid1: 0.8
+    grid_n: 0.8
+    gas_national_ppl: 0.75
+    coal_ppl: 0.69
+    rivers_north: .nan
+    rivers_belo_monte: .nan
+    rivers_amazonas: .nan
+  Northeast:
+    hydro_ne: 0.353
+    bio_ppl: 0.27
+    gas_gnl_comb_ppl: 0.75
+    gas_national_ppl: 0.7
+    wind_ppl_cos: 0.47
+    wind_ppl_int: 0.47
+    coal_ppl: 0.69
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.3
+    oil_ppl: 0.06
+    grid2: 0.8
+    grid_ne: 0.8
+    rivers_northeast: .nan
+  Southeast:
+    hydro_se: 0.505
+    hydro_it: 0.505
+    hydro_ma: 0.505
+    hydro_tp: 0.505
+    hydro_pa: 0.505
+    hydro_pp: 0.505
+    bio_ppl: 0.27
+    gas_gnl_comb_ppl: 0.75
+    gas_gnl_open_ppl: 0.75
+    gas_national_ppl: 0.75
+    gas_brabol_ppl: 0.75
+    gas_gna_comb_ppl: 0.75
+    gas_gna_open_ppl: 0.75
+    gas_argentina_ppl: 0.75
+    gas_biomethane_ppl: 0.75
+    wind_ppl: 0.435
+    coal_ppl: 0.69
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.29
+    oil_ppl: 0.06
+    grid3: 0.8
+    grid_se: 0.8
+    rivers_southeast: .nan
+    rivers_itaipu: .nan
+    rivers_madeira: .nan
+    rivers_teles_pires: .nan
+    rivers_parana: .nan
+    rivers_paranapanema: .nan
+  South:
+    hydro_su: 0.505
+    hydro_ig: 0.505
+    bio_ppl: 0.27
+    gas_gnl_comb_ppl: 0.75
+    gas_argentina_ppl: 0.75
+    wind_ppl_rs: 0.4
+    coal_ppl: 0.69
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.29
+    oil_ppl: 0.06
+    grid4: 0.8
+    grid_s: 0.8
+    rivers_south: .nan
+    rivers_iguacu: .nan
+min_util_factor:
+  North:
     hydro_no: 0.372
     hydro_bm: 0.372
     hydro_am: 0.372
@@ -712,7 +787,7 @@ costs:
       hydro_bm: 2374
       hydro_am: 2374
       bio_ppl: 1149
-      gas_national_ppl: 919
+      gas_national_ppl: 1000
       wind_ppl: 1187
       coal_ppl: 2490
       nuc_ppl: 5000
@@ -720,13 +795,11 @@ costs:
       oil_ppl: 1100
       grid1: 359
       grid_n: 205
-      gas_gnl_comb_ppl: 977
-      gas_gnl_open_ppl: 862
     Northeast:
       hydro_ne: 2374
       bio_ppl: 1149
       gas_gnl_comb_ppl: 977
-      gas_national_ppl: 919
+      gas_national_ppl: 1000
       wind_ppl_cos: 823
       wind_ppl_int: 957
       coal_ppl: 2490
@@ -745,7 +818,7 @@ costs:
       bio_ppl: 670
       gas_gnl_comb_ppl: 977
       gas_gnl_open_ppl: 862
-      gas_national_ppl: 919
+      gas_national_ppl: 1000
       gas_brabol_ppl: 1620
       gas_gna_comb_ppl: 1800
       gas_gna_open_ppl: 1800
@@ -777,19 +850,17 @@ costs:
       hydro_bm: 132
       hydro_am: 132
       bio_ppl: 49
-      gas_national_ppl: 199
+      gas_national_ppl: 43.6
       wind_ppl: 53
       coal_ppl: 201
       nuc_ppl: 83.3
       solar_pv_ppl: 36
       oil_ppl: 56.4
-      gas_gnl_comb_ppl: 91
-      gas_gnl_open_ppl: 86
     Northeast:
       hydro_ne: 132
       bio_ppl: 49
       gas_gnl_comb_ppl: 91
-      gas_national_ppl: 199
+      gas_national_ppl: 43.6
       wind_ppl_cos: 49
       wind_ppl_int: 51
       coal_ppl: 201
@@ -808,7 +879,7 @@ costs:
       bio_ppl: 45
       gas_gnl_comb_ppl: 91
       gas_gnl_open_ppl: 86
-      gas_national_ppl: 199
+      gas_national_ppl: 43.6
       gas_brabol_ppl: 43.6
       gas_gna_comb_ppl: 43.6
       gas_gna_open_ppl: 43.6
@@ -832,17 +903,15 @@ costs:
       oil_ppl: 56.4
   var_cost:
     North:
-      gas_national_ppl: 41
+      gas_national_ppl: 439.7
       coal_ppl: 25
       oil_ppl: 898
       bio_ppl: 0
       wind_ppl: 0
       solar_pv_ppl: 0
-      gas_gnl_comb_ppl: 78
-      gas_gnl_open_ppl: 102
     Northeast:
       gas_gnl_comb_ppl: 78
-      gas_national_ppl: 41
+      gas_national_ppl: 439.7
       coal_ppl: 25
       oil_ppl: 898
       bio_ppl: 0
@@ -853,7 +922,7 @@ costs:
     Southeast:
       gas_gnl_comb_ppl: 78
       gas_gnl_open_ppl: 102
-      gas_national_ppl: 41
+      gas_national_ppl: 439.7
       gas_brabol_ppl: 219.8
       gas_gna_comb_ppl: 329.8
       gas_gna_open_ppl: 439.7

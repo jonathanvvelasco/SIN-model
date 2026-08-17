@@ -10,14 +10,12 @@ import ixmp as ix
 import message_ix
 import matplotlib.pyplot as plt
 import pandas as pd
+from message_ix.report import Reporter
+from message_ix.util.tutorial import prepare_plots
 
 
 def gen_plot(mp, model, scenario):
     base = message_ix.Scenario(mp, model, scenario= scenario)
-    
-    
-    from message_ix.report import Reporter
-    from message_ix.util.tutorial import prepare_plots
     
     rep = Reporter.from_scenario(base)
     prepare_plots(rep)
@@ -33,6 +31,11 @@ def gen_plot(mp, model, scenario):
     # rep.get("plot demand")
     allowed_t = [t for t in rep.get("t") if not t.startswith("grid")]
     rep.set_filters(t=allowed_t)
+
+    # %% Capacity per node
+    for n in rep.get("n"):
+        rep.set_filters(n=[n])
+        rep.get("plot capacity")
     
     # %% Capacity
     cap = rep.full_key("CAP")
