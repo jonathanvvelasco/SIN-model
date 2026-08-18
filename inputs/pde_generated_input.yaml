@@ -467,9 +467,6 @@ capacity_factor:
     grid_n: 0.8
     gas_national_ppl: 0.75
     coal_ppl: 0.69
-    rivers_north: .nan
-    rivers_belo_monte: .nan
-    rivers_amazonas: .nan
   Northeast:
     hydro_ne: 0.353
     bio_ppl: 0.27
@@ -483,7 +480,6 @@ capacity_factor:
     oil_ppl: 0.06
     grid2: 0.8
     grid_ne: 0.8
-    rivers_northeast: .nan
   Southeast:
     hydro_se: 0.505
     hydro_it: 0.505
@@ -507,12 +503,6 @@ capacity_factor:
     oil_ppl: 0.06
     grid3: 0.8
     grid_se: 0.8
-    rivers_southeast: .nan
-    rivers_itaipu: .nan
-    rivers_madeira: .nan
-    rivers_teles_pires: .nan
-    rivers_parana: .nan
-    rivers_paranapanema: .nan
   South:
     hydro_su: 0.505
     hydro_ig: 0.505
@@ -526,8 +516,6 @@ capacity_factor:
     oil_ppl: 0.06
     grid4: 0.8
     grid_s: 0.8
-    rivers_south: .nan
-    rivers_iguacu: .nan
 min_util_factor:
   North:
     hydro_no: 0.372

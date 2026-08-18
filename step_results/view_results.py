@@ -33,9 +33,23 @@ def gen_plot(mp, model, scenario):
     rep.set_filters(t=allowed_t)
 
     # %% Capacity per node
-    for n in rep.get("n"):
-        rep.set_filters(n=[n])
-        rep.get("plot capacity")
+    cap = rep.full_key("CAP")
+    cap_node = cap.drop("yv")
+    cap_node = rep.get(cap_node)
+    cap_node=cap_node.rename("value").reset_index()
+    for node in rep.get("n"):
+        if node == 'World' or node == 'Brazil':
+            continue
+        cap_plot = cap_node[cap_node["nl"]==node]
+        cap_plot = cap_plot.pivot(index="ya", columns="t", values="value").fillna(0)
+        ax = cap_plot.plot(kind="bar", stacked=True, figsize=(12, 6), linewidth=2)
+        ax.set_xlabel("Year")
+        ax.set_ylabel("GW")
+        ax.set_title(f"Capacity in {node}")
+        ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
+        plt.xticks(rotation=0)
+        plt.tight_layout()
+        plt.show()
     
     # %% Capacity
     cap = rep.full_key("CAP")
@@ -148,7 +162,7 @@ def gen_plot(mp, model, scenario):
     ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.xticks(rotation=0)
     plt.tight_layout()
-    plt.rcParams['font.size'] = 8
+    plt.rcParams['font.size'] = 10
     plt.grid(axis='y')
     plt.show()
 
@@ -183,7 +197,7 @@ def gen_plot(mp, model, scenario):
     ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.xticks(rotation=0)
     plt.tight_layout()
-    plt.rcParams['font.size'] = 8
+    plt.rcParams['font.size'] = 10
     plt.grid(axis='y')
     plt.show()
     

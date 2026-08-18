@@ -34,8 +34,10 @@ def _update_param(base_data: dict, table_data: pd.DataFrame, param: str):
 		table_node = table_data.loc[table_data["system"] == node]
 		tecs_to_read = table_node["technology"].unique()
 		for technology in tecs_to_read:
-			base_data[param][node][technology] = float(table_node.loc[table_node["technology"] == technology, param].values[0])
-	
+			table_val = float(table_node.loc[table_node["technology"] == technology, param].values[0])
+			if not pd.isna(table_val):
+				base_data[param][node][technology] = table_val
+
 	return base_data
 
 def _update_costs(base_data, table_data):
