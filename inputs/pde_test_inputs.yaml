@@ -696,14 +696,14 @@ historical_new_capacity:
     # sphs_10: 0.0
     # sphs_12: 0.0
     bio_ppl: 10.31688
-    gas_gnl_comb_ppl: 6.80316
-    gas_gnl_open_ppl: 0.0
-    gas_national_ppl: 0.0
-    gas_brabol_ppl: 0.0
-    gas_gna_comb_ppl: 0.0
+    gas_gnl_comb_ppl: 0.37456
+    gas_gnl_open_ppl: 0.43424
+    gas_national_ppl: 3.54142
+    gas_brabol_ppl: 1.8275
+    gas_gna_comb_ppl: 3.0109
     gas_gna_open_ppl: 0.0
-    gas_argentina_ppl: 0.0
-    gas_biomethane_ppl: 0.0
+    gas_argentina_ppl: 0.07496
+    gas_biomethane_ppl: 0.0202
     wind_ppl: 0.03
     coal_ppl: 0.0
     nuc_ppl: 2.0

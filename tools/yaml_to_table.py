@@ -40,10 +40,10 @@ for system in systems:
                         "level": level,
                         "lifetime": nested_get(dados, "lifetimes", system, tec_x),
                         "capacity_factor": nested_get(dados, "capacity_factor", system, tec_x),
-                        "min util": nested_get(dados, "min_util_factor", system, tec_x),
-                        "inv cost": nested_get(dados, "costs", "inv_cost", system, tec_x),
-                        "fix cost": nested_get(dados, "costs", "fix_cost", system, tec_x),
-                        "var cost": nested_get(dados, "costs", "var_cost", system, tec_x),
+                        "min_util_factor": nested_get(dados, "min_util_factor", system, tec_x),
+                        "inv_cost": nested_get(dados, "costs", "inv_cost", system, tec_x),
+                        "fix_cost": nested_get(dados, "costs", "fix_cost", system, tec_x),
+                        "var_cost": nested_get(dados, "costs", "var_cost", system, tec_x),
                     }
                 )
     else:

@@ -455,7 +455,7 @@ lifetimes:
     rivers_iguacu: 1000
 capacity_factor:
   North:
-    hydro_no: 0.4
+    hydro_no: 0.372
     hydro_bm: 0.372
     hydro_am: 0.372
     bio_ppl: 0.67
@@ -636,14 +636,14 @@ historical_new_capacity:
     hydro_pa: 27.6
     hydro_pp: 2.4
     bio_ppl: 10.31688
-    gas_gnl_comb_ppl: 6.80316
-    gas_gnl_open_ppl: 0.0
-    gas_national_ppl: 0.0
-    gas_brabol_ppl: 0.0
-    gas_gna_comb_ppl: 0.0
+    gas_gnl_comb_ppl: 0.37456
+    gas_gnl_open_ppl: 0.43424
+    gas_national_ppl: 3.54142
+    gas_brabol_ppl: 1.8275
+    gas_gna_comb_ppl: 3.0109
     gas_gna_open_ppl: 0.0
-    gas_argentina_ppl: 0.0
-    gas_biomethane_ppl: 0.0
+    gas_argentina_ppl: 0.07496
+    gas_biomethane_ppl: 0.0202
     wind_ppl: 0.03
     coal_ppl: 0.0
     nuc_ppl: 2.0
@@ -775,7 +775,7 @@ costs:
       hydro_bm: 2374
       hydro_am: 2374
       bio_ppl: 1149
-      gas_national_ppl: 1000
+      gas_national_ppl: 919
       wind_ppl: 1187
       coal_ppl: 2490
       nuc_ppl: 5000
@@ -783,11 +783,13 @@ costs:
       oil_ppl: 1100
       grid1: 359
       grid_n: 205
+      gas_gnl_comb_ppl: 977
+      gas_gnl_open_ppl: 862
     Northeast:
       hydro_ne: 2374
       bio_ppl: 1149
       gas_gnl_comb_ppl: 977
-      gas_national_ppl: 1000
+      gas_national_ppl: 919
       wind_ppl_cos: 823
       wind_ppl_int: 957
       coal_ppl: 2490
@@ -806,7 +808,7 @@ costs:
       bio_ppl: 670
       gas_gnl_comb_ppl: 977
       gas_gnl_open_ppl: 862
-      gas_national_ppl: 1000
+      gas_national_ppl: 919
       gas_brabol_ppl: 1620
       gas_gna_comb_ppl: 1800
       gas_gna_open_ppl: 1800
@@ -838,17 +840,19 @@ costs:
       hydro_bm: 132
       hydro_am: 132
       bio_ppl: 49
-      gas_national_ppl: 43.6
+      gas_national_ppl: 199
       wind_ppl: 53
       coal_ppl: 201
       nuc_ppl: 83.3
       solar_pv_ppl: 36
       oil_ppl: 56.4
+      gas_gnl_comb_ppl: 91
+      gas_gnl_open_ppl: 86
     Northeast:
       hydro_ne: 132
       bio_ppl: 49
       gas_gnl_comb_ppl: 91
-      gas_national_ppl: 43.6
+      gas_national_ppl: 199
       wind_ppl_cos: 49
       wind_ppl_int: 51
       coal_ppl: 201
@@ -867,7 +871,7 @@ costs:
       bio_ppl: 45
       gas_gnl_comb_ppl: 91
       gas_gnl_open_ppl: 86
-      gas_national_ppl: 43.6
+      gas_national_ppl: 199
       gas_brabol_ppl: 43.6
       gas_gna_comb_ppl: 43.6
       gas_gna_open_ppl: 43.6
@@ -891,15 +895,17 @@ costs:
       oil_ppl: 56.4
   var_cost:
     North:
-      gas_national_ppl: 439.7
+      gas_national_ppl: 41
       coal_ppl: 25
       oil_ppl: 898
       bio_ppl: 0
       wind_ppl: 0
       solar_pv_ppl: 0
+      gas_gnl_comb_ppl: 78
+      gas_gnl_open_ppl: 102
     Northeast:
       gas_gnl_comb_ppl: 78
-      gas_national_ppl: 439.7
+      gas_national_ppl: 41
       coal_ppl: 25
       oil_ppl: 898
       bio_ppl: 0
@@ -910,7 +916,7 @@ costs:
     Southeast:
       gas_gnl_comb_ppl: 78
       gas_gnl_open_ppl: 102
-      gas_national_ppl: 439.7
+      gas_national_ppl: 41
       gas_brabol_ppl: 219.8
       gas_gna_comb_ppl: 329.8
       gas_gna_open_ppl: 439.7

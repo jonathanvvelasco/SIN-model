@@ -1,4 +1,4 @@
-technology,system,level,lifetime,capacity_factor,min util,inv cost,fix cost,var cost
+technology,system,level,lifetime,capacity_factor,min_util_factor,inv_cost,fix_cost,var_cost
 grid1,final_energy_techs,final,,,,,,
 grid2,final_energy_techs,final,,,,,,
 grid3,final_energy_techs,final,,,,,,
@@ -10,7 +10,7 @@ grid_s,final_energy_techs,final,,,,,,
 rivers_north,North,primary,1000.0,,,,,
 rivers_belo_monte,North,primary,1000.0,,,,,
 rivers_amazonas,North,primary,1000.0,,,,,
-hydro_no,North,secondary,60.0,0.400,0.372,2374.0,132.0,
+hydro_no,North,secondary,60.0,0.372,0.372,2374.0,132.0,
 hydro_bm,North,secondary,60.0,0.372,0.372,2374.0,132.0,
 hydro_am,North,secondary,60.0,0.372,0.372,2374.0,132.0,
 bio_ppl,North,secondary,20.0,0.67,0.67,1149.0,49.0,0.0
