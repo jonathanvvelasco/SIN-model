@@ -895,6 +895,34 @@ def bound_growth_capacity_up(scenario, dados, growth_cap=0.1):
 
     return scenario
 
+def emissions(scenario, dados):
+    '''Add Emissions'''
+
+    # Introduce the emission of CO2 and the emission category GHG
+    scenario.add_set("emission", "CO2")
+    scenario.add_cat("emission", "GHG", "CO2")
+
+    year_df = scenario.vintage_and_active_years()
+    vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
+
+    # Build data of emissions by technology
+    for node in dados['general']['nodes']:
+        for tec, val in dados['emissions'][node].items():
+            emission_factor = make_df(
+                "emission_factor",
+                node_loc=node,
+                year_vtg=vintage_years,
+                year_act=act_years,
+                mode="M1",
+                unit="tCO2/kWa",
+                technology=tec,
+                emission="CO2",
+                value=val,
+            )
+            scenario.add_par("emission_factor", emission_factor)
+
+    return scenario
+
 if __name__ == "__main__":
     # Open input data
     with open ("baseline_inputs.yaml", "r") as f:
@@ -916,6 +944,7 @@ if __name__ == "__main__":
     scenario = bound_activity_up(scenario, dados)
     scenario = bound_total_capacity_up(scenario, dados)
     scenario = bound_new_capacity_up(scenario, dados)
+    scenario = emissions(scenario, dados)
     # scenario = bound_growth_capacity_up(scenario, dados, growth_cap=0.3) # Growth capacity bound to 30%
 
     # solving the model

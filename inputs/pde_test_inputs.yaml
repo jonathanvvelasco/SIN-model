@@ -628,6 +628,36 @@ min_util_factor:
     grid4: 0.8
     # batt_s: 0.85
     grid_s: 0.8
+emissions:
+  North:
+    bio_ppl: 0
+    oil_ppl: 7.803
+    gas_national_ppl: 3.94
+    coal_ppl: 9.803
+  Northeast:
+    bio_ppl: 0
+    gas_gnl_comb_ppl: 3.94
+    gas_national_ppl: 3.94
+    coal_ppl: 9.803
+    oil_ppl: 7.803
+  Southeast:
+    bio_ppl: 0
+    gas_gnl_comb_ppl: 3.94
+    gas_gnl_open_ppl: 5.915
+    gas_national_ppl: 3.94
+    gas_brabol_ppl: 3.94
+    gas_gna_comb_ppl: 3.94
+    gas_gna_open_ppl: 5.915
+    gas_argentina_ppl: 3.94
+    gas_biomethane_ppl: 3.94
+    coal_ppl: 9.803
+    oil_ppl: 7.803
+  South:
+    bio_ppl: 0
+    gas_gnl_comb_ppl: 3.94
+    gas_argentina_ppl: 3.94
+    coal_ppl: 9.803
+    oil_ppl: 7.803
 historical_new_capacity:
   times: 1
   historical_data:
