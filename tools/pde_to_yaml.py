@@ -11,13 +11,11 @@ import pandas as pd
 import yaml
 
 
-INPUT_XLSM = Path(r"C:\GitHub\SIN-model\7. Brasil inputs\data EPE\Dados_MDI_PDE_2034_Referência.xlsm")
-OUTPUT_YAML = Path(r"C:\GitHub\SIN-model\inputs\pde_generated_input.yaml")
-# sheets explicitly requested by user
-SHEETS_TO_READ = ["GERAL", "Renov Ind.", "Demanda NW"]
-# base YAML to use as template
-BASE_YAML = Path(r"C:\GitHub\SIN-model\inputs\pde_test_inputs.yaml")
 
+INPUT_XLSM = path = Path(__file__).resolve().parent.parent / "7. Brasil inputs" / "data EPE" / "Dados_MDI_PDE_2034_Referência.xlsm"
+OUTPUT_YAML = Path(__file__).resolve().parent.parent / "inputs" / "pde_generated_input.yaml"
+BASE_YAML = Path(__file__).resolve().parent.parent / "inputs" / "pde_test_inputs.yaml"
+SHEETS_TO_READ = ["GERAL", "Renov Ind.", "Demanda NW"]
 
 def _clean_value(value: Any) -> Any:
 	if pd.isna(value):
@@ -169,9 +167,9 @@ def dic_technologies():
 			# "sphs_8": 1500,
 			# "sphs_9": 1500,
 			"bio_ppl": "Biomassa (Bagaço de Cana) 3",
-			"gas_ppl": r"GNL 100% Flexível",
-			"gas_ppl_1": r"GNL Ciclo Simples - 100% Flexível",
-			# "gas_ppl_2": 1000,
+			"gas_gnl_comb_ppl": r"GNL 100% Flexível",
+			"gas_gnl_open_ppl": r"GNL Ciclo Simples - 100% Flexível",
+			"gas_national_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
 			# "gas_ppl_ccs": 1620,
 			# "gas_ppl_ccs_1": 1800,
 			# "gas_ppl_ccs_2": 1800,
@@ -181,16 +179,16 @@ def dic_technologies():
 			"solar_pv_ppl": "Fotovoltaica 1",
 			# "oil_ppl": 1100,
 			# "grid1": 359,
-			"batt_n": "Bateria - Íon Lítio (3h) - Faixa 2",
+			# "batt_n": "Bateria - Íon Lítio (3h) - Faixa 2",
 			# "grid_n": 205,
 		},
 		"Northeast": {
 			# "hydro_3": 1352,
 			# "sphs_3": 1500,
 			"bio_ppl": "Biomassa (Bagaço de Cana) 3",
-			"gas_ppl": r"GNL 100% Flexível",
-			"gas_ppl_1": r"GNL Ciclo Simples - 100% Flexível",
-			# "gas_ppl_2": 1000,
+			"gas_gnl_comb_ppl": r"GNL 100% Flexível",
+			# "gas_gnl_open_ppl": r"GNL Ciclo Simples - 100% Flexível",
+			"gas_national_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
 			# "gas_ppl_ccs": 1620,
 			# "gas_ppl_ccs_1": 1800,
 			# "gas_ppl_ccs_2": 1800,
@@ -201,7 +199,7 @@ def dic_technologies():
 			"solar_pv_ppl": "Fotovoltaica 1",
 			# "oil_ppl": 1100,
 			# "grid2": 359,
-			"batt_ne": "Bateria - Íon Lítio (3h) - Faixa 2",
+			# "batt_ne": "Bateria - Íon Lítio (3h) - Faixa 2",
 			# "grid_ne": 205,
 		},
 		"Southeast": {
@@ -217,9 +215,9 @@ def dic_technologies():
 			# "sphs_10": 1500,
 			# "sphs_12": 1500,
 			"bio_ppl": "Biomassa (Bagaço de Cana) 1",
-			"gas_ppl": r"GNL 100% Flexível",
-			"gas_ppl_1": r"GNL Ciclo Simples - 100% Flexível",
-			# "gas_ppl_2": 1000,
+			"gas_gnl_comb_ppl": r"GNL 100% Flexível",
+			"gas_gnl_open_ppl": r"GNL Ciclo Simples - 100% Flexível",
+			"gas_national_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
 			# "gas_ppl_ccs": 1620,
 			# "gas_ppl_ccs_1": 1800,
 			# "gas_ppl_ccs_2": 1800,
@@ -229,7 +227,7 @@ def dic_technologies():
 			"solar_pv_ppl": "Fotovoltaica 1",
 			# "oil_ppl": 1100,
 			# "grid3": 462,
-			"batt_se": "Bateria - Íon Lítio (3h) - Faixa 2",
+			# "batt_se": "Bateria - Íon Lítio (3h) - Faixa 2",
 			# "grid_se": 205,
 		},
 		"South": {
@@ -238,9 +236,10 @@ def dic_technologies():
 			# "sphs_2": 1500,
 			# "sphs_11": 1500,
 			"bio_ppl": "Biomassa (Bagaço de Cana) 3",
-			"gas_ppl": r"GNL 100% Flexível",
-			"gas_ppl_1": r"GNL Ciclo Simples - 100% Flexível",
-			# "gas_ppl_2": 1000,
+			"gas_gnl_comb_ppl": r"GNL 100% Flexível",
+			# "gas_gnl_open_ppl": r"GNL Ciclo Simples - 100% Flexível",
+			# "gas_national_ppl": r"Gás Nacional - 70% Inflexível (Sazonal)",
+			# "gas_national_ppl": 1000,
 			# "gas_ppl_ccs": 1620,
 			# "gas_ppl_ccs_1": 1800,
 			# "gas_ppl_ccs_2": 1800,
@@ -250,7 +249,7 @@ def dic_technologies():
 			"solar_pv_ppl": "Fotovoltaica 1",
 			# "oil_ppl": 1100,
 			# "grid4": 205,
-			"batt_s": "Bateria - Íon Lítio (3h) - Faixa 2",
+			# "batt_s": "Bateria - Íon Lítio (3h) - Faixa 2",
 			# "grid_s": 205,
 		}
 	}
@@ -284,12 +283,12 @@ def _update_capacity_factor(base_data, sheets_data):
 	tecnologias = sheets_data['sheets']["Renov Ind."]
 
 	dic_force = {
-		"gas_ppl": 0.22,
-		"gas_ppl_1": 0.22,
-		"gas_ppl_2": 0.22,
-		"gas_ppl_ccs": 0.22,
-		"gas_ppl_ccs_1": 0.22,
-		"gas_ppl_ccs_2": 0.22,
+		"gas_gnl_comb_ppl": 0.75,
+		"gas_gnl_open_ppl": 0.75,
+		"gas_gna_comb_ppl": 0.75,
+		"gas_gna_open_ppl": 0.75,
+		"gas_national_ppl": 0.75,
+		"gas_brabol_ppl": 0.75,
 		"coal_ppl": 0.69,
 		"oil_ppl": 0.06,
 	}
@@ -304,7 +303,7 @@ def dados_pde_para_yaml(base_data, sheets_data: dict[str, Any]) -> dict[str, Any
 	'''Atualiza o dicionário base_data com os dados das planilhas, mantendo a estrutura do YAML.'''
 
 	base_data = _update_study_horizon(base_data, sheets_data)
-	base_data = _update_capacity_factor(base_data, sheets_data)
+	# base_data = _update_capacity_factor(base_data, sheets_data)
 	base_data = _update_demand(base_data, sheets_data)
 	base_data = _update_costs(base_data, sheets_data)
 	

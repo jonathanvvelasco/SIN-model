@@ -26,6 +26,8 @@ scenario = message_ix.Scenario(mp, model, scen, version = 'new')
 
 mp.add_unit('m^3/s')  
 mp.add_unit('MMUSD/GW')
+mp.add_unit("tCO2/kWa")
+mp.add_unit("MtCO2")
 
 # Add data to the model
 scenario = step1_SIN_Baseline.start_model(scenario, dados)   # Creates a new scenario
@@ -34,10 +36,11 @@ scenario = step1_SIN_Baseline.technologies(scenario, dados)
 scenario = step1_SIN_Baseline.capacity_factors_and_historical_capacity(scenario, dados)
 scenario = step1_SIN_Baseline.costs(scenario, dados)
 scenario = step1_SIN_Baseline.historical_activity(scenario, dados)
-# scenario = step1_SIN_Baseline.bound_activity_up(scenario, dados)
-# scenario = step1_SIN_Baseline.bound_total_capacity_up(scenario, dados)
+scenario = step1_SIN_Baseline.bound_activity_up(scenario, dados)
+scenario = step1_SIN_Baseline.bound_total_capacity_up(scenario, dados)
 scenario = step1_SIN_Baseline.bound_new_capacity_up(scenario, dados)
 # scenario = step1_SIN_Baseline.bound_growth_capacity_up(scenario, dados, growth_cap=0.3) # Growth capacity bound to 30%
+scenario = step1_SIN_Baseline.emissions(scenario, dados)
 
 # Add seasonality to the model
 # scenario = step2_SIN_Seasonality.seasonality(scenario)
@@ -63,5 +66,5 @@ step_results.gen_plot(mp, model, scen)
 
 subsystems = dados["general"]["nodes"]
 annums = [2034] # dados["general"]["horizon"][-1]
-fig = step_results.view_sankey(mp, model, scen, subsystems, annums)  
+# fig = step_results.view_sankey(mp, model, scen, subsystems, annums)  
 mp.close_db() 

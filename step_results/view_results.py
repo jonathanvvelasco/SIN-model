@@ -10,14 +10,12 @@ import ixmp as ix
 import message_ix
 import matplotlib.pyplot as plt
 import pandas as pd
+from message_ix.report import Reporter
+from message_ix.util.tutorial import prepare_plots
 
 
 def gen_plot(mp, model, scenario):
     base = message_ix.Scenario(mp, model, scenario= scenario)
-    
-    
-    from message_ix.report import Reporter
-    from message_ix.util.tutorial import prepare_plots
     
     rep = Reporter.from_scenario(base)
     prepare_plots(rep)
@@ -34,6 +32,39 @@ def gen_plot(mp, model, scenario):
     allowed_t = [t for t in rep.get("t") if not t.startswith("grid")]
     rep.set_filters(t=allowed_t)
     
+    # %% Test emissions
+    emis = rep.full_key("EMISS")
+    emis_node = emis.drop("type_tec")
+    emis_node = rep.get(emis_node)
+    emis_node = emis_node.rename("value").reset_index()
+    emis_node = emis_node[~emis_node["n"].isin(["World", "Brazil"])]
+    emis_plot = emis_node.pivot(index="y", columns="n", values="value").fillna(0)
+    ax = emis_plot.plot(kind='bar', stacked=True, linewidth=2)
+    ax.set_xlabel("Year")
+    ax.set_ylabel("Mton CO2")
+    ax.legend(title='Node')
+    ax.set_title(f"Emissions per node")
+    plt.show()
+    
+    # %% Capacity per node
+    cap = rep.full_key("CAP")
+    cap_node = cap.drop("yv")
+    cap_node = rep.get(cap_node)
+    cap_node = cap_node.rename("value").reset_index()
+    for node in rep.get("n"):
+        if node == 'World' or node == 'Brazil':
+            continue
+        cap_plot = cap_node[cap_node["nl"]==node]
+        cap_plot = cap_plot.pivot(index="ya", columns="t", values="value").fillna(0)
+        ax = cap_plot.plot(kind="bar", stacked=True, figsize=(12, 6), linewidth=2)
+        ax.set_xlabel("Year")
+        ax.set_ylabel("GW")
+        ax.set_title(f"Capacity in {node}")
+        ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
+        plt.xticks(rotation=0)
+        plt.tight_layout()
+        plt.show()
+    
     # %% Capacity
     cap = rep.full_key("CAP")
     cap_tot = cap.drop("nl", "yv")
@@ -42,8 +73,7 @@ def gen_plot(mp, model, scenario):
     
     # Aggregate technology variants into their base technology names
     cap_tot["t"] = cap_tot["t"].replace({
-        r"^gas_ppl_\d+$": "gas_ppl",
-        r"^gas_ppl_ccs_\d+$": "gas_ppl_ccs",
+        r"^gas_.+$": "gas_ppl",
         r"^hydro_.+$": "hydro",
         r"^pump_sphs_\d+$": "pump_sphs",
         r"^wind_ppl_.+$": "wind_ppl",
@@ -78,8 +108,7 @@ def gen_plot(mp, model, scenario):
     
     # Aggregate technology variants into their base technology names
     act_br["t"] = act_br["t"].replace({
-        r"^gas_ppl_\d+$": "gas_ppl",
-        r"^gas_ppl_ccs_\d+$": "gas_ppl_ccs",
+        r"^gas_.+$": "gas_ppl",
         # r"^hydro_\d+$": "hydro",
         r"^hydro_.+$": "hydro",
         r"^pump_sphs_\d+$": "pump_sphs",
@@ -124,7 +153,6 @@ def gen_plot(mp, model, scenario):
         "wind_ppl": "#17becf",
         "solar_pv_ppl": "#f1c40f",
         "gas_ppl": "#ff7f0e",
-        "gas_ppl_ccs": "#8c564b",
         "bio_ppl": "#2ca02c",
         "coal_ppl": "#4d4d4d",
         "oil_ppl": "#d62728",
@@ -140,7 +168,7 @@ def gen_plot(mp, model, scenario):
         tech_colors.get(tech, fallback_colors[i % len(fallback_colors)])
         for i, tech in enumerate(act_br_plot.columns)
     ]
-    ax = act_br_plot.plot(kind="bar", stacked=True, figsize=(12, 6), color=plot_colors)
+    ax = act_br_plot.plot(kind="bar", stacked=True, color=plot_colors)
     # ax = act_br_plot.plot(kind="area", stacked=True, figsize=(12, 6), color=plot_colors)
     ax.set_xlabel('Year')
     ax.set_ylabel('GWa')
@@ -148,7 +176,7 @@ def gen_plot(mp, model, scenario):
     ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.xticks(rotation=0)
     plt.tight_layout()
-    plt.rcParams['font.size'] = 8
+    plt.rcParams['font.size'] = 10
     plt.grid(axis='y')
     plt.show()
 
@@ -160,7 +188,6 @@ def gen_plot(mp, model, scenario):
         "wind_ppl": "#17becf",
         "solar_pv_ppl": "#f1c40f",
         "gas_ppl": "#ff7f0e",
-        "gas_ppl_ccs": "#8c564b",
         "bio_ppl": "#2ca02c",
         "coal_ppl": "#4d4d4d",
         "oil_ppl": "#d62728",
@@ -184,7 +211,7 @@ def gen_plot(mp, model, scenario):
     ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.xticks(rotation=0)
     plt.tight_layout()
-    plt.rcParams['font.size'] = 8
+    plt.rcParams['font.size'] = 16
     plt.grid(axis='y')
     plt.show()
     

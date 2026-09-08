@@ -127,14 +127,14 @@ general:
   - 2.5
 technology:
   final_energy_techs:
-    - grid1
-    - grid2
-    - grid3
-    - grid4
-    - grid_n
-    - grid_ne
-    - grid_se
-    - grid_s
+  - grid1
+  - grid2
+  - grid3
+  - grid4
+  - grid_n
+  - grid_ne
+  - grid_se
+  - grid_s
   North:
     primary:
       rivers_north:
@@ -168,42 +168,29 @@ technology:
         output: 1
         input_unit: m^3/s
         output_unit: GWa
-      # sphs_no:
-      #   input_commodity: water_no
-      #   output_commodity: electricity
-      #   input: 1558.6
-      #   output: 1
-      #   input_unit: m^3/s
-      #   output_unit: GWa
-      # sphs_bm:
-      #   input_commodity: water_bm
-      #   output_commodity: electricity
-      #   input: 1317.0
-      #   output: 1
-      #   input_unit: m^3/s
-      #   output_unit: GWa
-      # sphs_am:
-      #   input_commodity: water_am
-      #   output_commodity: electricity
-      #   input: 4898.5
-      #   output: 1
-      #   input_unit: m^3/s
-      #   output_unit: GWa
-      bio_ppl: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_1: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_2: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs_1: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs_2: {output_commodity: electricity, output_unit: GWa}
-      coal_ppl: {output_commodity: electricity, output_unit: GWa}
-      oil_ppl: {output_commodity: electricity, output_unit: GWa}
-      solar_pv_ppl: {output_commodity: electricity, output_unit: GWa}
-      wind_ppl: {output_commodity: electricity, output_unit: GWa}
-      # batt_n: {output_commodity: electricity, output_unit: GWa}
+      bio_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_national_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      coal_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      oil_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      solar_pv_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      wind_ppl:
+        output_commodity: electricity
+        output_unit: GWa
   Northeast:
     primary:
-      rivers_northeast: {output_commodity: water_ne, output_unit: m^3/s}
+      rivers_northeast:
+        output_commodity: water_ne
+        output_unit: m^3/s
     secondary:
       hydro_ne:
         input_commodity: water_ne
@@ -212,35 +199,53 @@ technology:
         output: 1
         input_unit: m^3/s
         output_unit: GWa
-      # sphs_3:
-      #   input_commodity: water_am
-      #   output_commodity: electricity
-      #   input: 4898.5
-      #   output: 1
-      #   input_unit: m^3/s
-      #   output_unit: GWa
-      bio_ppl: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_1: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_2: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs_1: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs_2: {output_commodity: electricity, output_unit: GWa}
-      coal_ppl: {output_commodity: electricity, output_unit: GWa}
-      nuc_ppl: {output_commodity: electricity, output_unit: GWa}
-      oil_ppl: {output_commodity: electricity, output_unit: GWa}
-      solar_pv_ppl: {output_commodity: electricity, output_unit: GWa}
-      wind_ppl_cos: {output_commodity: electricity, output_unit: GWa}
-      wind_ppl_int: {output_commodity: electricity, output_unit: GWa}
-      # batt_ne: {output_commodity: electricity, output_unit: GWa}
+      bio_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_gnl_comb_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_national_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      coal_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      nuc_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      oil_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      solar_pv_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      wind_ppl_cos:
+        output_commodity: electricity
+        output_unit: GWa
+      wind_ppl_int:
+        output_commodity: electricity
+        output_unit: GWa
   Southeast:
     primary:
-      rivers_southeast: {output_commodity: water_se, output_unit: m^3/s}
-      rivers_itaipu: {output_commodity: water_it, output_unit: m^3/s}
-      rivers_madeira: {output_commodity: water_ma, output_unit: m^3/s}
-      rivers_teles_pires: {output_commodity: water_tp, output_unit: m^3/s}
-      rivers_parana: {output_commodity: water_pa, output_unit: m^3/s}
-      rivers_paranapanema: {output_commodity: water_pp, output_unit: m^3/s}
+      rivers_southeast:
+        output_commodity: water_se
+        output_unit: m^3/s
+      rivers_itaipu:
+        output_commodity: water_it
+        output_unit: m^3/s
+      rivers_madeira:
+        output_commodity: water_ma
+        output_unit: m^3/s
+      rivers_teles_pires:
+        output_commodity: water_tp
+        output_unit: m^3/s
+      rivers_parana:
+        output_commodity: water_pa
+        output_unit: m^3/s
+      rivers_paranapanema:
+        output_commodity: water_pp
+        output_unit: m^3/s
     secondary:
       hydro_se:
         input_commodity: water_se
@@ -284,60 +289,54 @@ technology:
         output: 1
         input_unit: m^3/s
         output_unit: GWa
-      # sphs_1:
-      #   input_commodity: water_am
-      #   output_commodity: electricity
-      #   input: 4898.5
-      #   output: 1
-      #   input_unit: m^3/s
-      #   output_unit: GWa
-      # sphs_6:
-      #   input_commodity: water_am
-      #   output_commodity: electricity
-      #   input: 4898.5
-      #   output: 1
-      #   input_unit: m^3/s
-      #   output_unit: GWa
-      # sphs_7:
-      #   input_commodity: water_am
-      #   output_commodity: electricity
-      #   input: 4898.5
-      #   output: 1
-      #   input_unit: m^3/s
-      #   output_unit: GWa
-      # sphs_10:
-      #   input_commodity: water_am
-      #   output_commodity: electricity
-      #   input: 4898.5
-      #   output: 1
-      #   input_unit: m^3/s
-      #   output_unit: GWa
-      # sphs_12:
-      #   input_commodity: water_am
-      #   output_commodity: electricity
-      #   input: 4898.5
-      #   output: 1
-      #   input_unit: m^3/s
-      #   output_unit: GWa
-      bio_ppl: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_1: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_2: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs_1: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs_2: {output_commodity: electricity, output_unit: GWa}
-      coal_ppl: {output_commodity: electricity, output_unit: GWa}
-      nuc_ppl: {output_commodity: electricity, output_unit: GWa}
-      oil_ppl: {output_commodity: electricity, output_unit: GWa}
-      solar_pv_ppl: {output_commodity: electricity, output_unit: GWa}
-      wind_ppl: {output_commodity: electricity, output_unit: GWa}
-      # batt_se: {output_commodity: electricity, output_unit: GWa}
+      bio_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_gnl_comb_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_gnl_open_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_national_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_brabol_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_gna_comb_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_gna_open_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_argentina_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_biomethane_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      coal_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      nuc_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      oil_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      solar_pv_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      wind_ppl:
+        output_commodity: electricity
+        output_unit: GWa
   South:
     primary:
-      rivers_south: #reservoir_so:
+      rivers_south:
         output_commodity: water_su
         output_unit: m^3/s
-      rivers_iguacu: #reservoir_ig:
+      rivers_iguacu:
         output_commodity: water_ig
         output_unit: m^3/s
     secondary:
@@ -355,54 +354,39 @@ technology:
         output: 1
         input_unit: m^3/s
         output_unit: GWa
-      # sphs_2:
-      #   input_commodity: water_am
-      #   output_commodity: electricity
-      #   input: 4898.5
-      #   output: 1
-      #   input_unit: m^3/s
-      #   output_unit: GWa
-      # sphs_11:
-      #   input_commodity: water_am
-      #   output_commodity: electricity
-      #   input: 4898.5
-      #   output: 1
-      #   input_unit: m^3/s
-      #   output_unit: GWa
-      bio_ppl: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_1: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_2: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs_1: {output_commodity: electricity, output_unit: GWa}
-      gas_ppl_ccs_2: {output_commodity: electricity, output_unit: GWa}
-      coal_ppl: {output_commodity: electricity, output_unit: GWa}
-      oil_ppl: {output_commodity: electricity, output_unit: GWa}
-      solar_pv_ppl: {output_commodity: electricity, output_unit: GWa}
-      wind_ppl_rs: {output_commodity: electricity, output_unit: GWa}
-      # batt_s: {output_commodity: electricity, output_unit: GWa}
+      bio_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_gnl_comb_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      gas_argentina_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      coal_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      oil_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      solar_pv_ppl:
+        output_commodity: electricity
+        output_unit: GWa
+      wind_ppl_rs:
+        output_commodity: electricity
+        output_unit: GWa
 efficiency:
   transmission: 0.9875
   distribution: 0.9875
-# battery: 1.2
 lifetimes:
   North:
     hydro_no: 60
     hydro_bm: 60
     hydro_am: 60
-    # sphs_no: 60
-    # sphs_bm: 60
-    # sphs_am: 60
     bio_ppl: 20
-    gas_ppl: 20
-    gas_ppl_1: 20
-    gas_ppl_2: 20
+    gas_national_ppl: 20
     wind_ppl: 20
     coal_ppl: 25
-  # batt_n: 15
-    gas_ppl_ccs: 20
-    gas_ppl_ccs_1: 20
-    gas_ppl_ccs_2: 20
     nuc_ppl: 60
     solar_pv_ppl: 25
     oil_ppl: 20
@@ -413,21 +397,15 @@ lifetimes:
     rivers_amazonas: 1000
   Northeast:
     hydro_ne: 60
-    # sphs_3: 60
     bio_ppl: 20
-    gas_ppl: 20
-    gas_ppl_1: 20
-    gas_ppl_2: 20
-    gas_ppl_ccs: 20
-    gas_ppl_ccs_1: 20
-    gas_ppl_ccs_2: 20
+    gas_gnl_comb_ppl: 20
+    gas_national_ppl: 20
     wind_ppl_int: 20
     wind_ppl_cos: 20
     coal_ppl: 25
     nuc_ppl: 60
     solar_pv_ppl: 25
     oil_ppl: 20
-  # batt_ne: 15
     grid2: 25
     grid_ne: 25
     rivers_northeast: 1000
@@ -438,21 +416,17 @@ lifetimes:
     hydro_tp: 60
     hydro_pa: 60
     hydro_pp: 60
-    # sphs_1: 60
-    # sphs_6: 60
-    # sphs_7: 60
-    # sphs_10: 60
-    # sphs_12: 60
     bio_ppl: 20
-    gas_ppl: 20
-    gas_ppl_1: 20
-    gas_ppl_2: 20
-    gas_ppl_ccs: 20
-    gas_ppl_ccs_1: 20
-    gas_ppl_ccs_2: 20
+    gas_gnl_comb_ppl: 20
+    gas_gnl_open_ppl: 20
+    gas_national_ppl: 20
+    gas_brabol_ppl: 20
+    gas_gna_comb_ppl: 20
+    gas_gna_open_ppl: 20
+    gas_argentina_ppl: 20
+    gas_biomethane_ppl: 20
     wind_ppl: 20
     coal_ppl: 25
-  # batt_se: 15
     nuc_ppl: 60
     solar_pv_ppl: 25
     oil_ppl: 20
@@ -467,21 +441,14 @@ lifetimes:
   South:
     hydro_su: 60
     hydro_ig: 60
-    # sphs_2: 60
-    # sphs_11: 60
     bio_ppl: 20
-    gas_ppl: 20
-    gas_ppl_1: 20
-    gas_ppl_2: 20
-    gas_ppl_ccs: 20
-    gas_ppl_ccs_1: 20
-    gas_ppl_ccs_2: 20
+    gas_gnl_comb_ppl: 20
+    gas_argentina_ppl: 20
     wind_ppl_rs: 20
     coal_ppl: 25
     nuc_ppl: 60
     solar_pv_ppl: 25
     oil_ppl: 20
-  # batt_s: 15
     grid4: 25
     grid_s: 25
     rivers_south: 1000
@@ -491,39 +458,20 @@ capacity_factor:
     hydro_no: 0.372
     hydro_bm: 0.372
     hydro_am: 0.372
-    # sphs_no: 0.7
-    # sphs_bm: 0.7
-    # sphs_am: 0.7
     bio_ppl: 0.67
-    # gas_cs_ppl: 0.22
-    # gas_cc_ppl: 0.22
     wind_ppl: 0.435
-    # coal_nat_ppl: 0.22
-    # coal_imp_ppl: 0.22
-    coal_ppl: 0.22
     nuc_ppl: 0.85
     solar_pv_ppl: 0.3
     oil_ppl: 0.06
     grid1: 0.8
-  # batt_n: 0.85
     grid_n: 0.8
-    gas_ppl: 0.22
-    gas_ppl_1: 0.22
-    gas_ppl_2: 0.22
-    gas_ppl_ccs: 0.22
-    gas_ppl_ccs_1: 0.22
-    gas_ppl_ccs_2: 0.22
+    gas_national_ppl: 0.75
     coal_ppl: 0.69
   Northeast:
     hydro_ne: 0.353
-    # sphs_3: 0.7
     bio_ppl: 0.27
-    gas_ppl: 0.22
-    gas_ppl_1: 0.22
-    gas_ppl_2: 0.22
-    gas_ppl_ccs: 0.22
-    gas_ppl_ccs_1: 0.22
-    gas_ppl_ccs_2: 0.22
+    gas_gnl_comb_ppl: 0.75
+    gas_national_ppl: 0.7
     wind_ppl_cos: 0.47
     wind_ppl_int: 0.47
     coal_ppl: 0.69
@@ -531,7 +479,6 @@ capacity_factor:
     solar_pv_ppl: 0.3
     oil_ppl: 0.06
     grid2: 0.8
-  # batt_ne: 0.85
     grid_ne: 0.8
   Southeast:
     hydro_se: 0.505
@@ -540,46 +487,128 @@ capacity_factor:
     hydro_tp: 0.505
     hydro_pa: 0.505
     hydro_pp: 0.505
-    # sphs_1: 0.7
-    # sphs_6: 0.7
-    # sphs_7: 0.7
-    # sphs_10: 0.7
-    # sphs_12: 0.7
     bio_ppl: 0.27
-    gas_ppl: 0.22
-    gas_ppl_1: 0.22
-    gas_ppl_2: 0.22
-    gas_ppl_ccs: 0.22
-    gas_ppl_ccs_1: 0.22
-    gas_ppl_ccs_2: 0.22
+    gas_gnl_comb_ppl: 0.75
+    gas_gnl_open_ppl: 0.75
+    gas_national_ppl: 0.75
+    gas_brabol_ppl: 0.75
+    gas_gna_comb_ppl: 0.75
+    gas_gna_open_ppl: 0.75
+    gas_argentina_ppl: 0.75
+    gas_biomethane_ppl: 0.75
     wind_ppl: 0.435
     coal_ppl: 0.69
     nuc_ppl: 0.85
     solar_pv_ppl: 0.29
     oil_ppl: 0.06
     grid3: 0.8
-  # batt_se: 0.85
     grid_se: 0.8
   South:
     hydro_su: 0.505
     hydro_ig: 0.505
-    # sphs_2: 0.7
-    # sphs_11: 0.7
     bio_ppl: 0.27
-    gas_ppl: 0.22
-    gas_ppl_1: 0.22
-    gas_ppl_2: 0.22
-    gas_ppl_ccs: 0.22
-    gas_ppl_ccs_1: 0.22
-    gas_ppl_ccs_2: 0.22
+    gas_gnl_comb_ppl: 0.75
+    gas_argentina_ppl: 0.75
     wind_ppl_rs: 0.4
     coal_ppl: 0.69
     nuc_ppl: 0.85
     solar_pv_ppl: 0.29
     oil_ppl: 0.06
     grid4: 0.8
-  # batt_s: 0.85
     grid_s: 0.8
+min_util_factor:
+  North:
+    hydro_no: 0.372
+    hydro_bm: 0.372
+    hydro_am: 0.372
+    bio_ppl: 0.67
+    wind_ppl: 0.435
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.3
+    oil_ppl: 0.06
+    grid1: 0.8
+    grid_n: 0.8
+    gas_national_ppl: 0.75
+    coal_ppl: 0.69
+  Northeast:
+    hydro_ne: 0.353
+    bio_ppl: 0.27
+    gas_gnl_comb_ppl: 0.75
+    gas_national_ppl: 0.7
+    wind_ppl_cos: 0.47
+    wind_ppl_int: 0.47
+    coal_ppl: 0.69
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.3
+    oil_ppl: 0.06
+    grid2: 0.8
+    grid_ne: 0.8
+  Southeast:
+    hydro_se: 0.505
+    hydro_it: 0.505
+    hydro_ma: 0.505
+    hydro_tp: 0.505
+    hydro_pa: 0.505
+    hydro_pp: 0.505
+    bio_ppl: 0.27
+    gas_gnl_comb_ppl: 0.75
+    gas_gnl_open_ppl: 0.75
+    gas_national_ppl: 0.75
+    gas_brabol_ppl: 0.75
+    gas_gna_comb_ppl: 0.75
+    gas_gna_open_ppl: 0.75
+    gas_argentina_ppl: 0.75
+    gas_biomethane_ppl: 0.75
+    wind_ppl: 0.435
+    coal_ppl: 0.69
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.29
+    oil_ppl: 0.06
+    grid3: 0.8
+    grid_se: 0.8
+  South:
+    hydro_su: 0.505
+    hydro_ig: 0.505
+    bio_ppl: 0.27
+    gas_gnl_comb_ppl: 0.75
+    gas_argentina_ppl: 0.75
+    wind_ppl_rs: 0.4
+    coal_ppl: 0.69
+    nuc_ppl: 0.85
+    solar_pv_ppl: 0.29
+    oil_ppl: 0.06
+    grid4: 0.8
+    grid_s: 0.8
+emissions:
+  North:
+    bio_ppl: 0
+    oil_ppl: 7.803
+    gas_national_ppl: 3.94
+    coal_ppl: 9.803
+  Northeast:
+    bio_ppl: 0
+    gas_gnl_comb_ppl: 3.94
+    gas_national_ppl: 3.94
+    coal_ppl: 9.803
+    oil_ppl: 7.803
+  Southeast:
+    bio_ppl: 0
+    gas_gnl_comb_ppl: 3.94
+    gas_gnl_open_ppl: 5.915
+    gas_national_ppl: 3.94
+    gas_brabol_ppl: 3.94
+    gas_gna_comb_ppl: 3.94
+    gas_gna_open_ppl: 5.915
+    gas_argentina_ppl: 3.94
+    gas_biomethane_ppl: 3.94
+    coal_ppl: 9.803
+    oil_ppl: 7.803
+  South:
+    bio_ppl: 0
+    gas_gnl_comb_ppl: 3.94
+    gas_argentina_ppl: 3.94
+    coal_ppl: 9.803
+    oil_ppl: 7.803
 historical_new_capacity:
   times: 1
   historical_data:
@@ -607,34 +636,20 @@ historical_new_capacity:
     hydro_no: 9.6
     hydro_bm: 11.03
     hydro_am: 1.2
-    # sphs_no: 0.0
-    # sphs_bm: 0.0
-    # sphs_am: 0.0
     bio_ppl: 0.42957
-    gas_ppl: 2.41101
-    gas_ppl_1: 0.0
-    gas_ppl_2: 0.0
-    gas_ppl_ccs: 0.0
-    gas_ppl_ccs_1: 0.0
-    gas_ppl_ccs_2: 0.0
+    gas_national_ppl: 3.30128
     wind_ppl: 0.033
     coal_ppl: 0.35991
     nuc_ppl: 0.0
     solar_pv_ppl: 0.005
     oil_ppl: 0.066951
     grid1: 0.502
-  # batt_n: 0.0
     grid_n: 0.659
   Northeast:
     hydro_ne: 11.036
-    # sphs_3: 0.0
     bio_ppl: 1.3776
-    gas_ppl: 3.0156
-    gas_ppl_1: 0.0
-    gas_ppl_2: 0.0
-    gas_ppl_ccs: 0.0
-    gas_ppl_ccs_1: 0.0
-    gas_ppl_ccs_2: 0.0
+    gas_gnl_comb_ppl: 2.54909
+    gas_national_ppl: 0.24081
     wind_ppl_cos: 12.848
     wind_ppl_int: 13.119
     coal_ppl: 1.0836
@@ -642,7 +657,6 @@ historical_new_capacity:
     solar_pv_ppl: 6.608
     oil_ppl: 2.9232
     grid2: 2.51
-  # batt_ne: 0.0
     grid_ne: 13.23
   Southeast:
     hydro_se: 6.4
@@ -651,45 +665,34 @@ historical_new_capacity:
     hydro_tp: 3.2
     hydro_pa: 27.6
     hydro_pp: 2.4
-    # sphs_1: 0.0
-    # sphs_6: 0.0
-    # sphs_7: 0.0
-    # sphs_10: 0.0
-    # sphs_12: 0.0
     bio_ppl: 10.31688
-    gas_ppl: 6.80316
-    gas_ppl_1: 0.0
-    gas_ppl_2: 0.0
-    gas_ppl_ccs: 0.0
-    gas_ppl_ccs_1: 0.0
-    gas_ppl_ccs_2: 0.0
+    gas_gnl_comb_ppl: 0.37456
+    gas_gnl_open_ppl: 0.43424
+    gas_national_ppl: 3.54142
+    gas_brabol_ppl: 1.8275
+    gas_gna_comb_ppl: 3.0109
+    gas_gna_open_ppl: 0.0
+    gas_argentina_ppl: 0.07496
+    gas_biomethane_ppl: 0.0202
     wind_ppl: 0.03
     coal_ppl: 0.0
     nuc_ppl: 2.0
     solar_pv_ppl: 4.658
     oil_ppl: 1.56996
     grid3: 9.46
-  # batt_se: 0.0
     grid_se: 51.2
   South:
     hydro_su: 8.562
     hydro_ig: 9.058
-    # sphs_2: 0.0
-    # sphs_11: 0.0
     bio_ppl: 1.25552
-    gas_ppl: 1.37352
-    gas_ppl_1: 0.0
-    gas_ppl_2: 0.0
-    gas_ppl_ccs: 0.0
-    gas_ppl_ccs_1: 0.0
-    gas_ppl_ccs_2: 0.0
+    gas_gnl_comb_ppl: 0.7327
+    gas_argentina_ppl: 0.452
     wind_ppl_rs: 2.03
     coal_ppl: 2.06736
     nuc_ppl: 0.0
     solar_pv_ppl: 0.02
     oil_ppl: 0.0236
     grid4: 11.22
-  # batt_s: 0.0
     grid_s: 18.0
 historical_activity:
   historical_data:
@@ -723,12 +726,7 @@ historical_activity:
       hydro_bm: 4.044
       hydro_am: 0.44
       bio_ppl: 0.218
-      gas_ppl: 1.187
-      gas_ppl_1: 0.0
-      gas_ppl_2: 0.0
-      gas_ppl_ccs: 0.0
-      gas_ppl_ccs_1: 0.0
-      gas_ppl_ccs_2: 0.0
+      gas_national_ppl: 1.187
       wind_ppl: 0.208
       coal_ppl: 0.005
       nuc_ppl: 0.0
@@ -743,12 +741,8 @@ historical_activity:
     old_activity:
       hydro_ne: 3.995
       bio_ppl: 0.275
-      gas_ppl: 0.254
-      gas_ppl_1: 0.0
-      gas_ppl_2: 0.0
-      gas_ppl_ccs: 0.0
-      gas_ppl_ccs_1: 0.0
-      gas_ppl_ccs_2: 0.0
+      gas_gnl_comb_ppl: 0.2
+      gas_national_ppl: 0.054
       wind_ppl_cos: 5.025
       wind_ppl_int: 5.025
       coal_ppl: 0.019
@@ -769,12 +763,14 @@ historical_activity:
       hydro_pa: 13.229
       hydro_pp: 1.159
       bio_ppl: 3.136
-      gas_ppl: 0.808
-      gas_ppl_1: 0.0
-      gas_ppl_2: 0.0
-      gas_ppl_ccs: 0.0
-      gas_ppl_ccs_1: 0.0
-      gas_ppl_ccs_2: 0.0
+      gas_gnl_comb_ppl: 0.808
+      gas_gnl_open_ppl: 0.0
+      gas_national_ppl: 0.0
+      gas_brabol_ppl: 0.0
+      gas_gna_comb_ppl: 0.0
+      gas_gna_open_ppl: 0.0
+      gas_argentina_ppl: 0.0
+      gas_biomethane_ppl: 0.0
       wind_ppl: 0.007
       coal_ppl: 0.0
       nuc_ppl: 1.657
@@ -790,12 +786,8 @@ historical_activity:
       hydro_su: 4.584
       hydro_ig: 4.85
       bio_ppl: 0.161
-      gas_ppl: 0.003
-      gas_ppl_1: 0.0
-      gas_ppl_2: 0.0
-      gas_ppl_ccs: 0.0
-      gas_ppl_ccs_1: 0.0
-      gas_ppl_ccs_2: 0.0
+      gas_gnl_comb_ppl: 0.002
+      gas_argentina_ppl: 0.001
       wind_ppl_rs: 0.656
       coal_ppl: 0.85
       nuc_ppl: 0.0
@@ -812,34 +804,22 @@ costs:
       hydro_no: 2374
       hydro_bm: 2374
       hydro_am: 2374
-      # sphs_no: 3000
-      # sphs_bm: 3000
-      # sphs_am: 3000
       bio_ppl: 1149
-      gas_ppl: 977
-      gas_ppl_1: 862
-      gas_ppl_2: 1000
-      gas_ppl_ccs: 1620
-      gas_ppl_ccs_1: 1800
-      gas_ppl_ccs_2: 1800
+      gas_national_ppl: 919
       wind_ppl: 1187
       coal_ppl: 2490
       nuc_ppl: 5000
       solar_pv_ppl: 632
       oil_ppl: 1100
       grid1: 359
-    # batt_n: 1283
       grid_n: 205
+      gas_gnl_comb_ppl: 977
+      gas_gnl_open_ppl: 862
     Northeast:
       hydro_ne: 2374
-      # sphs_3: 3000
       bio_ppl: 1149
-      gas_ppl: 977
-      gas_ppl_1: 862
-      gas_ppl_2: 1000
-      gas_ppl_ccs: 1620
-      gas_ppl_ccs_1: 1800
-      gas_ppl_ccs_2: 1800
+      gas_gnl_comb_ppl: 977
+      gas_national_ppl: 919
       wind_ppl_cos: 823
       wind_ppl_int: 957
       coal_ppl: 2490
@@ -847,7 +827,6 @@ costs:
       solar_pv_ppl: 632
       oil_ppl: 1100
       grid2: 359
-    # batt_ne: 1283
       grid_ne: 205
     Southeast:
       hydro_se: 2374
@@ -856,84 +835,62 @@ costs:
       hydro_tp: 2374
       hydro_pa: 2374
       hydro_pp: 2374
-      # sphs_1: 3000
-      # sphs_6: 3000
-      # sphs_7: 3000
-      # sphs_10: 3000
-      # sphs_12: 3000
       bio_ppl: 670
-      gas_ppl: 977
-      gas_ppl_1: 862
-      gas_ppl_2: 1000
-      gas_ppl_ccs: 1620
-      gas_ppl_ccs_1: 1800
-      gas_ppl_ccs_2: 1800
+      gas_gnl_comb_ppl: 977
+      gas_gnl_open_ppl: 862
+      gas_national_ppl: 919
+      gas_brabol_ppl: 1620
+      gas_gna_comb_ppl: 1800
+      gas_gna_open_ppl: 1800
+      gas_argentina_ppl: 1800
+      gas_biomethane_ppl: 1800
       wind_ppl: 1072
       coal_ppl: 9999
       nuc_ppl: 5747
       solar_pv_ppl: 632
       oil_ppl: 1100
       grid3: 462
-    # batt_se: 1283
       grid_se: 205
     South:
       hydro_su: 2374
       hydro_ig: 2374
-      # sphs_2: 3000
-      # sphs_11: 3000
       bio_ppl: 1149
-      gas_ppl: 977
-      gas_ppl_1: 862
-      gas_ppl_2: 1000
-      gas_ppl_ccs: 1620
-      gas_ppl_ccs_1: 1800
-      gas_ppl_ccs_2: 1800
+      gas_gnl_comb_ppl: 977
+      gas_argentina_ppl: 1800
       wind_ppl_rs: 823
       coal_ppl: 2490
       nuc_ppl: 5000
       solar_pv_ppl: 632
       oil_ppl: 1100
       grid4: 205
-    # batt_s: 1283
       grid_s: 205
   fix_cost:
     North:
       hydro_no: 132
       hydro_bm: 132
       hydro_am: 132
-      # sphs_no: 20.5
-      # sphs_bm: 20.5
-      # sphs_am: 20.5
       bio_ppl: 49
-      gas_ppl: 91
-      gas_ppl_1: 86
-      gas_ppl_2: 43.6
-      gas_ppl_ccs: 43.6
-      gas_ppl_ccs_1: 43.6
-      gas_ppl_ccs_2: 43.6
+      gas_national_ppl: 199
       wind_ppl: 53
       coal_ppl: 201
       nuc_ppl: 83.3
       solar_pv_ppl: 36
       oil_ppl: 56.4
-    # batt_n: 80
+      gas_gnl_comb_ppl: 91
+      gas_gnl_open_ppl: 86
     Northeast:
       hydro_ne: 132
-      # sphs_3: 20.5
       bio_ppl: 49
-      gas_ppl: 91
-      gas_ppl_1: 86
-      gas_ppl_2: 43.6
-      gas_ppl_ccs: 43.6
-      gas_ppl_ccs_1: 43.6
-      gas_ppl_ccs_2: 43.6
+      gas_gnl_comb_ppl: 91
+      gas_national_ppl: 199
       wind_ppl_cos: 49
       wind_ppl_int: 51
       coal_ppl: 201
       nuc_ppl: 264
       solar_pv_ppl: 36
       oil_ppl: 56.4
-    # batt_ne: 80
+      gas_argentina_ppl: 43.6
+      gas_biomethane_ppl: 43.6
     Southeast:
       hydro_se: 132
       hydro_it: 132
@@ -941,63 +898,44 @@ costs:
       hydro_tp: 132
       hydro_pa: 132
       hydro_pp: 132
-      # sphs_1: 20.5
-      # sphs_6: 20.5
-      # sphs_7: 20.5
-      # sphs_10: 20.5
-      # sphs_12: 20.5
       bio_ppl: 45
-      gas_ppl: 91
-      gas_ppl_1: 86
-      gas_ppl_2: 43.6
-      gas_ppl_ccs: 43.6
-      gas_ppl_ccs_1: 43.6
-      gas_ppl_ccs_2: 43.6
+      gas_gnl_comb_ppl: 91
+      gas_gnl_open_ppl: 86
+      gas_national_ppl: 199
+      gas_brabol_ppl: 43.6
+      gas_gna_comb_ppl: 43.6
+      gas_gna_open_ppl: 43.6
+      gas_argentina_ppl: 43.6
+      gas_biomethane_ppl: 43.6
       wind_ppl: 51
       coal_ppl: 89.7
       nuc_ppl: 264
       solar_pv_ppl: 36
       oil_ppl: 56.4
-    # batt_se: 80
     South:
       hydro_su: 132
       hydro_ig: 132
-      # sphs_2: 20.5
-      # sphs_11: 20.5
       bio_ppl: 49
-      gas_ppl: 91
-      gas_ppl_1: 86
-      gas_ppl_2: 43.6
-      gas_ppl_ccs: 43.6
-      gas_ppl_ccs_1: 43.6
-      gas_ppl_ccs_2: 43.6
+      gas_gnl_comb_ppl: 91
+      gas_argentina_ppl: 43.6
       wind_ppl_rs: 49
       coal_ppl: 201
       nuc_ppl: 83.3
       solar_pv_ppl: 36
       oil_ppl: 56.4
-    # batt_s: 80
   var_cost:
     North:
-      gas_ppl: 78
-      gas_ppl_1: 102
-      gas_ppl_2: 439.7
-      gas_ppl_ccs: 219.8
-      gas_ppl_ccs_1: 329.8
-      gas_ppl_ccs_2: 439.7
+      gas_national_ppl: 41
       coal_ppl: 25
       oil_ppl: 898
       bio_ppl: 0
       wind_ppl: 0
       solar_pv_ppl: 0
-    # batt_n: 0
+      gas_gnl_comb_ppl: 78
+      gas_gnl_open_ppl: 102
     Northeast:
-      gas_ppl: 78
-      gas_ppl_1: 102
-      gas_ppl_2: 439.7
-      gas_ppl_ccs: 219.8
-      gas_ppl_ccs_1: 329.8
-      gas_ppl_ccs_2: 439.7
+      gas_gnl_comb_ppl: 78
+      gas_national_ppl: 41
       coal_ppl: 25
       oil_ppl: 898
       bio_ppl: 0
@@ -1005,34 +943,29 @@ costs:
       wind_ppl_int: 0
       nuc_ppl: 6
       solar_pv_ppl: 0
-    # batt_ne: 0
     Southeast:
-      gas_ppl: 78
-      gas_ppl_1: 102
-      gas_ppl_2: 439.7
-      gas_ppl_ccs: 219.8
-      gas_ppl_ccs_1: 329.8
-      gas_ppl_ccs_2: 439.7
+      gas_gnl_comb_ppl: 78
+      gas_gnl_open_ppl: 102
+      gas_national_ppl: 41
+      gas_brabol_ppl: 219.8
+      gas_gna_comb_ppl: 329.8
+      gas_gna_open_ppl: 439.7
+      gas_argentina_ppl: 439.7
+      gas_biomethane_ppl: 439.7
       coal_ppl: 298.7
       oil_ppl: 898
       nuc_ppl: 6
       bio_ppl: 0
       wind_ppl: 0
       solar_pv_ppl: 0
-    # batt_se: 0
     South:
-      gas_ppl: 78
-      gas_ppl_1: 102
-      gas_ppl_2: 439.7
-      gas_ppl_ccs: 219.8
-      gas_ppl_ccs_1: 329.8
-      gas_ppl_ccs_2: 439.7
+      gas_gnl_comb_ppl: 78
+      gas_argentina_ppl: 439.7
       coal_ppl: 25
       oil_ppl: 898
       bio_ppl: 0
       wind_ppl_rs: 0
       solar_pv_ppl: 0
-    # batt_s: 0
 bound:
   activity_up:
     North:
@@ -1058,10 +991,6 @@ bound:
       hydro_am: 1.2
       wind_ppl: 0.18
       nuc_ppl: 0.0
-      gas_ppl: 3.616515
-      gas_ppl_1: 4.82202
-      gas_ppl_ccs: 3.616515
-      gas_ppl_ccs_1: 4.82202
       bio_ppl: 3.0
       solar_pv_ppl: 5.0
       coal_ppl: 2.9
@@ -1071,10 +1000,7 @@ bound:
       wind_ppl_cos: 80
       wind_ppl_int: 80
       solar_pv_ppl: 10
-      gas_ppl: 4.71
-      gas_ppl_1: 16
-      gas_ppl_ccs: 4.71
-      gas_ppl_ccs_1: 16
+      gas_gnl_comb_ppl: 4.71
       nuc_ppl: 0.0
       bio_ppl: 5.0
       coal_ppl: 7.0
@@ -1089,10 +1015,10 @@ bound:
       coal_ppl: 7.0
       bio_ppl: 17.0
       oil_ppl: 3
-      gas_ppl: 12.24
-      gas_ppl_1: 30
-      gas_ppl_ccs: 12.24
-      gas_ppl_ccs_1: 30
+      gas_gnl_comb_ppl: 12.24
+      gas_gnl_open_ppl: 30
+      gas_brabol_ppl: 12.24
+      gas_gna_comb_ppl: 30
       nuc_ppl: 5.0
       wind_ppl: 0.03
       solar_pv_ppl: 25.0
@@ -1101,10 +1027,8 @@ bound:
       hydro_ig: 7.3
       coal_ppl: 7.0
       oil_ppl: 0.13
-      gas_ppl: 1.689255
-      gas_ppl_1: 16
-      gas_ppl_ccs: 1.689255
-      gas_ppl_ccs_1: 16
+      gas_gnl_comb_ppl: 5.0
+      gas_argentina_ppl: 5.0
       nuc_ppl: 0.0
       bio_ppl: 5.0
       wind_ppl_rs: 70.0
@@ -1114,46 +1038,30 @@ bound:
       wind_ppl: 0
       solar_pv_ppl: 0
       bio_ppl: 0
-    # batt_n: 0.1
-      gas_ppl: 0.125
-      gas_ppl_1: 0.5
-      gas_ppl_2: 0
-      gas_ppl_ccs: 0
-      gas_ppl_ccs_1: 0
-      gas_ppl_ccs_2: 0
+      gas_national_ppl: 0.625
     Northeast:
       wind_ppl: 1
       wind_ppl_cos: 1
       wind_ppl_int: 1
       solar_pv_ppl: 1.5
       bio_ppl: 0
-    # batt_ne: 0.1
-      gas_ppl: 0.125
-      gas_ppl_1: 0.5
-      gas_ppl_2: 0
-      gas_ppl_ccs: 0
-      gas_ppl_ccs_1: 0
-      gas_ppl_ccs_2: 0
+      gas_gnl_comb_ppl: 0.125
+      gas_national_ppl: 0.5
     Southeast:
       wind_ppl: 0
       solar_pv_ppl: 1.5
       bio_ppl: 0.6
-    # batt_se: 0.1
-      gas_ppl: 0.125
-      gas_ppl_1: 0.5
-      gas_ppl_2: 0
-      gas_ppl_ccs: 0
-      gas_ppl_ccs_1: 0
-      gas_ppl_ccs_2: 0
+      gas_gnl_comb_ppl: 0.125
+      gas_argentina_ppl: 0
+      gas_gnl_open_ppl: 0.5
+      gas_national_ppl: 0
+      gas_brabol_ppl: 0
+      gas_gna_comb_ppl: 0
+      gas_gna_open_ppl: 0
     South:
       wind_ppl: 0
       wind_ppl_rs: 1.0
       solar_pv_ppl: 0
       bio_ppl: 0
-    # batt_s: 0.1
-      gas_ppl: 0.125
-      gas_ppl_1: 0.5
-      gas_ppl_2: 0
-      gas_ppl_ccs: 0
-      gas_ppl_ccs_1: 0
-      gas_ppl_ccs_2: 0
+      gas_gnl_comb_ppl: 0.5
+      gas_argentina_ppl: 0.5
