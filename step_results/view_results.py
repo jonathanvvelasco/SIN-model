@@ -43,7 +43,10 @@ def gen_plot(mp, model, scenario):
     ax.set_xlabel("Year")
     ax.set_ylabel("Mton CO2")
     ax.legend(title='Node', bbox_to_anchor=(1.05, 1), loc='upper left')
-    ax.set_title("Emissions per node")
+    ax.set_title(f"Emissions per node in scenario {scenario}")
+    ax.grid(axis='y')
+    plt.ylim(0, 150)
+    plt.rcParams['font.size'] = 12
     plt.show()
     
     # %% Capacity per node
@@ -59,7 +62,7 @@ def gen_plot(mp, model, scenario):
         ax = cap_plot.plot(kind="bar", stacked=True, figsize=(12, 6), linewidth=2)
         ax.set_xlabel("Year")
         ax.set_ylabel("GW")
-        ax.set_title(f"Capacity in {node}")
+        ax.set_title(f"Capacity in {node} in scenario {scenario}")
         ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
         # plt.xticks(rotation=0)
         plt.tight_layout()
@@ -93,7 +96,7 @@ def gen_plot(mp, model, scenario):
     act_br = act_br.rename("value").reset_index()
     
     # Load historical activity
-    load_history = True
+    load_history = False
     if load_history:
         act_hist = base.par("historical_activity")
         act_hist = (
@@ -237,8 +240,8 @@ if __name__ == "__main__":
     model = "SIN Brasil expandido"
     # scenario = 'emissions_test'
     # scenario = 'PDE2034'
-    # scenario = 'seasonal'
-    scenario = 'dados_pde'
+    scenario = 'tax_10_USD'
+    # scenario = 'dados_pde'
     gen_plot(mp, model, scenario)    
     
     # Close DB
