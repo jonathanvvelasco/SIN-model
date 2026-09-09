@@ -609,6 +609,12 @@ emissions:
     gas_argentina_ppl: 3.94
     coal_ppl: 9.803
     oil_ppl: 7.803
+emission_tax:
+  # USD/tCO2
+  North: 10
+  Northeast: 10
+  Southeast: 10
+  South: 10
 historical_new_capacity:
   times: 1
   historical_data:
