@@ -923,6 +923,32 @@ def emissions(scenario, dados):
 
     return scenario
 
+def emissions_tax(scenario, dados):
+    '''Add Emissions Tax'''
+
+    year_df = scenario.vintage_and_active_years()
+    vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
+
+    scenario.add_set("emission", "CO2")
+    scenario.add_cat("emission", "GHG", "CO2")
+    # Tem que adicionar todos os anos no set de 'type_year', porque os anos são incluidos
+    # apenas ao final de uma rodada. Ou dá pra rodar o modelo sem as taxas e depois rodar com as taxas também.
+
+    # Build data of emissions tax by technology
+    for node, val in dados['emission_tax'].items():
+        emission_tax = make_df(
+            "tax_emission",
+            node=node,
+            type_year=[2024, 2025],
+            unit="USD/tCO2",
+            type_tec="all",
+            type_emission="GHG",
+            value=val,
+        )
+        scenario.add_par("tax_emission", emission_tax)
+
+    return scenario
+
 if __name__ == "__main__":
     # Open input data
     with open ("baseline_inputs.yaml", "r") as f:

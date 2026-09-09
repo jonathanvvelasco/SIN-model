@@ -610,36 +610,11 @@ emissions:
     coal_ppl: 9.803
     oil_ppl: 7.803
 emission_tax:
-# USD/tCO2
-  North:
-    bio_ppl: 0
-    oil_ppl: 0
-    gas_national_ppl: 5.2
-    coal_ppl: 0
-  Northeast:
-    bio_ppl: 0
-    gas_gnl_comb_ppl: 0
-    gas_national_ppl: 0
-    coal_ppl: 0
-    oil_ppl: 0
-  Southeast:
-    bio_ppl: 0
-    gas_gnl_comb_ppl: 0
-    gas_gnl_open_ppl: 0
-    gas_national_ppl: 0
-    gas_brabol_ppl: 0
-    gas_gna_comb_ppl: 0
-    gas_gna_open_ppl: 0
-    gas_argentina_ppl: 0
-    gas_biomethane_ppl: 0
-    coal_ppl: 0
-    oil_ppl: 0
-  South:
-    bio_ppl: 0
-    gas_gnl_comb_ppl: 0
-    gas_argentina_ppl: 0
-    coal_ppl: 0
-    oil_ppl: 0
+  # USD/tCO2
+  North: 0
+  Northeast: 0
+  Southeast: 0
+  South: 0
 historical_new_capacity:
   times: 1
   historical_data:
