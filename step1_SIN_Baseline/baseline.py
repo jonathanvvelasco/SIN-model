@@ -935,6 +935,10 @@ def emissions_tax(scenario, dados):
 
     # Build data of emissions tax by technology
     for node, val in dados['emission_tax'].items():
+        if isinstance(val, (int, float)):
+            val = [val] * len(dados['general']['horizon'])
+        elif len(val) == 1:
+            val = val * len(dados['general']['horizon'])
         emission_tax = make_df(
             "tax_emission",
             node=node,
