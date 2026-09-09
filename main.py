@@ -41,6 +41,7 @@ scenario = step1_SIN_Baseline.bound_total_capacity_up(scenario, dados)
 scenario = step1_SIN_Baseline.bound_new_capacity_up(scenario, dados)
 # scenario = step1_SIN_Baseline.bound_growth_capacity_up(scenario, dados, growth_cap=0.3) # Growth capacity bound to 30%
 scenario = step1_SIN_Baseline.emissions(scenario, dados)
+# scenario = step1_SIN_Baseline.emissions_tax(scenario, dados)
 
 # Add seasonality to the model
 # scenario = step2_SIN_Seasonality.seasonality(scenario)
