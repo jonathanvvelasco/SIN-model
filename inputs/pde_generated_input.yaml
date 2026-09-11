@@ -609,6 +609,69 @@ emissions:
     gas_argentina_ppl: 3.94
     coal_ppl: 9.803
     oil_ppl: 7.803
+flexibility:
+  North:
+    secondary:
+      hydro_no: 0.64
+      hydro_bm: 0.64
+      hydro_am: 0.64
+      bio_ppl: 0.69
+      gas_national_ppl: 0.81
+      wind_ppl: -0.64
+      coal_ppl: 0.71
+      nuc_ppl: 0.51
+      solar_pv_ppl: -0.94
+      oil_ppl: 0.99
+      grid_n: -0.39
+  Northeast:
+    secondary:
+      hydro_ne: 0.64
+      bio_ppl: 0.69
+      gas_gnl_comb_ppl: 0.81
+      gas_national_ppl: 0.81
+      wind_ppl_cos: -0.64
+      wind_ppl_int: -0.64
+      coal_ppl: 0.71
+      nuc_ppl: 0.51
+      solar_pv_ppl: -0.94
+      oil_ppl: 0.99
+      grid_ne: -0.39
+  Southeast:
+    secondary:
+      hydro_se: 0.64
+      hydro_it: 0.64
+      hydro_ma: 0.64
+      hydro_tp: 0.64
+      hydro_pa: 0.64
+      hydro_pp: 0.64
+      bio_ppl: 0.69
+      gas_gnl_comb_ppl: 0.81
+      gas_gnl_open_ppl: 0.81
+      gas_national_ppl: 0.81
+      gas_brabol_ppl: 0.81
+      gas_gna_comb_ppl: 0.81
+      gas_gna_open_ppl: 0.81
+      gas_argentina_ppl: 0.81
+      gas_biomethane_ppl: 0.81
+      wind_ppl: -0.64
+      coal_ppl: 0.71
+      nuc_ppl: 0.51
+      solar_pv_ppl: -0.94
+      oil_ppl: 0.99
+      grid_se: -0.39
+  South:
+    secondary:
+      hydro_su: 0.64
+      hydro_ig: 0.64
+      bio_ppl: 0.69
+      gas_gnl_comb_ppl: 0.81
+      gas_argentina_ppl: 0.81
+      wind_ppl_rs: -0.64
+      coal_ppl: 0.71
+      nuc_ppl: 0.51
+      solar_pv_ppl: -0.94
+      oil_ppl: 0.99
+      grid_s: -0.39
 historical_new_capacity:
   times: 1
   historical_data:
