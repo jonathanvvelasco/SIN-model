@@ -10,7 +10,7 @@ import step_results
 # %% Inputs
 input_file = "pde_generated_input.yaml"
 model = "SIN Brasil expandido"
-scen = "tax_dynamic"
+scen = "tax_SBCE"
 
 
 # %% Model 
