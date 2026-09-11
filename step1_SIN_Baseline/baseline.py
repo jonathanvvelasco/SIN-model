@@ -952,6 +952,30 @@ def emissions_tax(scenario, dados):
 
     return scenario
 
+def flexibility(scenario, dados):
+    '''Add Flexibility'''
+
+    year_df = scenario.vintage_and_active_years()
+    vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
+
+    base_flexibility_factor = dict(
+        commodity="electricity",
+        mode="M1",
+        unit="-",
+        year_vtg=vintage_years,
+        year_act=act_years,
+)
+    for node, info in dados['flexibility'].items():
+        for level, info_i in info.items():
+            for tec, val in info_i.items():
+                flexibility_factor = make_df(
+                    "flexibility_factor", node_loc=node, **base_flexibility_factor, time='year',
+                    level=level, technology=tec, rating="unrated", value=val
+                )
+                scenario.add_par("flexibility_factor", flexibility_factor)
+
+    return scenario
+
 if __name__ == "__main__":
     # Open input data
     with open ("baseline_inputs.yaml", "r") as f:
