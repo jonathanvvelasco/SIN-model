@@ -1,6 +1,6 @@
 general:
   model: SIN Brasil expandido
-  scen: dados_pde
+  scen: tax_dynamic
   history:
   - 2023
   horizon:
@@ -609,6 +609,12 @@ emissions:
     gas_argentina_ppl: 3.94
     coal_ppl: 9.803
     oil_ppl: 7.803
+emission_tax:
+  # USD/tCO2 per year or single tax for hole horizon
+  North: [0, 0, 0, 7, 7, 10, 10, 12, 12, 15, 15, 20, 20, 25, 25]
+  Northeast: [0, 0, 0, 7, 7, 10, 10, 12, 12, 15, 15, 20, 20, 25, 25]
+  Southeast: [0, 0, 0, 7, 7, 10, 10, 12, 12, 15, 15, 20, 20, 25, 25]
+  South: [0, 0, 0, 7, 7, 10, 10, 12, 12, 15, 15, 20, 20, 25, 25]
 flexibility:
   North:
     secondary:

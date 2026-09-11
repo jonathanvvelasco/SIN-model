@@ -923,6 +923,35 @@ def emissions(scenario, dados):
 
     return scenario
 
+def emissions_tax(scenario, dados):
+    '''Add Emissions Tax'''
+
+    year_df = scenario.vintage_and_active_years()
+    vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
+
+    scenario.add_set("emission", "CO2")
+    scenario.add_cat("emission", "GHG", "CO2")
+    scenario.add_set('type_year', dados['general']['horizon'])
+
+    # Build data of emissions tax by technology
+    for node, val in dados['emission_tax'].items():
+        if isinstance(val, (int, float)):
+            val = [val] * len(dados['general']['horizon'])
+        elif len(val) == 1:
+            val = val * len(dados['general']['horizon'])
+        emission_tax = make_df(
+            "tax_emission",
+            node=node,
+            type_year=dados['general']['horizon'],
+            unit="USD/tCO2",
+            type_tec="all",
+            type_emission="GHG",
+            value=val,
+        )
+        scenario.add_par("tax_emission", emission_tax)
+
+    return scenario
+
 def flexibility(scenario, dados):
     '''Add Flexibility'''
 

@@ -39,11 +39,14 @@ def gen_plot(mp, model, scenario):
     emis_node = emis_node.rename("value").reset_index()
     emis_node = emis_node[~emis_node["n"].isin(["World", "Brazil"])]
     emis_plot = emis_node.pivot(index="y", columns="n", values="value").fillna(0)
-    ax = emis_plot.plot(kind='bar', stacked=True, linewidth=2)
+    ax = emis_plot.plot(kind='bar', stacked=True, figsize=(12, 6), linewidth=2)
     ax.set_xlabel("Year")
     ax.set_ylabel("Mton CO2")
-    ax.legend(title='Node')
-    ax.set_title(f"Emissions per node")
+    ax.legend(title='Node', bbox_to_anchor=(1.05, 1), loc='upper left')
+    ax.set_title(f"Emissions per node in scenario {scenario}")
+    ax.grid(axis='y')
+    plt.ylim(0, 150)
+    plt.rcParams['font.size'] = 12
     plt.show()
     
     # %% Capacity per node
@@ -59,9 +62,9 @@ def gen_plot(mp, model, scenario):
         ax = cap_plot.plot(kind="bar", stacked=True, figsize=(12, 6), linewidth=2)
         ax.set_xlabel("Year")
         ax.set_ylabel("GW")
-        ax.set_title(f"Capacity in {node}")
+        ax.set_title(f"Capacity in {node} in scenario {scenario}")
         ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
-        plt.xticks(rotation=0)
+        # plt.xticks(rotation=0)
         plt.tight_layout()
         plt.show()
     
@@ -93,7 +96,7 @@ def gen_plot(mp, model, scenario):
     act_br = act_br.rename("value").reset_index()
     
     # Load historical activity
-    load_history = True
+    load_history = False
     if load_history:
         act_hist = base.par("historical_activity")
         act_hist = (
@@ -168,15 +171,15 @@ def gen_plot(mp, model, scenario):
         tech_colors.get(tech, fallback_colors[i % len(fallback_colors)])
         for i, tech in enumerate(act_br_plot.columns)
     ]
-    ax = act_br_plot.plot(kind="bar", stacked=True, color=plot_colors)
+    ax = act_br_plot.plot(kind="bar", stacked=True, figsize=(12, 6), color=plot_colors)
     # ax = act_br_plot.plot(kind="area", stacked=True, figsize=(12, 6), color=plot_colors)
     ax.set_xlabel('Year')
     ax.set_ylabel('GWa')
     ax.set_title(f"Geração anual no cenário {scenario}")
     ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
-    plt.xticks(rotation=0)
-    plt.tight_layout()
-    plt.rcParams['font.size'] = 10
+    # plt.xticks(rotation=0)
+    # plt.tight_layout()
+    plt.rcParams['font.size'] = 12
     plt.grid(axis='y')
     plt.show()
 
@@ -209,9 +212,9 @@ def gen_plot(mp, model, scenario):
     ax.set_ylabel('GW')
     ax.set_title(f"Capacidade total no cenário {scenario}")
     ax.legend(title='Technology', bbox_to_anchor=(1.05, 1), loc='upper left')
-    plt.xticks(rotation=0)
-    plt.tight_layout()
-    plt.rcParams['font.size'] = 16
+    # plt.xticks(rotation=0)
+    # plt.tight_layout()
+    plt.rcParams['font.size'] = 12
     plt.grid(axis='y')
     plt.show()
     
@@ -237,8 +240,8 @@ if __name__ == "__main__":
     model = "SIN Brasil expandido"
     # scenario = 'emissions_test'
     # scenario = 'PDE2034'
-    # scenario = 'seasonal'
-    scenario = 'dados_pde'
+    scenario = 'tax_10_USD'
+    # scenario = 'dados_pde'
     gen_plot(mp, model, scenario)    
     
     # Close DB
