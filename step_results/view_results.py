@@ -45,7 +45,7 @@ def gen_plot(mp, model, scenario):
     ax.legend(title='Node', bbox_to_anchor=(1.05, 1), loc='upper left')
     ax.set_title(f"Emissions per node in scenario {scenario}")
     ax.grid(axis='y')
-    plt.ylim(0, 150)
+    plt.ylim(0, 270)
     plt.rcParams['font.size'] = 12
     plt.show()
     
