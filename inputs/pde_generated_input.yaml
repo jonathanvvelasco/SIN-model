@@ -1,6 +1,6 @@
 general:
   model: SIN Brasil expandido
-  scen: tax_dynamic
+  scen: tax_SBCE
   history:
   - 2023
   horizon:
@@ -1074,6 +1074,9 @@ bound:
     South:
       hydro_su: 3.66
       hydro_ig: 3.87
+  activity_low:
+    North:
+      battery_storage: 0.5
   total_capacity_up:
     North:
       hydro_no: 9.6

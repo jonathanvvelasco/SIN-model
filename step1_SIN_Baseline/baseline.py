@@ -807,6 +807,24 @@ def bound_activity_up(scenario, dados):
 
     return scenario
 
+def bound_activity_low(scenario, dados):
+    '''Add Bound Activity low'''
+
+    base_act_low = {
+        # 'year_act': dados['general']['horizon'],
+        'year_act': [2029],
+        'time': 'year',
+        'mode':'M1',
+        'unit': 'GWa',
+    }
+
+    for node, par in dados['bound']['activity_low'].items():
+        for tec, val in par.items():
+            df = make_df(base_act_low, node_loc=node, technology=tec, value=val) 
+            scenario.add_par('bound_activity_lo', df)
+
+    return scenario
+
 def bound_total_capacity_up(scenario, dados):
     '''Add Bound Capacity up'''
         
@@ -978,16 +996,51 @@ def flexibility(scenario, dados):
 
 def storage(scenario, dados):
     '''Add Storage'''
+    
+    year_df = scenario.vintage_and_active_years()
+    vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
 
     scenario.add_set("level", "storage")
     scenario.add_set("level_storage", "storage")
     
     for node, tec in dados['technology_storage'].items():
+        base_storage = dict(
+            commodity="electricity",
+            node_loc=node,
+            node_origin=node,
+            node_dest=node,
+            year_vtg=vintage_years,
+            year_act=act_years,
+            time='year',
+            time_origin='year',
+            time_dest='year',
+            value=1,
+            unit="GWa",
+        )
+
         s_tec = list(tec.keys())[0]
-        scenario.add_set("technology", s_tec)
-        scenario.add_set("storage_tec", s_tec)
-    # year_df = scenario.vintage_and_active_years()
-    # vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
+        s_tec_storage = s_tec + "_storage"
+        scenario.add_set("technology", [s_tec, s_tec_storage])
+        scenario.add_set("storage_tec", s_tec_storage)
+        scenario.add_set("map_tec_storage",[node, s_tec, "M1", s_tec_storage, "M1", "storage", "electricity", "year"])
+        scenario.add_set("map_tec_storage",[node, s_tec, "M2", s_tec_storage, "M2", "storage", "electricity", "year"])
+
+        storage_df = make_df(base_storage, technology=s_tec, mode="M1", level='secondary')
+        scenario.add_par("input", storage_df)
+        storage_df = make_df(base_storage, technology=s_tec, mode="M2", level='storage')
+        scenario.add_par("input", storage_df)
+        storage_df = make_df(base_storage, technology=s_tec_storage, mode="M1", level='storage')
+        scenario.add_par("input", storage_df)
+        # storage_df = make_df(base_storage, technology=s_tec_storage, mode="M2", level='storage')
+        # scenario.add_par("input", storage_df)
+        storage_df = make_df(base_storage, technology=s_tec, mode="M1", level='storage')
+        scenario.add_par("output", storage_df)
+        storage_df = make_df(base_storage, technology=s_tec, mode="M2", level='secondary')
+        scenario.add_par("output", storage_df)
+        storage_df = make_df(base_storage, technology=s_tec_storage, mode="M1", level='storage')
+        scenario.add_par("output", storage_df)
+        # storage_df = make_df(base_storage, technology=s_tec_storage, mode="M2", level='storage')
+        # scenario.add_par("output", storage_df)
 
     # base_storage = dict(
     #     node_loc=dados['general']['nodes'],
