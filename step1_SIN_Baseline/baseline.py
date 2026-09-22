@@ -926,8 +926,8 @@ def emissions(scenario, dados):
 def emissions_tax(scenario, dados):
     '''Add Emissions Tax'''
 
-    year_df = scenario.vintage_and_active_years()
-    vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
+    # year_df = scenario.vintage_and_active_years()
+    # vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
 
     scenario.add_set("emission", "CO2")
     scenario.add_cat("emission", "GHG", "CO2")
@@ -973,6 +973,36 @@ def flexibility(scenario, dados):
                     level=level, technology=tec, rating="unrated", value=val
                 )
                 scenario.add_par("flexibility_factor", flexibility_factor)
+
+    return scenario
+
+def storage(scenario, dados):
+    '''Add Storage'''
+
+    scenario.add_set("level", "storage")
+    scenario.add_set("level_storage", "storage")
+    
+    for node, tec in dados['technology_storage'].items():
+        s_tec = list(tec.keys())[0]
+        scenario.add_set("technology", s_tec)
+        scenario.add_set("storage_tec", s_tec)
+    # year_df = scenario.vintage_and_active_years()
+    # vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
+
+    # base_storage = dict(
+    #     node_loc=dados['general']['nodes'],
+    #     year_vtg=vintage_years,
+    #     year_act=act_years,
+    #     mode="M1",
+    #     time="year",
+    #     unit="-",
+    # )
+    # for node, info in dados['storage'].items():
+    #     for tec, val in info.items():
+    #         storage_factor = make_df(
+    #             "storage_factor", node_loc=node, **base_storage, technology=tec, value=val
+    #         )
+    #         scenario.add_par("storage_factor", storage_factor)
 
     return scenario
 

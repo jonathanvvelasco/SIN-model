@@ -375,6 +375,27 @@ technology:
       wind_ppl_rs:
         output_commodity: electricity
         output_unit: GWa
+technology_storage:
+  North:
+    battery:
+      storage_commodity: electricity
+      output_commodity: electricity
+      output_unit: GWa
+    # hydro_no: 0.8
+    # hydro_bm: 0.8
+    # hydro_am: 0.8
+  # Northeast:
+    # hydro_ne: 0.8
+  # Southeast:
+    # hydro_se: 0.8
+    # hydro_it: 0.8
+    # hydro_ma: 0.8
+    # hydro_tp: 0.8
+    # hydro_pa: 0.8
+    # hydro_pp: 0.8
+  # South:
+    # hydro_su: 0.8
+    # hydro_ig: 0.8
 efficiency:
   transmission: 0.9875
   distribution: 0.9875

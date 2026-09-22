@@ -44,6 +44,7 @@ scenario = step1_SIN_Baseline.bound_new_capacity_up(scenario, dados)
 scenario = step1_SIN_Baseline.emissions(scenario, dados)
 scenario = step1_SIN_Baseline.emissions_tax(scenario, dados)
 scenario = step1_SIN_Baseline.flexibility(scenario, dados)
+scenario = step1_SIN_Baseline.storage(scenario, dados)
 
 # Add seasonality to the model
 # scenario = step2_SIN_Seasonality.seasonality(scenario)
