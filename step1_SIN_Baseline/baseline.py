@@ -2,8 +2,7 @@
 """
 Created on Thrus Jan 19 09:13 2023
 
-@authors: Natalia & Fernando
-@contributor: Jonathan
+@author: Jonathan V. Velasco
 """
 # load required packages 
 #import itertools
@@ -779,283 +778,68 @@ def historical_activity(scenario, dados):
 
     return scenario
 
-def bound_activity_up(scenario, dados):
-    '''Add Bound Activity up'''
-
-    base_act_up = {
-        'year_act': dados['general']['horizon'],
-        'time': 'year',
-        'mode':'M1',
-        'unit': 'GWa',
-    }
-
-    for tec, val in dados['bound']['activity_up']['North'].items():
-        df = make_df(base_act_up, node_loc='North', technology=tec, value=val) 
-        scenario.add_par('bound_activity_up', df)
-
-    for tec, val in dados['bound']['activity_up']['Northeast'].items():
-        df = make_df(base_act_up, node_loc='Northeast', technology=tec, value=val) 
-        scenario.add_par('bound_activity_up', df)
-
-    for tec, val in dados['bound']['activity_up']['Southeast'].items():
-        df = make_df(base_act_up, node_loc='Southeast', technology=tec, value=val) 
-        scenario.add_par('bound_activity_up', df)
-        
-    for tec, val in dados['bound']['activity_up']['South'].items():
-        df = make_df(base_act_up, node_loc='South', technology=tec, value=val) 
-        scenario.add_par('bound_activity_up', df)
-
-    return scenario
-
-def bound_activity_low(scenario, dados):
-    '''Add Bound Activity low'''
-
-    base_act_low = {
-        # 'year_act': dados['general']['horizon'],
-        'year_act': [2029],
-        'time': 'year',
-        'mode':'M1',
-        'unit': 'GWa',
-    }
-
-    for node, par in dados['bound']['activity_low'].items():
-        for tec, val in par.items():
-            df = make_df(base_act_low, node_loc=node, technology=tec, value=val) 
-            scenario.add_par('bound_activity_lo', df)
-
-    return scenario
-
-def bound_total_capacity_up(scenario, dados):
-    '''Add Bound Capacity up'''
-        
-    base_cap = {
-        'year_act': dados['general']['horizon'],
-        'unit': 'GW',
-    }
-
-    for tec, val in dados['bound']['total_capacity_up']['North'].items():
-        df = make_df(base_cap, node_loc='North', technology=tec, value=val)
-        scenario.add_par('bound_total_capacity_up', df)
-
-    for tec, val in dados['bound']['total_capacity_up']['Northeast'].items():
-        df = make_df(base_cap, node_loc='Northeast', technology=tec, value=val)
-        scenario.add_par('bound_total_capacity_up', df)
-
-    for tec, val in dados['bound']['total_capacity_up']['Southeast'].items():
-        df = make_df(base_cap, node_loc='Southeast', technology=tec, value=val)
-        scenario.add_par('bound_total_capacity_up', df)
-
-    for tec, val in dados['bound']['total_capacity_up']['South'].items():
-        df = make_df(base_cap, node_loc='South', technology=tec, value=val)
-        scenario.add_par('bound_total_capacity_up', df)
-
-    return scenario
-
-def bound_new_capacity_up(scenario, dados):
-    '''Add Bound New Capacity up'''
-
-    base_new_cap = {
-        'year_vtg': dados['general']['horizon'],
-        'unit': 'GW',
-    }
-    try:
-        for tec, val in dados['bound']['new_capacity_up']['North'].items():
-            df = make_df(base_new_cap, node_loc='North', technology=tec, value=val)
-            scenario.add_par('bound_new_capacity_up', df)
-    except:
-        print("Warning: No new capacity bound for North")
-        pass
-
-    # try:
-    for tec, val in dados['bound']['new_capacity_up']['Northeast'].items():
-        df = make_df(base_new_cap, node_loc='Northeast', technology=tec, value=val)
-        scenario.add_par('bound_new_capacity_up', df)
-    # except:
-    #     print("Warning: No new capacity bound for Northeast")
-    #     pass
-
-    try:
-        for tec, val in dados['bound']['new_capacity_up']['Southeast'].items():
-            df = make_df(base_new_cap, node_loc='Southeast', technology=tec, value=val)
-            scenario.add_par('bound_new_capacity_up', df)
-    except:
-        print("Warning: No new capacity bound for Southeast")
-        pass
-
-    try:
-        for tec, val in dados['bound']['new_capacity_up']['South'].items():
-            df = make_df(base_new_cap, node_loc='South', technology=tec, value=val)
-            scenario.add_par('bound_new_capacity_up', df)
-    except:
-        print("Warning: No new capacity bound for South")
-        pass
-
-    return scenario
-
-def bound_growth_capacity_up(scenario, dados, growth_cap=0.1):
-    '''Add Bound Growth Capacity up'''
-
-    for node in dados['general']['nodes']:
-        for tec in scenario.set("technology"):
-            try:
-                df = make_df(
-                "growth_activity_up",
-                node_loc=node,
-                year_act=dados['general']['horizon'],
-                time="year",
-                unit="-",
-                technology=tec,
-                value=growth_cap,
-                )
-                scenario.add_par("growth_activity_up", df)
-            except:
-                pass
-
-    return scenario
-
-def emissions(scenario, dados):
-    '''Add Emissions'''
-
-    # Introduce the emission of CO2 and the emission category GHG
-    scenario.add_set("emission", "CO2")
-    scenario.add_cat("emission", "GHG", "CO2")
-
-    year_df = scenario.vintage_and_active_years()
-    vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
-
-    # Build data of emissions by technology
-    for node in dados['general']['nodes']:
-        for tec, val in dados['emissions'][node].items():
-            emission_factor = make_df(
-                "emission_factor",
-                node_loc=node,
-                year_vtg=vintage_years,
-                year_act=act_years,
-                mode="M1",
-                unit="tCO2/kWa",
-                technology=tec,
-                emission="CO2",
-                value=val,
-            )
-            scenario.add_par("emission_factor", emission_factor)
-
-    return scenario
-
-def emissions_tax(scenario, dados):
-    '''Add Emissions Tax'''
-
-    # year_df = scenario.vintage_and_active_years()
-    # vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
-
-    scenario.add_set("emission", "CO2")
-    scenario.add_cat("emission", "GHG", "CO2")
-    scenario.add_set('type_year', dados['general']['horizon'])
-
-    # Build data of emissions tax by technology
-    for node, val in dados['emission_tax'].items():
-        if isinstance(val, (int, float)):
-            val = [val] * len(dados['general']['horizon'])
-        elif len(val) == 1:
-            val = val * len(dados['general']['horizon'])
-        emission_tax = make_df(
-            "tax_emission",
-            node=node,
-            type_year=dados['general']['horizon'],
-            unit="USD/tCO2",
-            type_tec="all",
-            type_emission="GHG",
-            value=val,
-        )
-        scenario.add_par("tax_emission", emission_tax)
-
-    return scenario
-
-def flexibility(scenario, dados):
-    '''Add Flexibility'''
-
-    year_df = scenario.vintage_and_active_years()
-    vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
-
-    base_flexibility_factor = dict(
-        commodity="electricity",
-        mode="M1",
-        unit="-",
-        year_vtg=vintage_years,
-        year_act=act_years,
-)
-    for node, info in dados['flexibility'].items():
-        for level, info_i in info.items():
-            for tec, val in info_i.items():
-                flexibility_factor = make_df(
-                    "flexibility_factor", node_loc=node, **base_flexibility_factor, time='year',
-                    level=level, technology=tec, rating="unrated", value=val
-                )
-                scenario.add_par("flexibility_factor", flexibility_factor)
-
-    return scenario
-
-def storage(scenario, dados):
-    '''Add Storage'''
+def yearly_to_season(scenario, parameter, data, filters=None):
+    '''A function for adding sub-annual data to a parameter'''
+    if filters:
+        old = scenario.par(parameter, filters)
+    else:
+        old = scenario.par(parameter)
+    scenario.remove_par(parameter, old)
     
-    year_df = scenario.vintage_and_active_years()
-    vintage_years, act_years = year_df["year_vtg"], year_df["year_act"]
+    # Finding "time" related indexes
+    time_idx = [x for x in scenario.idx_names(parameter) if 'time' in x]
+    for h in data.keys():
+        new = old.copy()
+        for time in time_idx:
+            new[time] = h
+        new['value'] = data[h] * old['value']
+        scenario.add_par(parameter, new)
 
-    scenario.add_set("level", "storage")
-    scenario.add_set("level_storage", "storage")
-    
-    for node, tec in dados['technology_storage'].items():
-        base_storage = dict(
-            commodity="electricity",
-            node_loc=node,
-            node_origin=node,
-            node_dest=node,
-            year_vtg=vintage_years,
-            year_act=act_years,
-            time='year',
-            time_origin='year',
-            time_dest='year',
-            value=1,
-            unit="GWa",
-        )
+def represent_blocks(scenario, dados):
+    '''Add Blocks ou patamares de carga'''
 
-        s_tec = list(tec.keys())[0]
-        s_tec_storage = s_tec + "_storage"
-        scenario.add_set("technology", [s_tec, s_tec_storage])
-        scenario.add_set("storage_tec", s_tec_storage)
-        scenario.add_set("map_tec_storage",[node, s_tec, "M1", s_tec_storage, "M1", "storage", "electricity", "year"])
-        scenario.add_set("map_tec_storage",[node, s_tec, "M2", s_tec_storage, "M2", "storage", "electricity", "year"])
+    # Adding sub-annual time blocks
+    time_blocks = ['ponta','pesada','media','leve']
+    scenario.add_set('time', time_blocks)
 
-        storage_df = make_df(base_storage, technology=s_tec, mode="M1", level='secondary')
-        scenario.add_par("input", storage_df)
-        storage_df = make_df(base_storage, technology=s_tec, mode="M2", level='storage')
-        scenario.add_par("input", storage_df)
-        storage_df = make_df(base_storage, technology=s_tec_storage, mode="M1", level='storage')
-        scenario.add_par("input", storage_df)
-        # storage_df = make_df(base_storage, technology=s_tec_storage, mode="M2", level='storage')
-        # scenario.add_par("input", storage_df)
-        storage_df = make_df(base_storage, technology=s_tec, mode="M1", level='storage')
-        scenario.add_par("output", storage_df)
-        storage_df = make_df(base_storage, technology=s_tec, mode="M2", level='secondary')
-        scenario.add_par("output", storage_df)
-        storage_df = make_df(base_storage, technology=s_tec_storage, mode="M1", level='storage')
-        scenario.add_par("output", storage_df)
-        # storage_df = make_df(base_storage, technology=s_tec_storage, mode="M2", level='storage')
-        # scenario.add_par("output", storage_df)
+    # Defining a new temporal level
+    time_level = ['blocks']
+    scenario.add_set('lvl_temporal', time_level)
 
-    # base_storage = dict(
-    #     node_loc=dados['general']['nodes'],
-    #     year_vtg=vintage_years,
-    #     year_act=act_years,
-    #     mode="M1",
-    #     time="year",
-    #     unit="-",
-    # )
-    # for node, info in dados['storage'].items():
-    #     for tec, val in info.items():
-    #         storage_factor = make_df(
-    #             "storage_factor", node_loc=node, **base_storage, technology=tec, value=val
-    #         )
-    #         scenario.add_par("storage_factor", storage_factor)
+    # Adding temporal hierarchy
+    for t in time_blocks:
+        scenario.add_set('map_temporal_hierarchy', ['blocks', t, 'year'])
+
+    # Adding duration time
+    duration_blocks = {
+        'ponta': 0.0137,
+        'pesada': 0.336726667,
+        'media': 0.479605556,
+        'leve': 0.169967778
+    }
+    for t in time_blocks:
+        scenario.add_par('duration_time', [t], duration_blocks[t], '-')
+
+    # Modifying demand for each season
+    demand_data = {
+        'ponta':0.0188516,
+        'pesada':0.384172924,
+        'media':0.459915578,
+        'leve':0.1368873,
+    }
+
+    yearly_to_season(scenario, 'demand', demand_data)
+
+    # Modifying input and output parameters for each season
+    # output
+    fixed_data = {'ponta':1,'pesada':1,'media':1,'leve':1}
+    yearly_to_season(scenario, 'output', fixed_data)
+    yearly_to_season(scenario, 'input', fixed_data)
+    yearly_to_season(scenario, 'bound_activity_up', demand_data)
+    yearly_to_season(scenario, 'bound_total_capacity_up', fixed_data)
+    yearly_to_season(scenario, 'capacity_factor', fixed_data)
+    yearly_to_season(scenario, 'historical_activity', demand_data)
+    yearly_to_season(scenario, 'var_cost', fixed_data)
 
     return scenario
 
@@ -1067,8 +851,8 @@ if __name__ == "__main__":
     # Create a new scenario
     mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
     model = "SIN Brasil expandido"
-    scen = "base"
-    scenario = message_ix.Scenario(mp, model, scen, version = 'new')
+    scenario = "base"
+    scenario = message_ix.Scenario(mp, model, scenario, version = 'new')
 
     # Add data to the model
     scenario = start_model(scenario, dados)   # Creates a new scenario
@@ -1077,10 +861,10 @@ if __name__ == "__main__":
     scenario = capacity_factors_and_historical_capacity(scenario, dados)
     scenario = costs(scenario, dados)
     scenario = historical_activity(scenario, dados)
-    scenario = bound_activity_up(scenario, dados)
-    scenario = bound_total_capacity_up(scenario, dados)
-    scenario = bound_new_capacity_up(scenario, dados)
-    scenario = emissions(scenario, dados)
+    # scenario = bound_activity_up(scenario, dados)
+    # scenario = bound_total_capacity_up(scenario, dados)
+    # scenario = bound_new_capacity_up(scenario, dados)
+    # scenario = emissions(scenario, dados)
     # scenario = bound_growth_capacity_up(scenario, dados, growth_cap=0.3) # Growth capacity bound to 30%
 
     # solving the model

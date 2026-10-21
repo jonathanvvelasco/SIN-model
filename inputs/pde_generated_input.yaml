@@ -1,6 +1,6 @@
 general:
   model: SIN Brasil expandido
-  scen: tax_SBCE
+  scen: block_test
   history:
   - 2023
   horizon:
@@ -650,6 +650,7 @@ flexibility:
       solar_pv_ppl: -0.94
       oil_ppl: 0.99
       grid_n: -0.39
+      # battery: 1.0
   Northeast:
     secondary:
       hydro_ne: 0.64
@@ -1074,9 +1075,10 @@ bound:
     South:
       hydro_su: 3.66
       hydro_ig: 3.87
-  activity_low:
-    North:
-      battery_storage: 0.5
+  # activity_low:
+  #   North:
+  #     battery_storage: 0.5
+  #     battery: 0.5
   total_capacity_up:
     North:
       hydro_no: 9.6

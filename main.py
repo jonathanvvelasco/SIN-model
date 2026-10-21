@@ -4,13 +4,13 @@ import message_ix
 
 import step1_SIN_Baseline 
 # import step2_SIN_Seasonality
-import step_results
+# import step_results
 
 
 # %% Inputs
 input_file = "pde_generated_input.yaml"
 model = "SIN Brasil expandido"
-scen = "tax_SBCE"
+scen = "block_test"
 
 
 # %% Model 
@@ -46,6 +46,7 @@ scenario = step1_SIN_Baseline.bound_new_capacity_up(scenario, dados)
 scenario = step1_SIN_Baseline.emissions(scenario, dados)
 scenario = step1_SIN_Baseline.emissions_tax(scenario, dados)
 scenario = step1_SIN_Baseline.flexibility(scenario, dados)
+scenario = step1_SIN_Baseline.represent_blocks(scenario, dados)
 
 # Add seasonality to the model
 # scenario = step2_SIN_Seasonality.seasonality(scenario)
@@ -67,7 +68,7 @@ mp.close_db()
 
 # Generate plots
 mp = ixmp.Platform("default", jvmargs=["-Xmx8G"])
-step_results.gen_plot(mp, model, scen)
+# step_results.gen_plot(mp, model, scen)
 
 subsystems = dados["general"]["nodes"]
 annums = [2034] # dados["general"]["horizon"][-1]
