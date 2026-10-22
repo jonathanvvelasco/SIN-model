@@ -810,36 +810,53 @@ def represent_blocks(scenario, dados):
     for t in time_blocks:
         scenario.add_set('map_temporal_hierarchy', ['blocks', t, 'year'])
 
+        # All parameters with at least one sub-annual time index
+    parameters = [p for p in scenario.par_list() if 'time' in scenario.idx_sets(p)]
+
+    # Those parameters with "time" index that are not empty in our model
+    nonempty = [p for p in parameters if not scenario.par(p).empty]
+    # print(nonempty)
+    # print(scenario.set('time'))
+    # print(scenario.set('lvl_temporal'))
+    # print(scenario.set('map_temporal_hierarchy'))
+    # print(scenario.par('duration_time'))
+
     # Adding duration time
     duration_blocks = {
         'ponta': 0.0137,
-        'pesada': 0.336726667,
-        'media': 0.479605556,
-        'leve': 0.169967778
+        'pesada': 0.3367,
+        'media': 0.4796,
+        'leve': 0.1700
     }
     for t in time_blocks:
         scenario.add_par('duration_time', [t], duration_blocks[t], '-')
 
     # Modifying demand for each season
     demand_data = {
-        'ponta':0.0188516,
-        'pesada':0.384172924,
-        'media':0.459915578,
-        'leve':0.1368873,
+        'ponta':0.01885,
+        'pesada':0.38417,
+        'media':0.45992,
+        'leve':0.13689,
     }
 
-    yearly_to_season(scenario, 'demand', demand_data)
-
-    # Modifying input and output parameters for each season
-    # output
     fixed_data = {'ponta':1,'pesada':1,'media':1,'leve':1}
+    
+    data_to_demand =  {
+        "demand",
+        'bound_activity_up',
+        'bound_activity_lo',
+        'historical_activity'
+    }
+    yearly_to_season(scenario, 'demand', demand_data)
     yearly_to_season(scenario, 'output', fixed_data)
     yearly_to_season(scenario, 'input', fixed_data)
     yearly_to_season(scenario, 'bound_activity_up', demand_data)
+    yearly_to_season(scenario, 'bound_activity_lo', demand_data)
     yearly_to_season(scenario, 'bound_total_capacity_up', fixed_data)
     yearly_to_season(scenario, 'capacity_factor', fixed_data)
     yearly_to_season(scenario, 'historical_activity', demand_data)
     yearly_to_season(scenario, 'var_cost', fixed_data)
+    yearly_to_season(scenario, 'flexibility_factor', fixed_data)
 
     return scenario
 
