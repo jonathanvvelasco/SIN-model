@@ -33,21 +33,24 @@ def gen_plot(mp, model, scenario):
     rep.set_filters(t=allowed_t)
     
     # %% Test emissions
-    emis = rep.full_key("EMISS")
-    emis_node = emis.drop("type_tec")
-    emis_node = rep.get(emis_node)
-    emis_node = emis_node.rename("value").reset_index()
-    emis_node = emis_node[~emis_node["n"].isin(["World", "Brazil"])]
-    emis_plot = emis_node.pivot(index="y", columns="n", values="value").fillna(0)
-    ax = emis_plot.plot(kind='bar', stacked=True, figsize=(12, 6), linewidth=2)
-    ax.set_xlabel("Year")
-    ax.set_ylabel("Mton CO2")
-    ax.legend(title='Node', bbox_to_anchor=(1.05, 1), loc='upper left')
-    ax.set_title(f"Emissions per node in scenario {scenario}")
-    ax.grid(axis='y')
-    plt.ylim(0, 270)
-    plt.rcParams['font.size'] = 12
-    plt.show()
+    try:
+        emis = rep.full_key("EMISS")
+        emis_node = emis.drop("type_tec")
+        emis_node = rep.get(emis_node)
+        emis_node = emis_node.rename("value").reset_index()
+        emis_node = emis_node[~emis_node["n"].isin(["World", "Brazil"])]
+        emis_plot = emis_node.pivot(index="y", columns="n", values="value").fillna(0)
+        ax = emis_plot.plot(kind='bar', stacked=True, figsize=(12, 6), linewidth=2)
+        ax.set_xlabel("Year")
+        ax.set_ylabel("Mton CO2")
+        ax.legend(title='Node', bbox_to_anchor=(1.05, 1), loc='upper left')
+        ax.set_title(f"Emissions per node in scenario {scenario}")
+        ax.grid(axis='y')
+        plt.ylim(0, 270)
+        plt.rcParams['font.size'] = 12
+        plt.show()
+    except:
+        print("Couldn't print emissions plot")
     
     # %% Capacity per node
     cap = rep.full_key("CAP")
@@ -240,7 +243,7 @@ if __name__ == "__main__":
     model = "SIN Brasil expandido"
     # scenario = 'emissions_test'
     # scenario = 'PDE2034'
-    scenario = 'tax_10_USD'
+    scenario = 'block_test'
     # scenario = 'dados_pde'
     gen_plot(mp, model, scenario)    
     

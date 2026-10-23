@@ -840,6 +840,7 @@ def represent_blocks(scenario, dados):
     }
 
     fixed_data = {'ponta':1,'pesada':1,'media':1,'leve':1}
+    test_data = {'ponta':0,'pesada':0,'media':1,'leve':1}
     
     data_to_demand =  {
         "demand",
@@ -847,16 +848,23 @@ def represent_blocks(scenario, dados):
         'bound_activity_lo',
         'historical_activity'
     }
-    yearly_to_season(scenario, 'demand', demand_data)
-    yearly_to_season(scenario, 'output', fixed_data)
-    yearly_to_season(scenario, 'input', fixed_data)
-    yearly_to_season(scenario, 'bound_activity_up', demand_data)
-    yearly_to_season(scenario, 'bound_activity_lo', demand_data)
-    yearly_to_season(scenario, 'bound_total_capacity_up', fixed_data)
-    yearly_to_season(scenario, 'capacity_factor', fixed_data)
-    yearly_to_season(scenario, 'historical_activity', demand_data)
-    yearly_to_season(scenario, 'var_cost', fixed_data)
-    yearly_to_season(scenario, 'flexibility_factor', fixed_data)
+
+    data_to_fixed = {
+        "output",
+        'input',
+        'bound_total_capacity_up',
+        'capacity_factor',
+        'historical_activity',
+        'var_cost'
+    }
+
+    for p in data_to_demand:
+        yearly_to_season(scenario, p, demand_data)
+
+    for p in data_to_fixed:
+        yearly_to_season(scenario, p, fixed_data)
+
+    yearly_to_season(scenario, 'flexibility_factor', test_data)
 
     return scenario
 

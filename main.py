@@ -45,7 +45,7 @@ scenario = step1_SIN_Baseline.bound_new_capacity_up(scenario, dados)
 # scenario = step1_SIN_Baseline.bound_growth_capacity_up(scenario, dados, growth_cap=0.3) # Growth capacity bound to 30%
 # scenario = step1_SIN_Baseline.emissions(scenario, dados)
 # scenario = step1_SIN_Baseline.emissions_tax(scenario, dados)
-# scenario = step1_SIN_Baseline.flexibility(scenario, dados)
+scenario = step1_SIN_Baseline.flexibility(scenario, dados)
 scenario = step1_SIN_Baseline.represent_blocks(scenario, dados)
 
 # Add seasonality to the model
@@ -59,7 +59,11 @@ scenario = step1_SIN_Baseline.represent_blocks(scenario, dados)
 
 # solving the model
 scenario.commit(comment='Brazilian_base')       ## Commit the datastructure and solve the model
-scenario.solve()
+scenario.solve(
+    model="MESSAGE",
+    gams_args=["LogOption=4", "limrow=100", "limcol=100", "solprint=on"],
+    use_temp_dir=False,
+)
 scenario.var('OBJ')['lvl']
 scenario.set_as_default()
 scenario.version
